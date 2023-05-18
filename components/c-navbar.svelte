@@ -1,9 +1,9 @@
 <svelte:options tag="c-navbar"/>
 
 <nav>
-  <span class="title" href="">PWALAND</span>
+  <span class="title">PWALAND</span>
   <a class="link" href="/">Home</a>
-  <a class="link" href="/check.html">Checker</a>
+  <a class="link" href="/check">Checker</a>
   <a class="link" href="https://github.com/brandonxiang/pwaland">Github</a>
 </nav>
 
