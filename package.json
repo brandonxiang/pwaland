@@ -4,8 +4,8 @@
   "description": "A simple starter with svelteup",
   "main": "index.js",
   "scripts": {
-    "vercel:dev": "vercel dev --listen 5000",
-    "start": "svelteup -s public",
+    "vercel": "vercel dev --listen 5000",
+    "start": "svelteup --dev",
     "build": "svelteup"
   },
   "repository": {
@@ -28,7 +28,7 @@
     "svelte": "^3.0.0"
   },
   "devDependencies": {
-    "svelteup": "^1.0.0",
-    "vercel": "28.2.0"
+    "svelteup": "^2.0.1",
+    "vercel": "29.3.4"
   }
 }

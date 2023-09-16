@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
   if(count > 0) {
     res.status(500).json({
-      messgae: `title: ${title} has already existed`
+      message: `title: ${title} has already existed`
     })
     return;
   }

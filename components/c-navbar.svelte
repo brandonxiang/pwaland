@@ -3,7 +3,8 @@
 <nav>
   <span class="title">PWALAND</span>
   <a class="link" href="/">Home</a>
-  <a class="link" href="/check">Checker</a>
+  <a class="link" href="/check">Search</a>
+  <a class="link" href="/check">Submit</a>
   <a class="link" href="https://github.com/brandonxiang/pwaland">Github</a>
 </nav>
 
@@ -12,7 +13,6 @@
     height: 80px;
     background-color: rgb(77 61 146);
     padding: 0 20px;
-
   }
 
   @media (min-width: 640px) {
