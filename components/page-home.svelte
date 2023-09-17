@@ -23,9 +23,36 @@ function onImgError(e) {
 
 let pwalist = [];
 
+function getStorageObj() {
+	const res = localStorage.getItem('pwa-list');
+	try {
+		return JSON.parse(res);
+	} catch (error) {
+		console.error('Json parse error', error)
+	}
+	return;
+}
+
+function setStorageObj(obj) {
+	try {
+		localStorage.setItem('pwa-list', JSON.stringify(obj));
+	} catch (error) {
+		console.error('Json stringify error', error)
+	}
+}
+
 onMount(async () => {
-	const { data } = await request(`/api/get-list`);
-	pwalist = sortLetter(data);
+	const _pwaList = getStorageObj();
+	if(_pwaList) {
+		pwalist = _pwaList;
+	}
+	try {
+		const { data } = await request(`/api/get-list`);
+		pwalist = sortLetter(data);
+		setStorageObj(data);
+	} catch (error) {
+		console.error(error);
+	}
 }) 
 
 
