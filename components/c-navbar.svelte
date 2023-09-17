@@ -3,8 +3,7 @@
 <nav>
   <span class="title">PWALAND</span>
   <a class="link" href="/">Home</a>
-  <a class="link" href="/check">Search</a>
-  <a class="link" href="/check">Submit</a>
+  <a class="link" href="/submit">Add more</a>
   <a class="link" href="https://github.com/brandonxiang/pwaland">Github</a>
 </nav>
 
