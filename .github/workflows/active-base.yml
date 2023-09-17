@@ -1,0 +1,17 @@
+name: active base
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 2,5'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: curl test
+      run: curl 'https://pwaland.brandonxiang.top/api/get-list' 
