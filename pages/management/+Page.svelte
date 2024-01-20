@@ -1,9 +1,9 @@
-<svelte:options tag="page-check"/>
+
 
 <script>
-import './c-navbar.svelte';
-import './c-modal.svelte';
-import { request, parseJson } from './utils';
+import CNavbar from '../../components/c-navbar.svelte';
+import CModal from '../../components/c-modal.svelte';
+import { request, parseJson } from '../../components/utils';
 
 let name = '';
 let result = '';
@@ -60,9 +60,7 @@ function onModalClose () {
 
 </script>
 
-<c-navbar />
 
-<main>
 	<section>
 		<input bind:value={name} placeholder="Please enter your pwa website">
 		<button type="button" class="btn btn-primary" on:click={checkPwa}>Check</button>
@@ -72,18 +70,16 @@ function onModalClose () {
 		<textarea bind:value={result} />
 	</section>
 	{#if showModal}
-	<c-modal on:close={onModalClose}>
+	<CModal on:close={onModalClose}>
 		<h4 slot="header">
 			{modalTitle}
 		</h4>
 		<div>
 			{modalContent}
 		</div>
-	</c-modal>
+	</CModal>
 {/if}
 
-	
-</main>
 
 <style>
 	main {

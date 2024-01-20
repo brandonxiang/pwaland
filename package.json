@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "A simple starter with svelteup",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "vercel": "vercel dev --listen 5000",
-    "start": "svelteup --dev",
-    "build": "svelteup"
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -20,15 +22,20 @@
   },
   "homepage": "https://github.com/brandonxiang/svelteup-starter#readme",
   "dependencies": {
+    "@notionhq/client": "^2.2.14",
     "@supabase/supabase-js": "^1.35.6",
     "chrome-aws-lambda": "^10.1.0",
     "httpie": "^1.1.2",
     "puppeteer": "^11.0.0",
     "puppeteer-core": "^11.0.0",
-    "svelte": "^3.49.0"
+    "svelte": "^4.2.9"
   },
   "devDependencies": {
-    "svelteup": "^2.0.1",
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "typescript": "^5.2.2",
+    "vike": "^0.4.147",
+    "vike-svelte": "^0.0.5",
+    "vite": "^5.0.4",
     "vercel": "29.3.4"
   }
 }
