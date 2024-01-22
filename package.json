@@ -17,10 +17,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/brandonxiang/svelteup-starter/issues"
-  },
-  "homepage": "https://github.com/brandonxiang/svelteup-starter#readme",
   "dependencies": {
     "@notionhq/client": "^2.2.14",
     "@supabase/supabase-js": "^1.35.6",
@@ -33,9 +29,9 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "typescript": "^5.2.2",
+    "vercel": "29.3.4",
     "vike": "^0.4.147",
     "vike-svelte": "^0.0.5",
-    "vite": "^5.0.4",
-    "vercel": "29.3.4"
+    "vite": "^5.0.4"
   }
 }

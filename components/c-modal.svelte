@@ -1,4 +1,4 @@
-<svelte:options tag="c-modal"/>
+
 <script>
 	import { createEventDispatcher, onDestroy } from 'svelte';
   import { get_current_component } from 'svelte/internal';

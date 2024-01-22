@@ -1,5 +1,5 @@
 <script>
-  import { request } from "../../components/utils"
+  import { request } from "../../services/utils"
   import { onMount } from "svelte"
 
   function sortLetter(input) {
@@ -17,7 +17,10 @@
   function onImgError(e) {
     e.target.src = "/noimage.png"
   }
-
+  
+  /**
+   * @type {*}
+   */
   let pwalist = []
 
   function getStorageObj() {
@@ -44,9 +47,9 @@
       pwalist = _pwaList
     }
     try {
-      const { data } = await request(`https://pwaland.brandonxiang.top/api/query-list`)
-      pwalist = sortLetter(data)
-      setStorageObj(data)
+      const { result } = await request(`/api/query-list`)
+      pwalist = sortLetter(result)
+      setStorageObj(result)
     } catch (error) {
       console.error(error)
     }
@@ -63,10 +66,7 @@
 </section>
 
 <style>
-  main {
-    text-align: center;
-    margin: 0;
-  }
+
 
   .wrap {
     display: flex;

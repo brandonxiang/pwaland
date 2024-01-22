@@ -18,8 +18,10 @@ export default async function handler(req, res) {
     /** @type {*} */
     let target = {};
     Object.keys(p).forEach(key => {
-      const value = p[key];
-      target[key] = parseNotionObj(value);
+      if(key) {
+        const value = p[key];
+        target[key] = parseNotionObj(value);
+      }
     });
     return target;
   })

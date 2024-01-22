@@ -1,9 +1,11 @@
-<svelte:options tag="c-navbar"/>
 
+<script>
+  import Link from "./Link.svelte";
+</script>
 <nav>
   <span class="title">PWALAND</span>
   <a class="link" href="/">Home</a>
-  <a class="link" href="/submit">Add more</a>
+  <a class="link" href="/management">Management</a>
   <a class="link" href="https://github.com/brandonxiang/pwaland">Github</a>
 </nav>
 

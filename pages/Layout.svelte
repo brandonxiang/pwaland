@@ -34,13 +34,9 @@
     text-decoration: none;
   }
 
-  .sidebar {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    line-height: 1.8em;
-    padding: 42px 20px 20px 20px;
+  main {
+    text-align: center;
+    margin: 0;
   }
 
 </style>

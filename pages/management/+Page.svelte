@@ -1,9 +1,8 @@
 
 
 <script>
-import CNavbar from '../../components/c-navbar.svelte';
 import CModal from '../../components/c-modal.svelte';
-import { request, parseJson } from '../../components/utils';
+import { request, parseJson } from '../../services/utils';
 
 let name = '';
 let result = '';
@@ -82,10 +81,6 @@ function onModalClose () {
 
 
 <style>
-	main {
-		margin: 0;		
-	}
-
 	section {
 		width: 600px;
 		margin: 20px;
