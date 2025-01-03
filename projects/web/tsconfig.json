@@ -3,13 +3,13 @@
     "checkJs": true,
     "allowJs": true,
     "strict": true,
-    "module": "ESNext",
+    "module": "ES2020",
     "moduleResolution": "Node",
-    "target": "ESNext",
+    "target": "ES2020",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client", "@notionhq/client/build/src/api-endpoints"],
+    "types": ["vite/client"],
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "exclude": ["dist"]
+  "exclude": ["../minimal/distin/dist"]
 }

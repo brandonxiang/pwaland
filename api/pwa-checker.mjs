@@ -1,20 +1,22 @@
 
-const { get } = require('httpie');
-const url = require('url');
+import { get } from 'httpie';
+import url from'url';
 
 const timeout = 60;
-
+/**
+ * @type {*}
+ */
 let chrome;
 let puppeteer;
 const isAWS = !!process.env.AWS_LAMBDA_FUNCTION_VERSION;
 
 if (isAWS) {
   // running on the Vercel platform.
-  chrome = require('chrome-aws-lambda');
-  puppeteer = require('puppeteer-core');
+  chrome = await import('chrome-aws-lambda');
+  puppeteer = await import('puppeteer-core');
 } else {
   // running locally.
-  puppeteer = require('puppeteer');
+  puppeteer = await import('puppeteer');
 }
 
 
@@ -30,7 +32,7 @@ const getBrowser = async () => {
         ignoreHTTPSErrors: true,
       });
     } else {
-      browser = await puppeteer.launch();
+      browser = await puppeteer.launch();``
     }
      
     return browser;
@@ -89,7 +91,9 @@ const checkPwa = async (inputLink) => {
 }
 
 export default function handler(req, res) {
+  console.log(req.query);
   const { url } = req.query;
+  console.log('url',url);
   if(url) {
     checkPwa(url)
     .then((output) => {

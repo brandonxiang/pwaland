@@ -1,0 +1,3 @@
+packages:
+  # specify a package in a direct subdir of the root
+  - 'projects/*'

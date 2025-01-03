@@ -1,0 +1,20 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"group": "rebuild",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "npm run clean && ts-node-dev --inspect=42133 --require dotenv/config -- src/server.ts"
+		},
+		{
+			"type": "npm",
+			"script": "clean",
+			"problemMatcher": [],
+			"label": "npm: clean",
+			"detail": "rimraf .tmp lib"
+		}
+	]
+}
