@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import PwaRouter from './routes/pwa';
+import PwaParserRouter from './routes/pwa/parse';
+import PwaCrawlerRouter from './routes/pwa/crawler';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import fastifyStatic from '@fastify/static';
@@ -45,7 +46,8 @@ server.get('/',  (req, res) => {
   res.status(200).send('welcome to fastify-starter');
 });
 
-server.register(PwaRouter, { prefix: '/pwa' });
+server.register(PwaParserRouter, { prefix: '/pwa' });
+server.register(PwaCrawlerRouter, { prefix: '/pwa' });
 
 const port = PORT ? +PORT : 3000;
 console.log('process.env.PORT', PORT, port);
