@@ -14,10 +14,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-const { PORT } = process.env;
+const { PORT, NODE_ENV } = process.env;
 
 const server = Fastify({
-  logger: {
+  logger: 
+  NODE_ENV === 'production' ? true : {
     transport: {
       target: 'pino-pretty',
       options: {
@@ -44,14 +45,14 @@ server.register(fastifyStatic, {
   prefix: '/public',
 });
 
-server.get('/',  (req, res) => {
+server.get('/api',  (req, res) => {
   res.status(200).send('welcome to fastify-starter');
 });
 
-server.register(PwaParserRouter, { prefix: '/pwa' });
-server.register(PwaCrawlerRouter, { prefix: '/pwa' });
-server.register(ClientListRouter, { prefix: '/client' });
-server.register(StarterListRouter, { prefix: '/starter' });
+server.register(PwaParserRouter, { prefix: '/api/pwa' });
+server.register(PwaCrawlerRouter, { prefix: '/api/pwa' });
+server.register(ClientListRouter, { prefix: '/api/client' });
+server.register(StarterListRouter, { prefix: '/api/starter' });
 
 const port = PORT ? +PORT : 3000;
 console.log('process.env.PORT', PORT, port);
