@@ -5,28 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "tsc --noEmit",
-    "vercel": "vercel dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/brandonxiang/svelteup-starter.git"
+    "build": "pnpm -r run build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "svelte": "^4.2.9"
-  },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "vercel": "39.2.4",
-    "vike": "^0.4.147",
-    "vike-svelte": "^0.0.5",
-    "vite": "^6.0.7",
     "eslint": "^9.17.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2",

@@ -7,6 +7,8 @@ import swaggerUi from '@fastify/swagger-ui';
 import fastifyStatic from '@fastify/static';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import ClientListRouter from './routes/client/list';
+import StarterListRouter from './routes/starter/list';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +50,8 @@ server.get('/',  (req, res) => {
 
 server.register(PwaParserRouter, { prefix: '/pwa' });
 server.register(PwaCrawlerRouter, { prefix: '/pwa' });
+server.register(ClientListRouter, { prefix: '/client' });
+server.register(StarterListRouter, { prefix: '/starter' });
 
 const port = PORT ? +PORT : 3000;
 console.log('process.env.PORT', PORT, port);
@@ -63,3 +67,5 @@ server.listen({host: '0.0.0.0', port}, (err, address) => {
 
 await server.ready();
 server.swagger();
+
+export default server;

@@ -1,17 +1,12 @@
 import { FastifyInstance } from 'fastify';
 import { success } from '../../utils';
-import { Client } from '@notionhq/client';
 import fs from 'fs';
 import { CRAWLER_TAGS } from '../../consts/crawler';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { fetchNotionData, notion, PWADatabaseId } from '../../model/notion';
 
 const token = 'CfDJ8PNhbTKpPf1GhYfHgzDUPUqG8cTDr08l8UkJ_fNGckfibfkT0nv8qRrC26qfspoptRsdYkECe3JKi_yOeELjUkUkM6ffQCYSqj2ltFTniyzkNeDDAW_fFblL6KacllRvRjL3KCXETCzdAf38SJlTaJs';
-const databaseId = 'a39d3843c07f43cfa79c43ff7cf88c47';
-const notionApiKey = 'secret_G3MTRaQ29phFKeohjPVzQTfdhS7m841NgUqtRpmMWyw';
 
-const notion = new Client({
-    auth: notionApiKey,
-});
 
 async function fetchPwaList(body: any) {
     const response = await fetch('https://pwapp.net/api/Pwa/List', {
@@ -24,21 +19,6 @@ async function fetchPwaList(body: any) {
     const data = await response.json();
     return data;
 }
-
-async function fetchNotionData(start_cursor?: string) {
-    const response = await notion.databases.query({
-        database_id: databaseId,
-        sorts: [
-            {
-              "property": "title",
-              "direction": "ascending"
-            }
-          ],
-        start_cursor: start_cursor? start_cursor : undefined,
-      });
-      return response;
-}
-
 
 export default (fastify: FastifyInstance, _: any, done: any) => {
     fastify.post<{
@@ -83,11 +63,9 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
 
     fastify.get('/readFromNotion', async (req, res) => {
         const response = await notion.databases.query({
-            database_id: databaseId,
+            database_id: PWADatabaseId,
         });
         const tableData =  /** @type {Array<import('@notionhq/client/build/src/api-endpoints').DatabaseObjectResponse>} */ (response.results);
-        // const properties = tableData.map(s => s.properties);
-        console.log(1111, tableData)
         res.send(tableData);
     });
 
@@ -104,7 +82,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
                     const response = await notion.pages.create({
                         "parent": {
                             "type": "database_id",
-                            "database_id": databaseId
+                            "database_id": PWADatabaseId
                         },
                         "properties": {
                             "link": {
@@ -124,7 +102,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
                                     }
                                 ]
                             },
-                            "Tags": {
+                            "tags": {
                                 "type": "multi_select",
                                 "multi_select": [
                                     {
@@ -168,7 +146,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
         let nextCursor = '';
 
         while(hasMore) {
-            const response = await fetchNotionData(nextCursor);
+            const response = await fetchNotionData(PWADatabaseId, nextCursor);
             const {results, has_more, next_cursor} = response;
             hasMore = has_more;
             nextCursor = next_cursor ? next_cursor : '';
@@ -176,8 +154,6 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
             console.log('This notion data has more, nextCursor is ', nextCursor);
         }
    
- 
-          console.log(1111, cachePages);
           cachePages.forEach((item: any, index: number) => {
             name = item.properties.title.title[0].text.content;
             if(cacheList.has(name)) {
@@ -197,10 +173,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
             console.log('Now remove duplicated page, pageId is ', pageId);
           });
 
-  
-  
         // const tableData =  /** @type {Array<import('@notionhq/client/build/src/api-endpoints').DatabaseObjectResponse>} */ (response.results);
-        // const properties = tableData.map(s => s.properties);
         res.send(success(1));
     });
 

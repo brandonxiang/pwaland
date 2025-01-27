@@ -5,7 +5,7 @@ export default tsEslint.config(
   ...tsEslint.configs.recommended,
   {
     ...eslint.configs.recommended, 
-    ignores: ['dist/'],
+    ignores: ['dist/', '**/**/dist/'],
     files: ['src/**/*.{ts,tsx,mts,cts}'],
     rules: {
       quotes: [2, 'single'],
