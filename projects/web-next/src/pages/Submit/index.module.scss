@@ -1,0 +1,282 @@
+@use '../../style/variable.scss' as *;
+@use '../../style/mixin.scss' as *;
+
+.submit {
+  min-height: calc(100vh - $header-height);
+  background: $bg-primary;
+  padding: $space-12 0 $space-16;
+
+  @include mobile {
+    padding: $space-8 0 $space-12;
+  }
+}
+
+.container {
+  @include container;
+  max-width: 800px;
+}
+
+// ── Page Header ────────────────────────────────────
+.pageHeader {
+  text-align: center;
+  margin-bottom: $space-10;
+}
+
+.pageTitle {
+  font-family: $font-heading;
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: $text-primary;
+  letter-spacing: -0.03em;
+  margin-bottom: $space-2;
+
+  @include mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+.pageDesc {
+  font-size: $font-size-lg;
+  color: $text-secondary;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include mobile {
+    font-size: $font-size-base;
+  }
+}
+
+// ── URL Input Section ──────────────────────────────
+.urlSection {
+  margin-bottom: $space-8;
+}
+
+.urlInputWrapper {
+  display: flex;
+  gap: $space-3;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.urlInput {
+  flex: 1;
+}
+
+.checkBtn {
+  flex-shrink: 0;
+  height: 44px;
+  min-width: 120px;
+  font-family: $font-heading;
+  font-weight: 600;
+}
+
+// ── Results Card ───────────────────────────────────
+.resultsCard {
+  background: $surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  margin-bottom: $space-8;
+  animation: fadeInUp 400ms ease both;
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-5 $space-6;
+  border-bottom: 1px solid $border-light;
+}
+
+.resultsTitle {
+  font-family: $font-heading;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-1 $space-3;
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+
+.statusPass {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.statusFail {
+  background: #FEF2F2;
+  color: #DC2626;
+}
+
+.resultsBody {
+  padding: $space-6;
+}
+
+// ── Check Items ────────────────────────────────────
+.checkList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $border-radius-sm;
+  background: $bg-primary;
+  border: 1px solid $border-light;
+}
+
+.checkIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.checkPass {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.checkFail {
+  background: #FEF2F2;
+  color: #DC2626;
+}
+
+.checkContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkLabel {
+  font-family: $font-heading;
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 2px;
+}
+
+.checkDetail {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  line-height: 1.5;
+}
+
+// ── Preview Section ────────────────────────────────
+.previewSection {
+  margin-top: $space-8;
+  padding-top: $space-6;
+  border-top: 1px solid $border-light;
+}
+
+.previewTitle {
+  font-family: $font-heading;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $space-5;
+}
+
+.previewCard {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  padding: $space-5;
+  border-radius: $border-radius-md;
+  border: 1px solid $border-light;
+  background: $bg-primary;
+  margin-bottom: $space-6;
+}
+
+.previewIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: $border-radius-md;
+  object-fit: cover;
+  background: $bg-secondary;
+  flex-shrink: 0;
+}
+
+.previewInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.previewName {
+  font-family: $font-heading;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: $space-1;
+}
+
+.previewDesc {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  @include line-clamp(2);
+}
+
+.previewLink {
+  font-size: $font-size-xs;
+  color: $text-tertiary;
+  margin-top: $space-1;
+  word-break: break-all;
+}
+
+// ── Form Section ───────────────────────────────────
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.formLabel {
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.submitBtn {
+  margin-top: $space-4;
+  height: 48px;
+  font-family: $font-heading;
+  font-size: $font-size-base;
+  font-weight: 600;
+  border-radius: $border-radius-md;
+}
+
+// ── Animations ─────────────────────────────────────
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

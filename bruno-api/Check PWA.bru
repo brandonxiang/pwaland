@@ -1,0 +1,74 @@
+meta {
+  name: Check PWA
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/pwa/check
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "url": "twitter.com"
+  }
+}
+
+docs {
+  # Check PWA
+
+  This endpoint performs a lightweight HTTP-based check to determine if a website qualifies as a Progressive Web App (PWA).
+
+  ## Request Body
+
+  - `url` (string, required): The website URL to check (with or without https://)
+
+  ## Response
+
+  Returns a structured result with:
+  - `isPwa` (boolean): Overall PWA status
+  - `url` (string): The checked URL
+  - `checks`: Object containing pass/fail for each criterion:
+    - `https`: HTTPS check
+    - `manifest`: Web App Manifest check
+    - `serviceWorker`: Service Worker detection
+    - `icons`: App icons check
+    - `display`: Display mode check
+  - `suggestion`: Extracted app data from manifest (title, icon, description, link)
+
+  ## Example
+
+  ```json
+  {
+    "data": {
+      "isPwa": true,
+      "url": "https://twitter.com",
+      "checks": {
+        "https": { "pass": true, "detail": "Site is served over HTTPS" },
+        "manifest": { "pass": true, "detail": "Valid manifest found: \"Twitter\"" },
+        "serviceWorker": { "pass": true, "detail": "Service Worker registration detected" },
+        "icons": { "pass": true, "detail": "3 icon(s) defined in manifest", "bestIcon": "https://..." },
+        "display": { "pass": true, "detail": "Display mode: \"standalone\"" }
+      },
+      "suggestion": {
+        "title": "Twitter",
+        "icon": "https://...",
+        "description": "...",
+        "link": "https://twitter.com"
+      }
+    },
+    "ret": 0,
+    "msg": "ok"
+  }
+  ```
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}

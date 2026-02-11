@@ -1,0 +1,73 @@
+meta {
+  name: Add PWA
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/pwa/add
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Twitter",
+    "link": "https://twitter.com",
+    "icon": "https://abs.twimg.com/responsive-web/client-web/icon-default.ee534d85.png",
+    "description": "Twitter is a social networking service",
+    "tags": ["Social", "Entertainment"]
+  }
+}
+
+docs {
+  # Add PWA to Notion
+
+  This endpoint adds a validated PWA entry to the Notion database.
+
+  ## Request Body
+
+  - `title` (string, required): The app title
+  - `link` (string, required): The app URL
+  - `icon` (string, required): The app icon URL
+  - `description` (string, optional): App description
+  - `tags` (array of strings, optional): Category tags
+
+  ## Response
+
+  Returns success with the created page ID, or an error if:
+  - Required fields are missing
+  - A PWA with the same link already exists
+  - Notion API call fails
+
+  ## Example Success Response
+
+  ```json
+  {
+    "data": {
+      "id": "abc123...",
+      "message": "Successfully added \"Twitter\" to PWALand"
+    },
+    "ret": 0,
+    "msg": "ok"
+  }
+  ```
+
+  ## Example Error Response
+
+  ```json
+  {
+    "data": null,
+    "ret": 1,
+    "msg": "A PWA with link \"https://twitter.com\" already exists in the database"
+  }
+  ```
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}

@@ -1,0 +1,13 @@
+@use '../../style/variable.scss' as *;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-primary;
+}
+
+.main {
+  flex: 1;
+  padding-top: $header-height;
+}

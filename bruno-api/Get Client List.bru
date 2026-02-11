@@ -1,0 +1,82 @@
+meta {
+  name: Get Client List
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/api/client/list
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "start_cursor": null
+  }
+}
+
+docs {
+  # Get Client List
+
+  This endpoint retrieves a paginated list of PWAs from the Notion database.
+
+  ## Request Body
+
+  - `start_cursor` (string, optional): Cursor for pagination. Omit or set to null for the first page.
+
+  ## Response
+
+  Returns a paginated list of PWA entries with:
+  - `properties` (array): Array of PWA objects, each containing:
+    - `title` (string): App title
+    - `link` (string): App URL
+    - `icon` (string): App icon URL
+    - `description` (string): App description
+    - `tags` (array of strings): Category tags
+  - `has_more` (boolean): Whether there are more pages
+  - `next_cursor` (string | null): Cursor for the next page, or null if no more pages
+
+  ## Example Response
+
+  ```json
+  {
+    "properties": [
+      {
+        "title": "Twitter",
+        "link": "https://twitter.com",
+        "icon": "https://abs.twimg.com/...",
+        "description": "Twitter is a social networking service",
+        "tags": ["Social", "Entertainment"]
+      },
+      {
+        "title": "Notion",
+        "link": "https://notion.so",
+        "icon": "https://notion.so/...",
+        "description": "All-in-one workspace",
+        "tags": ["Productivity"]
+      }
+    ],
+    "has_more": true,
+    "next_cursor": "abc123..."
+  }
+  ```
+
+  ## Pagination
+
+  To fetch the next page, use the `next_cursor` value from the previous response:
+
+  ```json
+  {
+    "start_cursor": "abc123..."
+  }
+  ```
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}

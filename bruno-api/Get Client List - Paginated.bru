@@ -1,0 +1,41 @@
+meta {
+  name: Get Client List - Paginated
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/api/client/list
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "start_cursor": "{{next_cursor}}"
+  }
+}
+
+docs {
+  # Get Client List - Paginated
+
+  This is an example request for fetching the next page of results using pagination.
+
+  ## Usage
+
+  1. First, call "Get Client List" without a cursor
+  2. Copy the `next_cursor` value from the response
+  3. Update the `{{next_cursor}}` variable in this request
+  4. Send this request to get the next page
+
+  Note: Replace `{{next_cursor}}` with an actual cursor value from a previous response, or set it to `null` to start from the beginning.
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+  next_cursor: null
+}

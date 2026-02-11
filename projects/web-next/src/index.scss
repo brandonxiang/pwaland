@@ -1,0 +1,43 @@
+@use './style/variable.scss' as *;
+@use './style/normal.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-body;
+  font-size: $font-size-base;
+  color: $text-primary;
+  background-color: $bg-primary;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border-medium;
+  border-radius: 3px;
+
+  &:hover {
+    background: $text-tertiary;
+  }
+}
+
+// Selection styling
+::selection {
+  background: $accent-primary-light;
+  color: $accent-primary;
+}

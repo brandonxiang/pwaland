@@ -1,0 +1,31 @@
+meta {
+  name: Check PWA - Invalid URL
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/pwa/check
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "url": "not-a-valid-website-12345.com"
+  }
+}
+
+docs {
+  # Check PWA - Invalid URL Example
+
+  This is an example request with an invalid/non-existent URL to test error handling.
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}

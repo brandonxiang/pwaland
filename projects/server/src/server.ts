@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import PwaParserRouter from './routes/pwa/parse';
 import PwaCrawlerRouter from './routes/pwa/crawler';
+import PwaCheckRouter from './routes/pwa/check';
+import PwaAddRouter from './routes/pwa/add';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import fastifyStatic from '@fastify/static';
@@ -51,6 +53,8 @@ server.get('/api',  (req, res) => {
 
 server.register(PwaParserRouter, { prefix: '/api/pwa' });
 server.register(PwaCrawlerRouter, { prefix: '/api/pwa' });
+server.register(PwaCheckRouter, { prefix: '/api/pwa' });
+server.register(PwaAddRouter, { prefix: '/api/pwa' });
 server.register(ClientListRouter, { prefix: '/api/client' });
 server.register(StarterListRouter, { prefix: '/api/starter' });
 

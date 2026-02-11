@@ -1,0 +1,187 @@
+@use '../../style/variable.scss' as *;
+@use '../../style/mixin.scss' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  transition: all $transition-base;
+  background: transparent;
+
+  &.scrolled {
+    @include glass(0.85);
+    border-bottom: 1px solid $border-light;
+    box-shadow: $shadow-sm;
+  }
+}
+
+.container {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+// ── Logo ──────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  cursor: pointer;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logoIcon {
+  font-size: $font-size-xl;
+  color: $accent-primary;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logoText {
+  font-family: $font-heading;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+}
+
+// ── Navigation ────────────────────────────────────
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.navItem {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $text-secondary;
+  padding: $space-2 $space-4;
+  border-radius: $border-radius-full;
+  transition: all $transition-fast;
+  letter-spacing: 0.01em;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-secondary;
+  }
+
+  &.active {
+    color: $accent-primary;
+    background: $accent-primary-light;
+    font-weight: 600;
+  }
+}
+
+// ── Right Section ─────────────────────────────────
+.right {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.githubLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius-full;
+  color: $text-secondary;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-secondary;
+  }
+}
+
+// ── Mobile Toggle ─────────────────────────────────
+.mobileToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+
+  @include tablet {
+    display: flex;
+  }
+
+  span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: $text-primary;
+    border-radius: 1px;
+    transition: all $transition-base;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(2.5px, 2.5px);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(2.5px, -2.5px);
+    }
+  }
+}
+
+// ── Mobile Nav ────────────────────────────────────
+.mobileNav {
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  @include glass(0.95);
+  border-bottom: 1px solid $border-light;
+  padding: $space-4 $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  animation: fadeIn 200ms ease;
+}
+
+.mobileNavItem {
+  font-family: $font-body;
+  font-size: $font-size-base;
+  font-weight: 500;
+  color: $text-secondary;
+  padding: $space-3 $space-4;
+  border-radius: $border-radius-md;
+  text-align: left;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-secondary;
+  }
+
+  &.active {
+    color: $accent-primary;
+    background: $accent-primary-light;
+    font-weight: 600;
+  }
+}

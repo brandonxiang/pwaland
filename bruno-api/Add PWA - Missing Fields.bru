@@ -1,0 +1,31 @@
+meta {
+  name: Add PWA - Missing Fields
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/api/pwa/add
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Test App"
+  }
+}
+
+docs {
+  # Add PWA - Missing Required Fields Example
+
+  This is an example request with missing required fields (link, icon) to test validation.
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}
