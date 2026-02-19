@@ -12,9 +12,9 @@
   "license": "MIT",
   "devDependencies": {
     "vercel": "39.2.4",
-    "eslint": "^9.17.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.2",
-    "@types/node": "^22.10.0"
+    "@types/node": "^22.10.0",
+    "oxfmt": "^0.33.0",
+    "oxlint": "^1.48.0"
   }
 }

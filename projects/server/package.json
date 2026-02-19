@@ -1,28 +1,35 @@
 {
   "name": "fastify-starter",
-  "version": "0.0.0",
-  "description": "",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A simple starter with fastify",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "npm run clean && APP_REGION=sg APP_ENV=dev tsup-node src/server.ts --watch src --format esm --onSuccess \"node dist/server.js\"",
+    "dev": "APP_REGION=sg APP_ENV=development tsdown --watch --on-success \"pnpm run start:dev\"",
+    "start:dev": "sleep 3 && APP_REGION=sg APP_ENV=development node ./dist/server.mjs",
     "start": "node ./dist/server.js",
+    "start:prod": "NODE_ENV=production node ./dist/server.js",
+    "build": "NODE_ENV=production tsdown",
+    "build:dev": "tsdown",
     "compile-schemas": "json2ts -i src/schemas -o src/types",
-    "clean": "rimraf .tmp dist",
-    "build": "tsup-node src/server.ts --format esm",
-    "lint": "eslint src --ext .ts",
-    "lint-fix": "eslint src --ext .ts --fix"
+    "clean": "rimraf .tmp dist .tsbuildinfo",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "deps:check": "pnpm outdated",
+    "deps:update": "pnpm update"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "brandonxiang",
+  "license": "MIT",
   "dependencies": {
     "@notionhq/client": "^2.2.14",
-    "@fastify/autoload": "^6.0.3",
-    "@fastify/swagger": "^9.4.0",
-    "@fastify/swagger-ui": "5.2.0",
-    "@fastify/static": "^8.0.3",
-    "@fastify/cors": "10.0.1",
+    "@fastify/autoload": "^6.3.1",
+    "@fastify/cors": "^11.1.0",
+    "@fastify/static": "^8.3.0",
+    "@fastify/swagger": "^9.6.1",
+    "@fastify/swagger-ui": "^5.2.3",
     "dayjs": "^1.11.13",
     "fastify": "^5.2.0",
     "ioredis": "^5.4.2",
@@ -31,18 +38,16 @@
     "mysql": "^2.18.1",
     "uuid": "^11.0.3",
     "pino-pretty": "^13.0.0",
-    "httpie": "^1.1.2"
+    "httpie": "^1.1.2",
+    "puppeteer": "^23.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
     "@stylistic/eslint-plugin-ts": "^2.12.1",
-    "@types/eslint__js": "^8.42.3",
     "@types/lodash": "^4.17.13",
     "@types/uuid": "^10.0.0",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.1",
-    "tsup": "8.3.0",
-    "typescript": "^5.7.2",
-    "puppeteer": "^23.0.0"
+    "tsdown": "^0.20.3",
+    "typescript": "^5.9.3"
   }
 }
