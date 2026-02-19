@@ -1,18 +1,21 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
 import {
-  apps,
-  categories,
   searchApps,
   getAppsByCategory,
   getFeaturedApps,
 } from '@/data/apps';
 import type { PWAApp, Category } from '@/data/apps';
+import { useApps } from '@/hooks/useApps';
 import styles from './index.module.scss';
+
+const isUrl = (str: string) =>
+  str.startsWith('http://') || str.startsWith('https://');
 
 // ── Star Rating Component ──────────────────────────
 const StarRating = ({ rating }: { rating: number }) => {
+  if (!rating) return null;
   const full = Math.floor(rating);
   const hasHalf = rating - full >= 0.5;
   return (
@@ -24,9 +27,34 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
+// ── App Icon (supports both URL images and emoji) ──
+const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: string }) => {
+  if (isUrl(icon)) {
+    return (
+      <div className={styles.appIcon} style={{ background: color }}>
+        <img
+          src={icon}
+          alt={name}
+          className={styles.appIconImg}
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+            (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
+          }}
+        />
+        <span style={{ display: 'none' }}>{name.charAt(0)}</span>
+      </div>
+    );
+  }
+  return (
+    <div className={styles.appIcon} style={{ background: color }}>
+      <span>{icon || name.charAt(0)}</span>
+    </div>
+  );
+};
+
 // ── App Card Component ─────────────────────────────
-const AppCard = ({ app }: { app: PWAApp }) => {
-  const category = categories.find((c) => c.id === app.category);
+const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
+  const category = allCategories.find((c) => c.id === app.category);
 
   return (
     <a
@@ -35,12 +63,10 @@ const AppCard = ({ app }: { app: PWAApp }) => {
       rel="noopener noreferrer"
       className={styles.appCard}
     >
-      <div className={styles.appIcon} style={{ background: app.color }}>
-        <span>{app.icon}</span>
-      </div>
+      <AppIcon icon={app.icon} color={app.color} name={app.name} />
       <div className={styles.appInfo}>
         <h3 className={styles.appName}>{app.name}</h3>
-        <p className={styles.appDeveloper}>{app.developer}</p>
+        {app.developer && <p className={styles.appDeveloper}>{app.developer}</p>}
         <p className={styles.appDesc}>{app.description}</p>
         <div className={styles.appMeta}>
           {category && (
@@ -62,8 +88,8 @@ const AppCard = ({ app }: { app: PWAApp }) => {
 };
 
 // ── Featured App Card (larger) ─────────────────────
-const FeaturedCard = ({ app }: { app: PWAApp }) => {
-  const category = categories.find((c) => c.id === app.category);
+const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
+  const category = allCategories.find((c) => c.id === app.category);
 
   return (
     <a
@@ -79,7 +105,11 @@ const FeaturedCard = ({ app }: { app: PWAApp }) => {
         }}
       />
       <div className={styles.featuredIcon} style={{ background: app.color }}>
-        <span>{app.icon}</span>
+        {isUrl(app.icon) ? (
+          <img src={app.icon} alt={app.name} className={styles.appIconImg} />
+        ) : (
+          <span>{app.icon || app.name.charAt(0)}</span>
+        )}
       </div>
       <div className={styles.featuredInfo}>
         <div className={styles.featuredTop}>
@@ -95,7 +125,7 @@ const FeaturedCard = ({ app }: { app: PWAApp }) => {
         </div>
         <h3 className={styles.featuredName}>{app.name}</h3>
         <p className={styles.featuredDesc}>{app.description}</p>
-        <span className={styles.featuredDev}>{app.developer}</span>
+        {app.developer && <span className={styles.featuredDev}>{app.developer}</span>}
       </div>
     </a>
   );
@@ -131,20 +161,21 @@ const CategoryCard = ({
 // ── Main Home Page ─────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
+  const { apps, categories, loading, error } = useApps();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const featured = useMemo(() => getFeaturedApps(), []);
+  const featured = useMemo(() => getFeaturedApps(apps), [apps]);
 
   const filteredApps = useMemo(() => {
     if (searchQuery.trim()) {
-      return searchApps(searchQuery);
+      return searchApps(apps, searchQuery);
     }
     if (activeCategory) {
-      return getAppsByCategory(activeCategory);
+      return getAppsByCategory(apps, activeCategory);
     }
     return apps;
-  }, [searchQuery, activeCategory]);
+  }, [apps, searchQuery, activeCategory]);
 
   const handleCategoryClick = (categoryId: string) => {
     setActiveCategory((prev) => (prev === categoryId ? null : categoryId));
@@ -240,8 +271,32 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ── Loading / Error States ────────────────── */}
+      {loading && apps.length === 0 && (
+        <section className={styles.section}>
+          <div className={styles.container}>
+            <div className={styles.loadingState}>
+              <LoadingOutlined style={{ fontSize: 32 }} />
+              <p>Loading apps...</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {error && apps.length === 0 && (
+        <section className={styles.section}>
+          <div className={styles.container}>
+            <div className={styles.emptyState}>
+              <span className={styles.emptyIcon}>⚠️</span>
+              <h3 className={styles.emptyTitle}>Failed to load apps</h3>
+              <p className={styles.emptyDesc}>{error}</p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Featured Section ─────────────────────── */}
-      {!searchQuery && !activeCategory && (
+      {!searchQuery && !activeCategory && featured.length > 0 && (
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -252,7 +307,7 @@ const Home = () => {
             </div>
             <div className={styles.featuredGrid}>
               {featured.map((app) => (
-                <FeaturedCard key={app.id} app={app} />
+                <FeaturedCard key={app.id} app={app} allCategories={categories} />
               ))}
             </div>
           </div>
@@ -260,63 +315,67 @@ const Home = () => {
       )}
 
       {/* ── Categories Section ───────────────────── */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
-              {searchQuery ? 'Search Results' : 'Browse by Category'}
-            </h2>
-            <p className={styles.sectionSub}>
-              {searchQuery
-                ? `${filteredApps.length} app${filteredApps.length !== 1 ? 's' : ''} found for "${searchQuery}"`
-                : 'Find the perfect app for your needs'}
-            </p>
-          </div>
-
-          {!searchQuery && (
-            <div className={styles.categoryRow}>
-              {categories.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  category={cat}
-                  isActive={activeCategory === cat.id}
-                  onClick={() => handleCategoryClick(cat.id)}
-                />
-              ))}
+      {categories.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.container}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>
+                {searchQuery ? 'Search Results' : 'Browse by Category'}
+              </h2>
+              <p className={styles.sectionSub}>
+                {searchQuery
+                  ? `${filteredApps.length} app${filteredApps.length !== 1 ? 's' : ''} found for "${searchQuery}"`
+                  : 'Find the perfect app for your needs'}
+              </p>
             </div>
-          )}
-        </div>
-      </section>
+
+            {!searchQuery && (
+              <div className={styles.categoryRow}>
+                {categories.map((cat) => (
+                  <CategoryCard
+                    key={cat.id}
+                    category={cat}
+                    isActive={activeCategory === cat.id}
+                    onClick={() => handleCategoryClick(cat.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ── App Grid Section ─────────────────────── */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          {filteredApps.length > 0 ? (
-            <div className={styles.appGrid}>
-              {filteredApps.map((app) => (
-                <AppCard key={app.id} app={app} />
-              ))}
-            </div>
-          ) : (
-            <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>🔍</span>
-              <h3 className={styles.emptyTitle}>No apps found</h3>
-              <p className={styles.emptyDesc}>
-                Try a different search term or browse by category
-              </p>
-              <button
-                className={styles.emptyBtn}
-                onClick={() => {
-                  handleSearch('');
-                  setActiveCategory(null);
-                }}
-              >
-                Clear filters
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
+      {apps.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.container}>
+            {filteredApps.length > 0 ? (
+              <div className={styles.appGrid}>
+                {filteredApps.map((app) => (
+                  <AppCard key={app.id} app={app} allCategories={categories} />
+                ))}
+              </div>
+            ) : (
+              <div className={styles.emptyState}>
+                <span className={styles.emptyIcon}>🔍</span>
+                <h3 className={styles.emptyTitle}>No apps found</h3>
+                <p className={styles.emptyDesc}>
+                  Try a different search term or browse by category
+                </p>
+                <button
+                  className={styles.emptyBtn}
+                  onClick={() => {
+                    handleSearch('');
+                    setActiveCategory(null);
+                  }}
+                >
+                  Clear filters
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ── CTA Section ──────────────────────────── */}
       {!searchQuery && !activeCategory && (

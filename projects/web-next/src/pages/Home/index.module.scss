@@ -528,6 +528,13 @@
   font-size: 26px;
   flex-shrink: 0;
   box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+.appIconImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .appInfo {
@@ -589,6 +596,24 @@
   color: $text-tertiary;
   font-weight: 600;
   margin-left: 2px;
+}
+
+// ═══════════════════════════════════════════════════
+// ── LOADING STATE ────────────────────────────────
+// ═══════════════════════════════════════════════════
+.loadingState {
+  text-align: center;
+  padding: $space-16 $space-4;
+  color: $text-tertiary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+
+  p {
+    font-size: $font-size-base;
+    color: $text-secondary;
+  }
 }
 
 // ═══════════════════════════════════════════════════

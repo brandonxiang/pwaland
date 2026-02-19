@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: mode === 'production',
       rollupOptions: {
         output: {
-          advancedChunks: {
+          codeSplitting: {
             groups: [
               { name: 'react', test: /\/react(?:-dom|-router)?/ },
               { name: 'antd', test: /\/antd\/.*/ },

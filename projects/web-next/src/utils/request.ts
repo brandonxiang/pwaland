@@ -47,3 +47,32 @@ export async function post<T = any>(url: string, body: any): Promise<ApiResponse
     body: JSON.stringify(body),
   });
 }
+
+/**
+ * Raw POST for endpoints that don't use the { data, ret, msg } wrapper.
+ */
+export async function postRaw<T = any>(
+  url: string,
+  body: any,
+  options: RequestInit = {},
+): Promise<T> {
+  const defaultHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    ...options,
+    headers: {
+      ...defaultHeaders,
+      ...options.headers,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
