@@ -49,6 +49,16 @@ To change it:
 - **File**: `Get Client List - Paginated.bru`
 - **Description**: Example request for fetching the next page using pagination cursor
 
+### 7. Discover PWAs
+- **File**: `Discover PWAs.bru`
+- **Endpoint**: `POST /api/pwa/discover`
+- **Description**: Batch-discover PWAs from Tranco + GitHub lists, validate, and insert to Notion
+- **Body**: `{ "source": "all", "limit": 100, "dryRun": true }`
+
+### 8. Discover PWAs - Tranco
+- **File**: `Discover PWAs - Tranco.bru`
+- **Description**: Discover PWAs from Tranco Top 500 and insert to Notion (production run)
+
 ## Usage
 
 1. Make sure the Fastify server is running on `http://localhost:3000`
@@ -61,4 +71,5 @@ To change it:
 - The `Check PWA` endpoint performs lightweight HTTP checks (no browser automation)
 - The `Add PWA` endpoint checks for duplicates before inserting
 - The `Get Client List` endpoint supports pagination via `start_cursor` parameter
+- The `Discover PWAs` endpoint runs batch checks with rate limiting (1.5s/batch) and saves progress to `data/discover-results.json`
 - All endpoints return a standard response format: `{ data, ret, msg, timestamp }` (except `Get Client List` which returns `{ properties, has_more, next_cursor }`)

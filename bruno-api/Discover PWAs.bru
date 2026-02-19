@@ -1,0 +1,77 @@
+meta {
+  name: Discover PWAs
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/api/pwa/discover
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "source": "github",
+    "limit": 10,
+    "offset": 0,
+  //   "concurrency": 3,
+    "dryRun": false
+  }
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}
+
+docs {
+  # Discover PWAs
+  
+  Batch-discover PWA websites from external domain lists. Checks each domain using the lightweight PWA checker, deduplicates against Notion, and optionally inserts new entries.
+  
+  **Warning**: This endpoint can run for a long time depending on the limit. Start with a small limit and dryRun=true.
+  
+  ## Request Body
+  
+  - `source` (string, required): Data source - "tranco", "github", or "all"
+    - `tranco`: Top domains from the Tranco research list
+    - `github`: Curated PWA lists from GitHub awesome-pwa repos
+    - `all`: Both sources combined
+  - `limit` (number, optional, default 500): Max domains to check
+  - `offset` (number, optional, default 0): Skip first N domains (for resuming)
+  - `concurrency` (number, optional, default 3): Parallel checks per batch
+  - `dryRun` (boolean, optional, default false): If true, check only without inserting to Notion
+  
+  ## Response
+  
+  ```json
+  {
+    "data": {
+      "totalDomains": 10500,
+      "checked": 100,
+      "found": 12,
+      "added": 8,
+      "skipped": 4,
+      "failed": 3,
+      "dryRun": false,
+      "foundPwas": [
+        { "domain": "twitter.com", "title": "Twitter", "added": true, "skipped": false },
+        { "domain": "spotify.com", "title": "Spotify", "added": true, "skipped": false }
+      ]
+    },
+    "ret": 0,
+    "msg": "ok"
+  }
+  ```
+  
+  ## Notes
+  
+  - Results are saved to `data/discover-results.json` for persistence
+  - Rate limited: 1.5s delay between batches to avoid being blocked
+  - Duplicates are automatically skipped (checked by link in Notion)
+  - New entries are tagged with "Auto-discovered"
+}

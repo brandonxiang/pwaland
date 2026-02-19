@@ -1,0 +1,48 @@
+meta {
+  name: Discover PWAs - Tranco
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/api/pwa/discover
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "source": "tranco",
+    "limit": 500,
+    "offset": 0,
+    "concurrency": 3,
+    "dryRun": false
+  }
+}
+
+docs {
+  # Discover PWAs - Tranco Top 500
+
+  Discover PWAs from the Tranco Top 500 domains and insert them into Notion.
+
+  This will:
+  1. Download the Tranco top sites list
+  2. Check the first 500 domains for PWA criteria
+  3. Insert any new PWAs into the Notion database
+
+  **Estimated time**: ~4-5 minutes (500 domains, 3 concurrent, 1.5s delay)
+
+  Use `offset` to resume from where you left off:
+  - First run: offset=0, limit=500
+  - Second run: offset=500, limit=500
+  - Third run: offset=1000, limit=500
+  - etc.
+}
+
+vars:pre-request {
+  base_url: http://localhost:3000
+}
