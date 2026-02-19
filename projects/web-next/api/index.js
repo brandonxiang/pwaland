@@ -9,7 +9,7 @@ const app = Fastify({
 });
 
 // 将应用注册为一个常规插件
-app.register(import("../../server/dist/server.mjs"));
+app.register(import("../../server/dist/plugin.mjs"));
 
 export default async (req, res) => {
   await app.ready();

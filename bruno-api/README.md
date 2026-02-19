@@ -10,12 +10,23 @@ This folder contains Bruno API test files for the PWALand API endpoints.
 
 ## Environment Variables
 
-The requests use a `base_url` variable that defaults to `http://localhost:3000`. 
+The requests use a `base_url` variable that is configured through environment files.
 
-To change it:
-1. In Bruno, go to the collection settings
-2. Add/edit the `base_url` variable
-3. Or modify it in each request's `vars:pre-request` section
+### Available Environments
+
+- **Local**: `http://localhost:3000` (default for local development)
+- **Production**: `https://pwaland.brandonxiang.top` (production server)
+
+### How to Use
+
+1. In Bruno, open the collection
+2. Click on the environment selector (usually at the top right)
+3. Select either "Local" or "Production" environment
+4. All requests will automatically use the `base_url` from the selected environment
+
+The environment files are located in the `environments/` folder:
+- `environments/Local.bru.env` - Local development environment
+- `environments/Production.bru.env` - Production environment
 
 ## Available Requests
 

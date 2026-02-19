@@ -2,7 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   // Entry point
-  entry: 'src/server.ts',
+  entry: ['src/server.ts', 'src/plugin.ts'],
 
   // Output configuration
   format: 'esm',
@@ -13,7 +13,7 @@ export default defineConfig({
   unbundle: true,
 
   // TypeScript declaration files
-  dts: true,
+  dts: false,
 
   // Environment variables
   env: {
@@ -47,7 +47,7 @@ export default defineConfig({
   clean: true,
 
   // Source maps for debugging
-  sourcemap: true,
+  sourcemap: false,
 
   // Target ES2022 for modern Node.js
   target: 'node18',

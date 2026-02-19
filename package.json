@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "pnpm -r run build"
+    "build": "pnpm -r run build",
+    "format": "oxfmt",
+    "lint": "oxlint"
   },
   "keywords": [],
   "author": "",

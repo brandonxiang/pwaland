@@ -4,13 +4,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxlint --fix",
-      "oxfmt"
-    ]
+    "build": "vite build",
+    "type-check": "tsc --noEmit"
   },
   "optionalDependencies": {
     "husky": "9.1.7",
@@ -27,10 +22,11 @@
     "typescript": "^5.9.3",
     "vite": "^8.0.0-beta.13",
     "vite-plugin-html": "^3.2.2",
-    "rollup-plugin-visualizer": "^6.0.5"
+    "rollup-plugin-visualizer": "^6.0.5",
+    "vercel": "50.19.1"
   },
   "dependencies": {
-    "vercel": "50.19.1",
+    "fastify": "^5.2.0",
     "@ant-design/icons": "^6.1.0",
     "@antv/g2": "^5.4.6",
     "antd": "^6.0.0",
