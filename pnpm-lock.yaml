@@ -17,9 +17,6 @@ importers:
       oxlint:
         specifier: ^1.48.0
         version: 1.48.0
-      vercel:
-        specifier: 50.19.1
-        version: 50.19.1(rollup@4.29.1)(typescript@5.9.3)
 
   projects/server:
     dependencies:
@@ -111,6 +108,9 @@ importers:
       react-router:
         specifier: ^7.9.6
         version: 7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      vercel:
+        specifier: 50.19.1
+        version: 50.19.1(rollup@4.29.1)(typescript@5.9.3)
     devDependencies:
       '@types/node':
         specifier: ^24.10.1
@@ -2175,7 +2175,7 @@ packages:
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   chokidar@4.0.0:
-    resolution: {integrity: sha512-mxIojEAQcuEvT/lyXq+jf/3cO/KoA6z4CeNDGGevTybECPOMFCnQy3OPahluUkbqgPNGw5Bi78UC7Po6Lhy+NA==}
+    resolution: {integrity: sha512-mxIojEAQcuEvT/lyXq+jf/3cO/KoA6z4CeNDGGevTybECPOMFCnQy3OPahluUkbqgPNGw5Bi78UC7Po6Lhy+NA==, tarball: https://registry.npmmirror.com/chokidar/-/chokidar-4.0.0.tgz}
     engines: {node: '>= 14.16.0'}
 
   chownr@3.0.0:
@@ -3649,7 +3649,7 @@ packages:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
 
   readdirp@4.0.2:
-    resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==}
+    resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==, tarball: https://registry.npmmirror.com/readdirp/-/readdirp-4.0.2.tgz}
     engines: {node: '>= 14.16.0'}
 
   real-require@0.2.0:
