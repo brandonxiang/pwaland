@@ -1,6 +1,7 @@
 {
-  "name": "vite-antd-starter",
+  "name": "pwaland-web-next",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "start": "vite",
