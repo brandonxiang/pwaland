@@ -31,6 +31,10 @@
   letter-spacing: -0.03em;
   margin-bottom: $space-2;
 
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
   @include mobile {
     font-size: $font-size-2xl;
   }
@@ -41,6 +45,10 @@
   color: $text-secondary;
   max-width: 480px;
   margin: 0 auto;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.55);
+  }
 
   @include mobile {
     font-size: $font-size-base;
@@ -61,6 +69,10 @@
     #eef9ff 65%,
     $bg-primary 100%
   );
+
+  :global(:root.dark) & {
+    background: linear-gradient(168deg, #141414 0%, #1a1528 35%, #0f1a24 65%, #141414 100%);
+  }
 
   @include mobile {
     padding: $space-16 0 $space-12;
@@ -129,6 +141,12 @@
   color: $text-secondary;
   margin-bottom: $space-8;
   box-shadow: $shadow-sm;
+
+  :global(:root.dark) & {
+    background: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.65);
+  }
 }
 
 .heroBadgeDot {
@@ -154,6 +172,10 @@
   color: $text-primary;
   margin-bottom: $space-6;
 
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
   @include tablet {
     font-size: $font-size-5xl;
   }
@@ -176,6 +198,10 @@
   max-width: 560px;
   margin: 0 auto $space-10;
   line-height: 1.7;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.55);
+  }
 
   @include mobile {
     font-size: $font-size-base;
@@ -204,12 +230,27 @@
     border-color: $accent-primary;
     box-shadow: $shadow-lg, 0 0 0 4px #{$accent-primary}12;
   }
+
+  :global(:root.dark) & {
+    background: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+    &:focus-within {
+      border-color: $accent-primary;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(124, 58, 237, 0.15);
+    }
+  }
 }
 
 .searchIcon {
   font-size: $font-size-xl;
   color: $text-tertiary;
   flex-shrink: 0;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.35);
+  }
 }
 
 .searchInput {
@@ -223,6 +264,14 @@
 
   &::placeholder {
     color: $text-tertiary;
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.85);
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
   }
 }
 
@@ -243,6 +292,16 @@
     background: $border-medium;
     color: $text-primary;
   }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
 }
 
 // ── Tags ──────────────────────────────────────────
@@ -259,6 +318,10 @@
   font-size: $font-size-sm;
   color: $text-tertiary;
   font-weight: 500;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.35);
+  }
 }
 
 .tag {
@@ -275,6 +338,18 @@
     color: $accent-primary;
     border-color: $accent-primary;
     background: $accent-primary-light;
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: #1f1f1f;
+
+    &:hover {
+      color: #a78bfa;
+      border-color: #a78bfa;
+      background: rgba(124, 58, 237, 0.15);
+    }
   }
 }
 
@@ -300,6 +375,10 @@
   font-weight: 700;
   color: $text-primary;
 
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
   @include mobile {
     font-size: $font-size-xl;
   }
@@ -309,12 +388,20 @@
   font-size: $font-size-sm;
   color: $text-tertiary;
   font-weight: 500;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .statDivider {
   width: 1px;
   height: 32px;
   background: $border-light;
+
+  :global(:root.dark) & {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
 // ═══════════════════════════════════════════════════
@@ -350,6 +437,15 @@
     transform: translateY(-4px);
     box-shadow: $shadow-xl;
     border-color: transparent;
+  }
+
+  :global(:root.dark) & {
+    background: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    }
   }
 }
 
@@ -400,6 +496,10 @@
   color: $text-primary;
   margin-bottom: $space-1;
   letter-spacing: -0.02em;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
 }
 
 .featuredDesc {
@@ -408,12 +508,20 @@
   line-height: 1.6;
   margin-bottom: $space-2;
   @include line-clamp(2);
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.55);
+  }
 }
 
 .featuredDev {
   font-size: $font-size-xs;
   color: $text-tertiary;
   font-weight: 500;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 // ═══════════════════════════════════════════════════
@@ -446,6 +554,17 @@
     box-shadow: $shadow-sm;
     transform: translateY(-1px);
   }
+
+  :global(:root.dark) & {
+    background: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
 }
 
 .categoryActive {
@@ -477,6 +596,11 @@
 
   .categoryActive & {
     background: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -516,6 +640,15 @@
       color: $accent-primary;
     }
   }
+
+  :global(:root.dark) & {
+    background: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+  }
 }
 
 .appIcon {
@@ -550,6 +683,10 @@
   margin-bottom: 2px;
   transition: color $transition-fast;
   letter-spacing: -0.01em;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
 }
 
 .appDeveloper {
@@ -557,6 +694,10 @@
   color: $text-tertiary;
   margin-bottom: $space-2;
   font-weight: 500;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .appDesc {
@@ -565,6 +706,10 @@
   line-height: 1.55;
   margin-bottom: $space-3;
   @include line-clamp(2);
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.55);
+  }
 }
 
 .appMeta {
@@ -596,6 +741,10 @@
   color: $text-tertiary;
   font-weight: 600;
   margin-left: 2px;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 // ═══════════════════════════════════════════════════
@@ -613,6 +762,14 @@
   p {
     font-size: $font-size-base;
     color: $text-secondary;
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+
+    p {
+      color: rgba(255, 255, 255, 0.55);
+    }
   }
 }
 
@@ -636,12 +793,20 @@
   font-weight: 600;
   color: $text-primary;
   margin-bottom: $space-2;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
 }
 
 .emptyDesc {
   font-size: $font-size-base;
   color: $text-secondary;
   margin-bottom: $space-6;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.55);
+  }
 }
 
 .emptyBtn {
@@ -657,6 +822,16 @@
   &:hover {
     background: $accent-primary;
     color: white;
+  }
+
+  :global(:root.dark) & {
+    color: #a78bfa;
+    border-color: #a78bfa;
+
+    &:hover {
+      background: #a78bfa;
+      color: #141414;
+    }
   }
 }
 
@@ -687,6 +862,10 @@
       radial-gradient(circle at 20% 50%, #{$accent-primary}20, transparent 50%),
       radial-gradient(circle at 80% 50%, #{$accent-secondary}15, transparent 50%);
     pointer-events: none;
+  }
+
+  :global(:root.dark) & {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
   }
 
   @include mobile {
@@ -756,6 +935,10 @@
   background: $text-primary;
   color: rgba(255, 255, 255, 0.7);
   padding: $space-16 0 $space-8;
+
+  :global(:root.dark) & {
+    background: #0a0a0a;
+  }
 
   @include mobile {
     padding: $space-10 0 $space-6;
@@ -873,3 +1056,8 @@
     }
   }
 }
+
+// ═══════════════════════════════════════════════════
+// ── DARK MODE ────────────────────────────────────
+// Uses :global(:root.dark) for CSS modules compat
+// ═══════════════════════════════════════════════════

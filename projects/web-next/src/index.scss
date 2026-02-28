@@ -1,6 +1,7 @@
 @use './style/variable.scss' as *;
 @use './style/normal.scss';
 
+// Light mode (default)
 body {
   margin: 0;
   padding: 0;
@@ -9,12 +10,24 @@ body {
   color: $text-primary;
   background-color: $bg-primary;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Dark mode support
+:root.dark body {
+  background-color: #141414; // Ant Design dark mode background
+  color: rgba(255, 255, 255, 0.85); // Ant Design dark mode text
+}
+
+:root.dark #root {
+  background-color: #141414;
 }
 
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease;
 }
 
 // Scrollbar styling
@@ -30,9 +43,18 @@ body {
 ::-webkit-scrollbar-thumb {
   background: $border-medium;
   border-radius: 3px;
+  transition: background 0.3s ease;
 
   &:hover {
     background: $text-tertiary;
+  }
+}
+
+:root.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -40,4 +62,9 @@ body {
 ::selection {
   background: $accent-primary-light;
   color: $accent-primary;
+}
+
+:root.dark ::selection {
+  background: rgba(124, 58, 237, 0.3); // Dark mode selection
+  color: #a78bfa;
 }

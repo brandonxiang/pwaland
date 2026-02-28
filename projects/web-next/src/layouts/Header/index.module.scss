@@ -18,6 +18,11 @@
     border-bottom: 1px solid $border-light;
     box-shadow: $shadow-sm;
   }
+
+  :root.dark &.scrolled {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .container {
@@ -53,6 +58,11 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   color: $text-primary;
+  transition: color $transition-fast;
+}
+
+:root.dark .logoText {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 // ── Navigation ────────────────────────────────────
@@ -86,6 +96,20 @@
     background: $accent-primary-light;
     font-weight: 600;
   }
+
+  :root.dark & {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &.active {
+      color: #a78bfa;
+      background: rgba(124, 58, 237, 0.2);
+    }
+  }
 }
 
 // ── Right Section ─────────────────────────────────
@@ -93,6 +117,40 @@
   display: flex;
   align-items: center;
   gap: $space-3;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius-full;
+  border: none;
+  background: transparent;
+  color: $text-secondary;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-secondary;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  // Dark mode styles
+  :root.dark & {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
 }
 
 .githubLink {
@@ -108,6 +166,16 @@
   &:hover {
     color: $text-primary;
     background: $bg-secondary;
+  }
+
+  // Dark mode styles
+  :root.dark & {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+    }
   }
 }
 
@@ -134,6 +202,10 @@
     background: $text-primary;
     border-radius: 1px;
     transition: all $transition-base;
+  }
+
+  :root.dark & span {
+    background: rgba(255, 255, 255, 0.85);
   }
 
   &.open {
@@ -183,5 +255,19 @@
     color: $accent-primary;
     background: $accent-primary-light;
     font-weight: 600;
+  }
+
+  :root.dark & {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &.active {
+      color: #a78bfa;
+      background: rgba(124, 58, 237, 0.2);
+    }
   }
 }

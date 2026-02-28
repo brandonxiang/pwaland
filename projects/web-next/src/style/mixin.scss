@@ -36,6 +36,10 @@
   background: rgba(255, 255, 255, $opacity);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+
+  :root.dark & {
+    background: rgba(20, 20, 20, $opacity);
+  }
 }
 
 // Truncate text

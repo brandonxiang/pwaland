@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
+import { MoonOutlined, SunOutlined } from '@ant-design/icons';
+import { useTheme } from '@/providers/ThemeProvider';
 import styles from './index.module.scss';
 
 const navItems = [
@@ -12,6 +14,7 @@ const navItems = [
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -45,6 +48,16 @@ export const Header = () => {
 
         {/* Right Section */}
         <div className={styles.right}>
+          {/* Theme Toggle */}
+          <button
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDark ? <SunOutlined /> : <MoonOutlined />}
+          </button>
+
           <a
             href="https://github.com"
             target="_blank"

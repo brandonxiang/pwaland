@@ -1,9 +1,14 @@
 import { RouterProvider } from 'react-router';
 import { router } from '@/router';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import './App.scss';
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 };
 
 export default App;
