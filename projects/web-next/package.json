@@ -38,10 +38,13 @@
     "@ant-design/icons": "^6.1.0",
     "@antv/g2": "^5.4.6",
     "@tanstack/react-virtual": "^3.13.19",
+    "@vercel/analytics": "^1.6.1",
     "antd": "^6.0.0",
     "fastify": "^5.2.0",
+    "quicklink": "^3.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.9.6"
+    "react-router": "^7.9.6",
+    "vite-plugin-pwa": "^1.2.0"
   }
 }

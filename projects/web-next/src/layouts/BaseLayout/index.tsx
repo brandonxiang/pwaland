@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Header } from '../Header';
+import { useQuicklink } from '@/hooks/useQuicklink';
 import styles from './index.module.scss';
 
 interface LayoutProps {
@@ -7,6 +8,8 @@ interface LayoutProps {
 }
 
 export const ContentLayout = ({ children }: LayoutProps) => {
+  useQuicklink();
+
   return (
     <div className={styles.layout}>
       <Header />
