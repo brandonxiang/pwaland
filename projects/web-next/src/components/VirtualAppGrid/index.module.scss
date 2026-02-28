@@ -1,0 +1,69 @@
+@use '../../style/variable.scss' as *;
+@use '../../style/mixin.scss' as *;
+
+.virtualContainer {
+  position: relative;
+  width: 100%;
+}
+
+.virtualRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $space-5;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: $space-4;
+  }
+}
+
+.sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.loadingMore {
+  text-align: center;
+  padding: $space-8 $space-4;
+  color: $text-tertiary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+
+  p {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.4);
+
+    p {
+      color: rgba(255, 255, 255, 0.55);
+    }
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: $space-16 $space-4;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: $space-4;
+}
+
+.emptyTitle {
+  font-family: $font-heading;
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $space-2;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
