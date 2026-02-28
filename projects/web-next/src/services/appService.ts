@@ -57,6 +57,26 @@ function transformNotionApp(item: NotionAppProperty): PWAApp {
   };
 }
 
+export interface PageResult {
+  apps: PWAApp[];
+  hasMore: boolean;
+  nextCursor: string | null;
+}
+
+export async function fetchAppsPage(cursor?: string): Promise<PageResult> {
+  const res = await postRaw<ClientListResponse>('/api/client/list', {
+    start_cursor: cursor,
+  });
+
+  const apps = res.properties.map(transformNotionApp);
+
+  return {
+    apps,
+    hasMore: res.has_more,
+    nextCursor: res.next_cursor,
+  };
+}
+
 export async function fetchAllApps(): Promise<AppData> {
   const allApps: PWAApp[] = [];
   let cursor: string | undefined;

@@ -5,7 +5,7 @@ vi.mock("@/utils/request", () => ({
 }))
 
 import { postRaw } from "@/utils/request"
-import { fetchAllApps } from "./appService"
+import { fetchAllApps, fetchAppsPage } from "./appService"
 
 const mockPostRaw = vi.mocked(postRaw)
 
@@ -78,5 +78,72 @@ describe("fetchAllApps", () => {
 
     const result = await fetchAllApps()
     expect(result.apps[0].category).toBe("other")
+  })
+})
+
+describe("fetchAppsPage", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it("fetches a single page without cursor", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Page App",
+          description: "A paged app",
+          tags: ["Tools"],
+          link: "https://paged.com",
+          icon: "",
+        },
+      ],
+      has_more: true,
+      next_cursor: "cursor-abc",
+    })
+
+    const result = await fetchAppsPage()
+    expect(mockPostRaw).toHaveBeenCalledTimes(1)
+    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+      start_cursor: undefined,
+    })
+    expect(result.apps).toHaveLength(1)
+    expect(result.apps[0]).toMatchObject({ id: "page-app", name: "Page App" })
+    expect(result.hasMore).toBe(true)
+    expect(result.nextCursor).toBe("cursor-abc")
+  })
+
+  it("fetches a specific page with cursor", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Second Page",
+          description: "",
+          tags: ["Social"],
+          link: "https://second.com",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    })
+
+    const result = await fetchAppsPage("cursor-xyz")
+    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+      start_cursor: "cursor-xyz",
+    })
+    expect(result.apps).toHaveLength(1)
+    expect(result.hasMore).toBe(false)
+    expect(result.nextCursor).toBeNull()
+  })
+
+  it("makes exactly ONE API call per invocation", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [],
+      has_more: true,
+      next_cursor: "more-cursor",
+    })
+
+    await fetchAppsPage()
+    expect(mockPostRaw).toHaveBeenCalledTimes(1)
   })
 })
