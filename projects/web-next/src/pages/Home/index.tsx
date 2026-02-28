@@ -7,7 +7,8 @@ import {
   getFeaturedApps,
 } from '@/data/apps';
 import type { PWAApp, Category } from '@/data/apps';
-import { useApps } from '@/hooks/useApps';
+import { useInfiniteApps } from '@/hooks/useInfiniteApps';
+import { VirtualAppGrid } from '@/components/VirtualAppGrid';
 import styles from './index.module.scss';
 
 const isUrl = (str: string) =>
@@ -161,7 +162,7 @@ const CategoryCard = ({
 // ── Main Home Page ─────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
-  const { apps, categories, loading, error } = useApps();
+  const { apps, categories, loading, loadingMore, hasMore, error, loadMore } = useInfiniteApps();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
@@ -346,33 +347,19 @@ const Home = () => {
       )}
 
       {/* ── App Grid Section ─────────────────────── */}
-      {apps.length > 0 && (
+      {(apps.length > 0 || loadingMore) && (
         <section className={styles.section}>
           <div className={styles.container}>
-            {filteredApps.length > 0 ? (
-              <div className={styles.appGrid}>
-                {filteredApps.map((app) => (
-                  <AppCard key={app.id} app={app} allCategories={categories} />
-                ))}
-              </div>
-            ) : (
-              <div className={styles.emptyState}>
-                <span className={styles.emptyIcon}>🔍</span>
-                <h3 className={styles.emptyTitle}>No apps found</h3>
-                <p className={styles.emptyDesc}>
-                  Try a different search term or browse by category
-                </p>
-                <button
-                  className={styles.emptyBtn}
-                  onClick={() => {
-                    handleSearch('');
-                    setActiveCategory(null);
-                  }}
-                >
-                  Clear filters
-                </button>
-              </div>
-            )}
+            <VirtualAppGrid
+              apps={filteredApps}
+              categories={categories}
+              hasMore={!searchQuery && !activeCategory ? hasMore : false}
+              loadingMore={loadingMore}
+              onLoadMore={loadMore}
+              renderCard={(app, cats) => (
+                <AppCard key={app.id} app={app} allCategories={cats} />
+              )}
+            />
           </div>
         </section>
       )}
