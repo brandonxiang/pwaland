@@ -7,7 +7,8 @@ interface ApiResponse<T = any> {
 
 /**
  * API request wrapper with error handling.
- * In development, requests are proxied to the Fastify server via Vite proxy.
+ * In development, requests are proxied via Vite dev server (configured in vite.config.ts).
+ * In production, requests go to same-origin.
  */
 export async function request<T = any>(
   url: string,

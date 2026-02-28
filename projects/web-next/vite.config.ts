@@ -9,7 +9,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
 
-  const viteEnv = loadEnv('', process.cwd());
+  const viteEnv = loadEnv(mode, process.cwd());
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
@@ -41,7 +41,10 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
-        '/api': 'http://localhost:3000',
+        '/api': {
+          target: viteEnv.VITE_API_PROXY_TARGET || 'http://localhost:3000',
+          changeOrigin: true,
+        },
       },
     },
     css: {
