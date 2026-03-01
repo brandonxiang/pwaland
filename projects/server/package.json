@@ -19,7 +19,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "deps:check": "pnpm outdated",
-    "deps:update": "pnpm update"
+    "deps:update": "pnpm update",
+    "import:pwa": "node scripts/import-pwa-to-notion.js",
+    "import:pwa:dry": "node scripts/import-pwa-to-notion.js --dry-run"
   },
   "author": "brandonxiang",
   "license": "MIT",

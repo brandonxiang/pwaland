@@ -1,10 +1,5 @@
 [
   {
-    "title": "Alligator.io",
-    "link": "https://alligator.io",
-    "icon": "https://alligator.io/assets/images/icons/icon-144x144.png"
-  },
-  {
     "title": "Diagrams Net",
     "link": "https://app.diagrams.net/",
     "icon": "https://app.diagrams.net/images/android-chrome-192x192.png"
@@ -99,12 +94,6 @@
     "icon": "https://www.tldraw.com/android-chrome-512x512.png"
   },
   {
-    "title": "Harttle Land",
-    "short_name": "Harttle Land",
-    "link": "https://harttle.land",
-    "icon": "https://harttle.land/assets/img/favicon-48x48.png"
-  },
-  {
     "title": "mdsvex",
     "short_name": "mdsvex",
     "link": "https://mdsvex.com/",
@@ -115,5 +104,284 @@
     "short_name": "@web",
     "link": "https://modern-web.dev/",
     "icon": "https://modern-web.dev/_merged_assets/_static/icons/android-chrome-192x192.png"
+  },
+  {
+    "title": "Excalidraw",
+    "link": "https://excalidraw.com",
+    "icon": "https://excalidraw.com/android-chrome-192x192.png",
+    "description": "Excalidraw is a whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them."
+  },
+  {
+    "title": "Squoosh",
+    "link": "https://squoosh.app",
+    "icon": "https://squoosh.app/c/icon-large-cb438cac.png",
+    "description": "Compress and compare images with different codecs, right in your browser."
+  },
+  {
+    "title": "DevDocs",
+    "link": "https://devdocs.io",
+    "icon": "https://devdocs.io/images/webapp-icon-512.png",
+    "description": "API Documentation Browser"
+  },
+  {
+    "title": "web.dev",
+    "link": "https://web.dev",
+    "icon": "https://web.dev/_pwa/web/icons/icon-512x512.png"
+  },
+  {
+    "title": "Svelte",
+    "link": "https://svelte.dev",
+    "icon": "https://svelte.dev/images/svelte-android-chrome-512.png"
+  },
+  {
+    "title": "Angular",
+    "link": "https://angular.dev",
+    "icon": "https://angular.dev/assets/icons/android-chrome-512x512.png"
+  },
+  {
+    "title": "Vitest",
+    "link": "https://vitest.dev",
+    "icon": "https://vitest.dev/pwa-512x512.png",
+    "description": "Next generation testing framework powered by Vite"
+  },
+  {
+    "title": "Cypress",
+    "link": "https://cypress.io",
+    "icon": "https://cypress.io/android-chrome-256x256.png"
+  },
+  {
+    "title": "Tailwind CSS",
+    "link": "https://tailwindcss.com",
+    "icon": "https://tailwindcss.com/favicons/android-chrome-256x256.png?v=3"
+  },
+  {
+    "title": "Rollup",
+    "link": "https://rollupjs.org",
+    "icon": "https://rollupjs.org/favicon.png"
+  },
+  {
+    "title": "Todoist",
+    "link": "https://todoist.com",
+    "icon": "https://todoist.com/static/android-chrome-256x256.png"
+  },
+  {
+    "title": "Linear",
+    "link": "https://linear.app",
+    "icon": "https://static.linear.app/assets/pwa/icon_maskable_512.png?v=3"
+  },
+  {
+    "title": "Figma",
+    "link": "https://figma.com",
+    "icon": "https://static.figma.com/app/icon/2/icon-512-maskable.png"
+  },
+  {
+    "title": "Coda",
+    "link": "https://coda.io",
+    "icon": "https://cdn.coda.io/icons/png/color/coda-512.png",
+    "description": "Coda is the all-in-one doc that brings words, data, and teams together."
+  },
+  {
+    "title": "Overleaf",
+    "link": "https://overleaf.com",
+    "icon": "https://cdn.overleaf.com/android-chrome-512x512.png"
+  },
+  {
+    "title": "Mastodon",
+    "link": "https://mastodon.social",
+    "icon": "https://mastodon.social/packs/assets/android-chrome-512x512-Dz2ThkhV.png"
+  },
+  {
+    "title": "signal.org",
+    "link": "https://signal.org",
+    "icon": "https://signal.org/assets/images/favicon/android-chrome-512x512.png"
+  },
+  {
+    "title": "Microsoft Teams",
+    "link": "https://teams.microsoft.com",
+    "icon": "https://teams.microsoft.com/favicon/prod/favicon-512x512.png",
+    "short_name": "Teams"
+  },
+  {
+    "title": "Spotify",
+    "link": "https://open.spotify.com",
+    "icon": "https://open.spotifycdn.com/cdn/images/icons/Spotify_1024.31b25879.png",
+    "description": "Spotify Web"
+  },
+  {
+    "title": "Financial Times",
+    "link": "https://ft.com",
+    "icon": "https://www.ft.com/__assets/creatives/brand-ft/icons/v2/android-chrome-192x192.png",
+    "short_name": "FT"
+  },
+  {
+    "title": "Hashnode",
+    "link": "https://hashnode.com",
+    "icon": "https://hashnode.com/web-app-manifest-512x512.png"
+  },
+  {
+    "title": "CSS-Tricks",
+    "link": "https://css-tricks.com",
+    "icon": "https://css-tricks.com/icon-512.png",
+    "short_name": "css-tricks",
+    "description": "A website about making websites."
+  },
+  {
+    "title": "Wish",
+    "link": "https://www.wish.com",
+    "icon": "https://www.wish.com/static/img/logo/manifest_icons/wish-512x512.png"
+  },
+  {
+    "title": "Google 地圖",
+    "link": "https://maps.google.com",
+    "icon": "https://maps.gstatic.com/mapfiles/maps_lite/pwa/icons/maps15_bnuw3a_round_512x512.png",
+    "description": "更快抵達目的地"
+  },
+  {
+    "title": "Trips all in one place",
+    "link": "https://www.google.com/travel",
+    "icon": "https://www.gstatic.com/travel-trips-fe/travel_logo_192.png",
+    "short_name": "Travel"
+  },
+  {
+    "title": "Airbnb",
+    "link": "https://www.airbnb.com",
+    "icon": "https://a0.muscache.com/airbnb/static/icons/android-icon-192x192-c0465f9f0380893768972a31a614b670.png",
+    "description": "Vacation Rentals, Homes, Experiences & Places - Airbnb"
+  },
+  {
+    "title": "Monzo Bank",
+    "link": "https://monzo.com",
+    "icon": "https://monzo.com/images/icons/icon-x1024.png",
+    "short_name": "Monzo"
+  },
+  {
+    "title": "Starbucks",
+    "link": "https://www.starbucks.com",
+    "icon": "https://www.starbucks.com/pwa-icon-512.png"
+  },
+  {
+    "title": "Uber EATS",
+    "link": "https://www.ubereats.com",
+    "icon": "https://www.ubereats.com/_static/9d965730ecb40206.png"
+  },
+  {
+    "title": "2048 Game",
+    "link": "https://2048game.com",
+    "icon": "https://2048game.com/meta/2048-game-logo-512.png",
+    "short_name": "2048",
+    "description": "Play the classic 2048 tile‑merging puzzle game online — join the numbers and reach the 2048 tile!"
+  },
+  {
+    "title": "Grubhub Web",
+    "link": "https://www.grubhub.com",
+    "icon": "https://assets.grubhub.com/assets/img/brand/grubhub/android/raster/smart_banner/android-chrome-192x192.png",
+    "description": "The best restaurants near you deliver with Grubhub! Order delivery or takeout from national chains and local favorites! Help support your neighborhood restaurants."
+  },
+  {
+    "title": "PROXX",
+    "link": "https://proxx.app",
+    "icon": "https://proxx.app/assets/icon-05a70868.png",
+    "description": "Help your crew navigate space by marking out the black holes using proxx, your proximity scanner."
+  },
+  {
+    "title": "PWA Bunga!",
+    "link": "https://pwabunga.com",
+    "icon": "https://pwabunga.com/pwa/icons/icon-512.png",
+    "short_name": "PWABunga",
+    "description": "PWA Bunga! is a simple framework for built fast Progressive Web Apps"
+  },
+  {
+    "title": "Bundlephobia",
+    "link": "https://bundlephobia.com",
+    "icon": "https://bundlephobia.com/android-chrome-256x256.png"
+  },
+  {
+    "title": "JSON Crack",
+    "link": "https://jsoncrack.com",
+    "icon": "https://jsoncrack.com/assets/512.png",
+    "description": "JSON Crack Editor is a tool for visualizing into graphs, analyzing, editing, formatting, querying, transforming and validating JSON, CSV, YAML, XML, and more."
+  },
+  {
+    "title": "PageSpeed Insights",
+    "link": "https://pagespeed.web.dev",
+    "icon": "https://www.gstatic.com/pagespeed/insights/ui/logo/favicon_48.png"
+  },
+  {
+    "title": "Vercel",
+    "link": "https://vercel.com",
+    "icon": "https://assets.vercel.com/image/upload/v1573246280/front/favicon/vercel/android-chrome-512x512.png",
+    "description": "Build and deploy the best web experiences with the AI Cloud"
+  },
+  {
+    "title": "What PWA Can Do Today",
+    "link": "https://whatpwacando.today",
+    "icon": "https://whatpwacando.today/src/img/icons/manifest-icon-512.maskable.png",
+    "short_name": "PWA Today",
+    "description": "What PWA Can Do Today is a showcase of what is possible with Progressive Web Apps today.\n\nThe app is itself a Progressive Web App which means it can be installed to the home screen of your mobile device or to your desktop."
+  },
+  {
+    "title": "Supabase",
+    "link": "https://supabase.com",
+    "icon": "https://supabase.com/favicon/android-icon-192x192.png",
+    "description": "The Postgres development platform."
+  },
+  {
+    "title": "regex101",
+    "link": "https://regex101.com",
+    "icon": "https://regex101.com/static/assets/icons/manifest-icon-512.maskable.png",
+    "description": "regex101: build, test, and debug regex"
+  },
+  {
+    "title": "Deno",
+    "link": "https://deno.com",
+    "icon": "https://deno.com/images/icons/icon-512x512.png"
+  },
+  {
+    "title": "Railway",
+    "link": "https://railway.app",
+    "icon": "https://railway.app/android-chrome-512x512.png"
+  },
+  {
+    "title": "freeCodeCamp",
+    "link": "https://freecodecamp.org",
+    "icon": "https://freecodecamp.org/icons/icon-512x512.png?v=6cba562cbd10e31af925a976f3db73f7",
+    "short_name": "fCC"
+  },
+  {
+    "title": "Google News",
+    "link": "https://news.google.com",
+    "icon": "https://www.gstatic.com/gnews/logo/google_news_1024.png",
+    "short_name": "News"
+  },
+  {
+    "title": "Pinterest",
+    "link": "https://pinterst.com",
+    "icon": "https://s.pinimg.com/images/favicon_red_192.png"
+  },
+  {
+    "title": "Pinterest",
+    "link": "https://www.pinterest.com",
+    "icon": "https://s.pinimg.com/images/favicon_red_192.png"
+  },
+  {
+    "title": "YouTube",
+    "link": "https://youtube.com",
+    "icon": "https://www.gstatic.com/youtube/img/web/monochrome/logo_512x512.png"
+  },
+  {
+    "title": "GitHub",
+    "link": "https://github.com",
+    "icon": "https://github.githubassets.com/assets/app-icon-512-7f9c4ff2e960.png"
+  },
+  {
+    "title": "Reddit",
+    "link": "https://reddit.com",
+    "icon": "https://www.redditstatic.com/shreddit/assets/favicon/512x512.png"
+  },
+  {
+    "title": "小红书",
+    "link": "https://xiaohongshu.com",
+    "icon": "https://picasso-static.xiaohongshu.com/fe-platform/a69c624a60147845bad3798489ff0cc1a7cfca03.png",
+    "description": "小红书-你的生活指南"
   }
 ]
