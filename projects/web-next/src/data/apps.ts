@@ -9,6 +9,7 @@ export interface PWAApp {
   url: string;
   featured?: boolean;
   color: string;
+  tags: string[];
 }
 
 export interface Category {
@@ -151,6 +152,7 @@ export const searchApps = (apps: PWAApp[], query: string): PWAApp[] => {
     (app) =>
       app.name.toLowerCase().includes(q) ||
       app.description.toLowerCase().includes(q) ||
-      app.developer.toLowerCase().includes(q),
+      app.developer.toLowerCase().includes(q) ||
+      app.tags?.some((tag) => tag.toLowerCase().includes(q)),
   );
 };

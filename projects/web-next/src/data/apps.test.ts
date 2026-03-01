@@ -20,6 +20,7 @@ const mockApps: PWAApp[] = [
     url: "https://twitter.com",
     featured: true,
     color: "#1DA1F2",
+    tags: ["social", "twitter"],
   },
   {
     id: "app-2",
@@ -32,6 +33,7 @@ const mockApps: PWAApp[] = [
     url: "https://todoist.com",
     featured: false,
     color: "#E44332",
+    tags: ["productivity", "tasks"],
   },
   {
     id: "app-3",
@@ -44,6 +46,7 @@ const mockApps: PWAApp[] = [
     url: "https://slack.com",
     featured: true,
     color: "#4A154B",
+    tags: ["productivity", "communication"],
   },
 ]
 
@@ -119,6 +122,12 @@ describe("searchApps", () => {
     const result = searchApps(mockApps, "doist")
     expect(result).toHaveLength(1)
     expect(result[0].id).toBe("app-2")
+  })
+
+  it("searches by tags", () => {
+    const result = searchApps(mockApps, "twitter")
+    expect(result).toHaveLength(1)
+    expect(result[0].id).toBe("app-1")
   })
 
   it("returns empty array for no match", () => {

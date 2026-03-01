@@ -54,6 +54,7 @@ function transformNotionApp(item: NotionAppProperty): PWAApp {
     url: item.link || '',
     featured: false,
     color,
+    tags: item.tags || [],
   };
 }
 

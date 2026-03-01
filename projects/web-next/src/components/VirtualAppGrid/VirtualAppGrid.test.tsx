@@ -32,6 +32,7 @@ const makeApps = (count: number): PWAApp[] =>
     rating: 0,
     url: `https://app${i}.com`,
     color: "#000",
+    tags: ["tools"],
   }))
 
 const categories: Category[] = [

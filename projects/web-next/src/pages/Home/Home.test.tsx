@@ -43,6 +43,7 @@ beforeEach(() => {
         rating: 0,
         url: "https://test.com",
         color: "#64748B",
+        tags: ["tools"],
       },
     ],
     hasMore: false,

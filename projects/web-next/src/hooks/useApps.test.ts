@@ -31,6 +31,7 @@ const fakeData = {
       rating: 0,
       url: "https://test.com",
       color: "#000",
+      tags: ["tools"],
     },
   ],
   categories: [
