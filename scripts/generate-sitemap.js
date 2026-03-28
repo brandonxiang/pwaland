@@ -1,4 +1,6 @@
-import { writeFileSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 
 const BASE_URL = 'https://pwaland.brandonxiang.top';
 
@@ -28,5 +30,9 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 ${urlEntries}
 </urlset>`;
 
-writeFileSync('./projects/web-next/dist/sitemap.xml', sitemap);
-console.log('Sitemap generated at ./projects/web-next/dist/sitemap.xml');
+const scriptDir = dirname(fileURLToPath(import.meta.url));
+const outputPath = resolve(scriptDir, '../projects/web-next/dist/sitemap.xml');
+
+mkdirSync(dirname(outputPath), { recursive: true });
+writeFileSync(outputPath, sitemap);
+console.log(`Sitemap generated at ${outputPath}`);
