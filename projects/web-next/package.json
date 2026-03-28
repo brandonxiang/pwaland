@@ -18,12 +18,15 @@
     "@tanstack/react-virtual": "^3.13.19",
     "@vercel/analytics": "^1.6.1",
     "antd": "^6.0.0",
+    "bufferutil": "4.0.9",
     "fastify": "^5.2.0",
     "quicklink": "^3.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-helmet-async": "^3.0.0",
     "react-router": "^7.9.6",
+    "supports-color": "5.5.0",
+    "utf-8-validate": "5.0.10",
     "vite-plugin-pwa": "^1.2.0"
   },
   "devDependencies": {
