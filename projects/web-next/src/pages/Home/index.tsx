@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router';
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
 import { searchApps, getAppsByCategory, getFeaturedApps } from '@/data/apps';
@@ -174,6 +175,19 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
+      <Helmet>
+        <title>PWALand — Discover Progressive Web Apps</title>
+        <meta
+          name="description"
+          content="Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
+        />
+        <meta property="og:title" content="PWALand — Discover Progressive Web Apps" />
+        <meta
+          property="og:description"
+          content="Discover, explore, and install the best Progressive Web Apps."
+        />
+        <link rel="canonical" href="https://pwaland.brandonxiang.top/" />
+      </Helmet>
       {/* ── Hero Section ─────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroDecor}>

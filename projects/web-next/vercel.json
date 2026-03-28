@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../server && pnpm run build && cd ../web-next && pnpm run build && node ../scripts/generate-sitemap.js",
+  "buildCommand": "cd ../server && pnpm run build && cd ../web-next && pnpm run build && node ../../scripts/generate-sitemap.js",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },

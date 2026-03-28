@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Input, Button, Select, message } from 'antd';
 import {
   CheckCircleOutlined,
@@ -141,6 +142,19 @@ const Submit = () => {
 
   return (
     <div className={styles.submit}>
+      <Helmet>
+        <title>Submit a PWA | PWALand</title>
+        <meta
+          name="description"
+          content="Submit your Progressive Web App to PWALand directory. Get discovered by thousands of users looking for quality PWAs."
+        />
+        <meta property="og:title" content="Submit a PWA | PWALand" />
+        <meta
+          property="og:description"
+          content="Submit your Progressive Web App to PWALand directory."
+        />
+        <link rel="canonical" href="https://pwaland.brandonxiang.top/submit" />
+      </Helmet>
       <div className={styles.container}>
         {/* Page Header */}
         <div className={styles.pageHeader}>
