@@ -13,21 +13,9 @@ export const dataRoutes: DataRouteConfig[] = [
     Component: Home,
   },
   {
-    id: 'categories',
-    path: '/categories',
-    title: 'Categories',
-    Component: Home,
-  },
-  {
     id: 'submit',
     path: '/submit',
     title: 'Submit',
     Component: Submit,
-  },
-  {
-    id: 'about',
-    path: '/about',
-    title: 'About',
-    Component: Home,
   },
 ];

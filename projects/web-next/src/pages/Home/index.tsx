@@ -1,18 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
-import {
-  searchApps,
-  getAppsByCategory,
-  getFeaturedApps,
-} from '@/data/apps';
+import { searchApps, getAppsByCategory, getFeaturedApps } from '@/data/apps';
 import type { PWAApp, Category } from '@/data/apps';
 import { useInfiniteApps } from '@/hooks/useInfiniteApps';
 import { VirtualAppGrid } from '@/components/VirtualAppGrid';
 import styles from './index.module.scss';
 
-const isUrl = (str: string) =>
-  str.startsWith('http://') || str.startsWith('https://');
+const isUrl = (str: string) => str.startsWith('http://') || str.startsWith('https://');
 
 // ── Star Rating Component ──────────────────────────
 const StarRating = ({ rating }: { rating: number }) => {
@@ -58,12 +53,7 @@ const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[
   const category = allCategories.find((c) => c.id === app.category);
 
   return (
-    <a
-      href={app.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.appCard}
-    >
+    <a href={app.url} target="_blank" rel="noopener noreferrer" className={styles.appCard}>
       <AppIcon icon={app.icon} color={app.color} name={app.name} />
       <div className={styles.appInfo}>
         <h3 className={styles.appName}>{app.name}</h3>
@@ -93,12 +83,7 @@ const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Cate
   const category = allCategories.find((c) => c.id === app.category);
 
   return (
-    <a
-      href={app.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.featuredCard}
-    >
+    <a href={app.url} target="_blank" rel="noopener noreferrer" className={styles.featuredCard}>
       <div
         className={styles.featuredBg}
         style={{
@@ -115,10 +100,7 @@ const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Cate
       <div className={styles.featuredInfo}>
         <div className={styles.featuredTop}>
           {category && (
-            <span
-              className={styles.featuredTag}
-              style={{ color: category.color }}
-            >
+            <span className={styles.featuredTag} style={{ color: category.color }}>
               {category.icon} {category.name}
             </span>
           )}
@@ -147,9 +129,7 @@ const CategoryCard = ({
       className={`${styles.categoryCard} ${isActive ? styles.categoryActive : ''}`}
       onClick={onClick}
       style={
-        isActive
-          ? { background: category.gradient, color: '#fff', borderColor: 'transparent' }
-          : {}
+        isActive ? { background: category.gradient, color: '#fff', borderColor: 'transparent' } : {}
       }
     >
       <span className={styles.categoryEmoji}>{category.icon}</span>
@@ -212,8 +192,8 @@ const Home = () => {
             <span className={styles.heroAccent}>Progressive Web Apps</span>
           </h1>
           <p className={styles.heroSub}>
-            Explore a curated collection of modern web applications that work
-            offline, load instantly, and feel native on any device.
+            Explore a curated collection of modern web applications that work offline, load
+            instantly, and feel native on any device.
           </p>
 
           {/* Search Bar */}
@@ -228,10 +208,7 @@ const Home = () => {
                 className={styles.searchInput}
               />
               {searchQuery && (
-                <button
-                  className={styles.searchClear}
-                  onClick={() => handleSearch('')}
-                >
+                <button className={styles.searchClear} onClick={() => handleSearch('')}>
                   ✕
                 </button>
               )}
@@ -241,11 +218,7 @@ const Home = () => {
             <div className={styles.tags}>
               <span className={styles.tagsLabel}>Popular:</span>
               {popularTags.map((tag) => (
-                <button
-                  key={tag}
-                  className={styles.tag}
-                  onClick={() => handleSearch(tag)}
-                >
+                <button key={tag} className={styles.tag} onClick={() => handleSearch(tag)}>
                   {tag}
                 </button>
               ))}
@@ -356,9 +329,7 @@ const Home = () => {
               hasMore={!searchQuery && !activeCategory ? hasMore : false}
               loadingMore={loadingMore}
               onLoadMore={loadMore}
-              renderCard={(app, cats) => (
-                <AppCard key={app.id} app={app} allCategories={cats} />
-              )}
+              renderCard={(app, cats) => <AppCard key={app.id} app={app} allCategories={cats} />}
             />
           </div>
         </section>
@@ -371,13 +342,10 @@ const Home = () => {
             <div className={styles.ctaCard}>
               <h2 className={styles.ctaTitle}>Submit Your PWA</h2>
               <p className={styles.ctaDesc}>
-                Built an amazing Progressive Web App? Submit it to our directory
-                and get discovered by thousands of users.
+                Built an amazing Progressive Web App? Submit it to our directory and get discovered
+                by thousands of users.
               </p>
-              <button
-                className={styles.ctaBtn}
-                onClick={() => navigate('/submit')}
-              >
+              <button className={styles.ctaBtn} onClick={() => navigate('/submit')}>
                 Submit Your PWA
                 <span>→</span>
               </button>
@@ -396,39 +364,50 @@ const Home = () => {
                 <span className={styles.footerLogoText}>PWALand</span>
               </div>
               <p className={styles.footerDesc}>
-                A curated directory of the best Progressive Web Apps. Discover,
-                explore, and install modern web applications.
+                A curated directory of the best Progressive Web Apps. Discover, explore, and install
+                modern web applications.
               </p>
             </div>
             <div className={styles.footerLinks}>
               <div className={styles.footerCol}>
                 <h4 className={styles.footerColTitle}>Directory</h4>
                 <a href="/">All Apps</a>
-                <a href="/">Featured</a>
-                <a href="/">Categories</a>
-                <a href="/">New Additions</a>
+                <a href="/#featured">Featured</a>
+                <a href="/#new">New Additions</a>
               </div>
               <div className={styles.footerCol}>
                 <h4 className={styles.footerColTitle}>Resources</h4>
-                <a href="/">What is PWA?</a>
-                <a href="/">Developer Guide</a>
-                <a href="/">Submit an App</a>
-                <a href="/">API Docs</a>
+                <a href="https://web.dev/learn/pwa">What is PWA?</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps">
+                  Developer Guide
+                </a>
+                <a href="/submit">Submit an App</a>
+                <a href="/api-docs">API Docs</a>
               </div>
               <div className={styles.footerCol}>
                 <h4 className={styles.footerColTitle}>Community</h4>
-                <a href="/">GitHub</a>
-                <a href="/">Twitter</a>
-                <a href="/">Discord</a>
-                <a href="/">Blog</a>
+                <a
+                  href="https://github.com/brandonxiang/pwaland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+                <a href="https://twitter.com/pwaland" target="_blank" rel="noopener noreferrer">
+                  Twitter
+                </a>
+                <a href="https://discord.gg/pwaland" target="_blank" rel="noopener noreferrer">
+                  Discord
+                </a>
+                <a href="/blog">Blog</a>
               </div>
             </div>
           </div>
           <div className={styles.footerBottom}>
             <span>© {new Date().getFullYear()} PWALand. Open source & community driven.</span>
             <div className={styles.footerBottomLinks}>
-              <a href="/">Privacy</a>
-              <a href="/">Terms</a>
+              <a href="/privacy">Privacy</a>
+              <a href="/terms">Terms</a>
             </div>
           </div>
         </div>

@@ -1,149 +1,149 @@
-import { describe, it, expect, vi, beforeEach } from "vitest"
+import { describe, it, expect, vi, beforeEach } from 'vite-plus/test';
 
-vi.mock("@/utils/request", () => ({
+vi.mock('@/utils/request', () => ({
   postRaw: vi.fn(),
-}))
+}));
 
-import { postRaw } from "@/utils/request"
-import { fetchAllApps, fetchAppsPage } from "./appService"
+import { postRaw } from '@/utils/request';
+import { fetchAllApps, fetchAppsPage } from './appService';
 
-const mockPostRaw = vi.mocked(postRaw)
+const mockPostRaw = vi.mocked(postRaw);
 
-describe("fetchAllApps", () => {
+describe('fetchAllApps', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
-  it("transforms Notion data into PWAApp format", async () => {
+  it('transforms Notion data into PWAApp format', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
         {
-          title: "My App",
-          description: "A test app",
-          tags: ["Social"],
-          link: "https://myapp.com",
-          icon: "https://myapp.com/icon.png",
+          title: 'My App',
+          description: 'A test app',
+          tags: ['Social'],
+          link: 'https://myapp.com',
+          icon: 'https://myapp.com/icon.png',
         },
       ],
       has_more: false,
       next_cursor: null,
-    })
+    });
 
-    const result = await fetchAllApps()
-    expect(result.apps).toHaveLength(1)
+    const result = await fetchAllApps();
+    expect(result.apps).toHaveLength(1);
     expect(result.apps[0]).toMatchObject({
-      id: "my-app",
-      name: "My App",
-      description: "A test app",
-      category: "social",
-      url: "https://myapp.com",
-      icon: "https://myapp.com/icon.png",
-    })
-    expect(result.categories.length).toBeGreaterThanOrEqual(1)
-  })
+      id: 'my-app',
+      name: 'My App',
+      description: 'A test app',
+      category: 'social',
+      url: 'https://myapp.com',
+      icon: 'https://myapp.com/icon.png',
+    });
+    expect(result.categories.length).toBeGreaterThanOrEqual(1);
+  });
 
-  it("handles pagination (multiple pages)", async () => {
+  it('handles pagination (multiple pages)', async () => {
     mockPostRaw
       .mockResolvedValueOnce({
         properties: [
-          { title: "App 1", description: "", tags: ["Tools"], link: "https://a.com", icon: "" },
+          { title: 'App 1', description: '', tags: ['Tools'], link: 'https://a.com', icon: '' },
         ],
         has_more: true,
-        next_cursor: "cursor-2",
+        next_cursor: 'cursor-2',
       })
       .mockResolvedValueOnce({
         properties: [
-          { title: "App 2", description: "", tags: ["Tools"], link: "https://b.com", icon: "" },
+          { title: 'App 2', description: '', tags: ['Tools'], link: 'https://b.com', icon: '' },
         ],
         has_more: false,
         next_cursor: null,
-      })
+      });
 
-    const result = await fetchAllApps()
-    expect(result.apps).toHaveLength(2)
-    expect(mockPostRaw).toHaveBeenCalledTimes(2)
-    expect(mockPostRaw).toHaveBeenNthCalledWith(2, "/api/client/list", {
-      start_cursor: "cursor-2",
-    })
-  })
+    const result = await fetchAllApps();
+    expect(result.apps).toHaveLength(2);
+    expect(mockPostRaw).toHaveBeenCalledTimes(2);
+    expect(mockPostRaw).toHaveBeenNthCalledWith(2, '/api/client/list', {
+      start_cursor: 'cursor-2',
+    });
+  });
 
   it("defaults category to 'other' when tags are empty", async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
-        { title: "No Tags", description: "", tags: [], link: "https://x.com", icon: "" },
+        { title: 'No Tags', description: '', tags: [], link: 'https://x.com', icon: '' },
       ],
       has_more: false,
       next_cursor: null,
-    })
+    });
 
-    const result = await fetchAllApps()
-    expect(result.apps[0].category).toBe("other")
-  })
-})
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe('other');
+  });
+});
 
-describe("fetchAppsPage", () => {
+describe('fetchAppsPage', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
-  it("fetches a single page without cursor", async () => {
+  it('fetches a single page without cursor', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
         {
-          title: "Page App",
-          description: "A paged app",
-          tags: ["Tools"],
-          link: "https://paged.com",
-          icon: "",
+          title: 'Page App',
+          description: 'A paged app',
+          tags: ['Tools'],
+          link: 'https://paged.com',
+          icon: '',
         },
       ],
       has_more: true,
-      next_cursor: "cursor-abc",
-    })
+      next_cursor: 'cursor-abc',
+    });
 
-    const result = await fetchAppsPage()
-    expect(mockPostRaw).toHaveBeenCalledTimes(1)
-    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+    const result = await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+    expect(mockPostRaw).toHaveBeenCalledWith('/api/client/list', {
       start_cursor: undefined,
-    })
-    expect(result.apps).toHaveLength(1)
-    expect(result.apps[0]).toMatchObject({ id: "page-app", name: "Page App" })
-    expect(result.hasMore).toBe(true)
-    expect(result.nextCursor).toBe("cursor-abc")
-  })
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.apps[0]).toMatchObject({ id: 'page-app', name: 'Page App' });
+    expect(result.hasMore).toBe(true);
+    expect(result.nextCursor).toBe('cursor-abc');
+  });
 
-  it("fetches a specific page with cursor", async () => {
+  it('fetches a specific page with cursor', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
         {
-          title: "Second Page",
-          description: "",
-          tags: ["Social"],
-          link: "https://second.com",
-          icon: "",
+          title: 'Second Page',
+          description: '',
+          tags: ['Social'],
+          link: 'https://second.com',
+          icon: '',
         },
       ],
       has_more: false,
       next_cursor: null,
-    })
+    });
 
-    const result = await fetchAppsPage("cursor-xyz")
-    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
-      start_cursor: "cursor-xyz",
-    })
-    expect(result.apps).toHaveLength(1)
-    expect(result.hasMore).toBe(false)
-    expect(result.nextCursor).toBeNull()
-  })
+    const result = await fetchAppsPage('cursor-xyz');
+    expect(mockPostRaw).toHaveBeenCalledWith('/api/client/list', {
+      start_cursor: 'cursor-xyz',
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.hasMore).toBe(false);
+    expect(result.nextCursor).toBeNull();
+  });
 
-  it("makes exactly ONE API call per invocation", async () => {
+  it('makes exactly ONE API call per invocation', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [],
       has_more: true,
-      next_cursor: "more-cursor",
-    })
+      next_cursor: 'more-cursor',
+    });
 
-    await fetchAppsPage()
-    expect(mockPostRaw).toHaveBeenCalledTimes(1)
-  })
-})
+    await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+  });
+});

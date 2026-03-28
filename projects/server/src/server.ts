@@ -16,19 +16,20 @@ import StarterListRouter from './routes/starter/list';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 const { PORT, NODE_ENV } = process.env;
 
 const server = Fastify({
-  logger: 
-  NODE_ENV === 'production' ? true : {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true
-      }
-    }
-  },
+  logger:
+    NODE_ENV === 'production'
+      ? true
+      : {
+          transport: {
+            target: 'pino-pretty',
+            options: {
+              colorize: true,
+            },
+          },
+        },
 });
 
 server.register(cors, {
@@ -48,7 +49,7 @@ server.register(fastifyStatic, {
   prefix: '/public',
 });
 
-server.get('/api',  (req, res) => {
+server.get('/api', (req, res) => {
   res.status(200).send('welcome to fastify-starter');
 });
 
@@ -63,7 +64,7 @@ server.register(StarterListRouter, { prefix: '/api/starter' });
 const port = PORT ? +PORT : 3000;
 console.log('process.env.PORT', PORT, port);
 
-server.listen({host: '0.0.0.0', port}, (err, address) => {
+server.listen({ host: '0.0.0.0', port }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(0);

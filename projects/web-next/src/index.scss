@@ -10,7 +10,9 @@ body {
   color: $text-primary;
   background-color: $bg-primary;
   line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 // Dark mode support

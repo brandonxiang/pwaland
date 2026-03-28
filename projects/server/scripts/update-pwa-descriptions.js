@@ -44,8 +44,9 @@ async function fetchSeoDescription(url) {
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml',
       },
     });
 
@@ -93,7 +94,7 @@ async function fetchAllPWAs() {
     startCursor = response.next_cursor;
   }
 
-  return allResults.map(page => {
+  return allResults.map((page) => {
     const props = page.properties;
     const title = props.title?.title?.[0]?.plain_text || '';
     const link = props.link?.url || '';
@@ -127,19 +128,22 @@ async function updateDescription(pageId, newDescription) {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const concurrency = parseInt(args.find(a => a.startsWith('--concurrency='))?.split('=')[1] || '3', 10);
+  const concurrency = parseInt(
+    args.find((a) => a.startsWith('--concurrency='))?.split('=')[1] || '3',
+    10,
+  );
 
   console.log('Fetching PWAs from Notion...');
   const pwas = await fetchAllPWAs();
   console.log(`Found ${pwas.length} PWAs in Notion`);
 
-  const needUpdate = pwas.filter(pwa => isEmptyOrHelloOrNonEnglish(pwa.description));
+  const needUpdate = pwas.filter((pwa) => isEmptyOrHelloOrNonEnglish(pwa.description));
   console.log(`Found ${needUpdate.length} PWAs with empty/hello/non-English descriptions`);
   console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`);
   console.log(`Concurrency: ${concurrency}`);
@@ -186,7 +190,7 @@ async function main() {
           console.error(`[ERROR] ${pwa.title}: ${err.message}`);
           return { status: 'failed', error: err.message };
         }
-      })
+      }),
     );
 
     for (const result of results) {
@@ -216,7 +220,7 @@ async function main() {
   console.log(`Failed: ${summary.failed}`);
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Fatal error:', err);
   process.exit(1);
 });

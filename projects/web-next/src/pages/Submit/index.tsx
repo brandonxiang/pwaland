@@ -38,9 +38,18 @@ interface PwaCheckData {
 }
 
 const TAG_OPTIONS = [
-  'Social', 'Productivity', 'Entertainment', 'Shopping',
-  'Education', 'Games', 'Health', 'News',
-  'Developer Tools', 'Finance', 'Travel', 'Utilities',
+  'Social',
+  'Productivity',
+  'Entertainment',
+  'Shopping',
+  'Education',
+  'Games',
+  'Health',
+  'News',
+  'Developer Tools',
+  'Finance',
+  'Travel',
+  'Utilities',
 ];
 
 const CHECK_ITEMS: { key: keyof PwaCheckData['checks']; label: string; icon: React.ReactNode }[] = [
@@ -126,7 +135,7 @@ const Submit = () => {
   };
 
   const passCount = checkResult
-    ? Object.values(checkResult.checks).filter(c => c.pass).length
+    ? Object.values(checkResult.checks).filter((c) => c.pass).length
     : 0;
   const totalChecks = CHECK_ITEMS.length;
 
@@ -137,7 +146,8 @@ const Submit = () => {
         <div className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>Submit a PWA</h1>
           <p className={styles.pageDesc}>
-            Check if a website qualifies as a Progressive Web App and add it to the PWALand directory.
+            Check if a website qualifies as a Progressive Web App and add it to the PWALand
+            directory.
           </p>
         </div>
 
@@ -172,13 +182,21 @@ const Submit = () => {
             <div className={styles.resultsCard}>
               <div className={styles.resultsHeader}>
                 <span className={styles.resultsTitle}>PWA Check Results</span>
-                <span className={`${styles.statusBadge} ${checkResult.isPwa ? styles.statusPass : styles.statusFail}`}>
+                <span
+                  className={`${styles.statusBadge} ${checkResult.isPwa ? styles.statusPass : styles.statusFail}`}
+                >
                   {checkResult.isPwa ? (
-                    <><CheckCircleOutlined /> PWA Ready</>
+                    <>
+                      <CheckCircleOutlined /> PWA Ready
+                    </>
                   ) : (
-                    <><CloseCircleOutlined /> Not PWA</>
+                    <>
+                      <CloseCircleOutlined /> Not PWA
+                    </>
                   )}
-                  <span>({passCount}/{totalChecks})</span>
+                  <span>
+                    ({passCount}/{totalChecks})
+                  </span>
                 </span>
               </div>
 
@@ -188,7 +206,9 @@ const Submit = () => {
                     const check = checkResult.checks[key];
                     return (
                       <div key={key} className={styles.checkItem}>
-                        <div className={`${styles.checkIcon} ${check.pass ? styles.checkPass : styles.checkFail}`}>
+                        <div
+                          className={`${styles.checkIcon} ${check.pass ? styles.checkPass : styles.checkFail}`}
+                        >
                           {check.pass ? <CheckCircleOutlined /> : <CloseCircleOutlined />}
                         </div>
                         <div className={styles.checkContent}>
@@ -221,8 +241,12 @@ const Submit = () => {
                         <div className={styles.previewIcon} />
                       )}
                       <div className={styles.previewInfo}>
-                        <div className={styles.previewName}>{editTitle || checkResult.suggestion.title}</div>
-                        <div className={styles.previewDesc}>{editDesc || checkResult.suggestion.description || 'No description'}</div>
+                        <div className={styles.previewName}>
+                          {editTitle || checkResult.suggestion.title}
+                        </div>
+                        <div className={styles.previewDesc}>
+                          {editDesc || checkResult.suggestion.description || 'No description'}
+                        </div>
                         <div className={styles.previewLink}>{checkResult.suggestion.link}</div>
                       </div>
                     </div>
@@ -254,7 +278,7 @@ const Submit = () => {
                           value={editTags}
                           onChange={setEditTags}
                           placeholder="Select categories"
-                          options={TAG_OPTIONS.map(t => ({ label: t, value: t }))}
+                          options={TAG_OPTIONS.map((t) => ({ label: t, value: t }))}
                         />
                       </div>
 

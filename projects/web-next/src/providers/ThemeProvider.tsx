@@ -51,7 +51,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setSystemIsDark(e.matches);
     };

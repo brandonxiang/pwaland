@@ -19,7 +19,7 @@
     box-shadow: $shadow-sm;
   }
 
-  :root.dark &.scrolled {
+  :global(:root.dark) &.scrolled {
     border-bottom-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
@@ -59,10 +59,10 @@
   letter-spacing: -0.02em;
   color: $text-primary;
   transition: color $transition-fast;
-}
 
-:root.dark .logoText {
-  color: rgba(255, 255, 255, 0.85);
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.85);
+  }
 }
 
 // ── Navigation ────────────────────────────────────
@@ -97,7 +97,7 @@
     font-weight: 600;
   }
 
-  :root.dark & {
+  :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.65);
 
     &:hover {
@@ -143,7 +143,7 @@
   }
 
   // Dark mode styles
-  :root.dark & {
+  :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.65);
 
     &:hover {
@@ -169,7 +169,7 @@
   }
 
   // Dark mode styles
-  :root.dark & {
+  :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.65);
 
     &:hover {
@@ -204,7 +204,7 @@
     transition: all $transition-base;
   }
 
-  :root.dark & span {
+  :global(:root.dark) & span {
     background: rgba(255, 255, 255, 0.85);
   }
 
@@ -257,7 +257,7 @@
     font-weight: 600;
   }
 
-  :root.dark & {
+  :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.65);
 
     &:hover {

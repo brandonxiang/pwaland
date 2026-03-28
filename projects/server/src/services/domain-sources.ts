@@ -78,12 +78,36 @@ export async function fetchTranco(limit: number = 10000): Promise<string[]> {
  */
 function getFallbackTopDomains(limit: number): string[] {
   const topDomains = [
-    'google.com', 'youtube.com', 'facebook.com', 'twitter.com', 'instagram.com',
-    'wikipedia.org', 'yahoo.com', 'reddit.com', 'amazon.com', 'netflix.com',
-    'microsoft.com', 'apple.com', 'linkedin.com', 'pinterest.com', 'tumblr.com',
-    'ebay.com', 'paypal.com', 'github.com', 'stackoverflow.com', 'adobe.com',
-    'spotify.com', 'twitch.tv', 'discord.com', 'zoom.us', 'slack.com',
-    'notion.so', 'figma.com', 'canva.com', 'trello.com', 'asana.com',
+    'google.com',
+    'youtube.com',
+    'facebook.com',
+    'twitter.com',
+    'instagram.com',
+    'wikipedia.org',
+    'yahoo.com',
+    'reddit.com',
+    'amazon.com',
+    'netflix.com',
+    'microsoft.com',
+    'apple.com',
+    'linkedin.com',
+    'pinterest.com',
+    'tumblr.com',
+    'ebay.com',
+    'paypal.com',
+    'github.com',
+    'stackoverflow.com',
+    'adobe.com',
+    'spotify.com',
+    'twitch.tv',
+    'discord.com',
+    'zoom.us',
+    'slack.com',
+    'notion.so',
+    'figma.com',
+    'canva.com',
+    'trello.com',
+    'asana.com',
   ];
   return topDomains.slice(0, Math.min(limit, topDomains.length));
 }
@@ -113,7 +137,7 @@ export async function fetchAwesomePwa(): Promise<string[]> {
 
       const markdown = await response.text();
       const urls = extractUrlsFromMarkdown(markdown);
-      urls.forEach(url => allUrls.add(url));
+      urls.forEach((url) => allUrls.add(url));
       console.log(`Extracted ${urls.length} URLs from ${sourceUrl}`);
     } catch (err: any) {
       console.log(`Failed to fetch ${sourceUrl}: ${err.message}`);
@@ -143,7 +167,7 @@ function extractUrlsFromMarkdown(markdown: string): string[] {
   }
 
   // Match bare URLs
-  const bareUrlPattern = /(?<!\()(https?:\/\/[^\s<>\[\](),"']+)/g;
+  const bareUrlPattern = /(?<!\()(https?:\/\/[^\s<>[\](),"']+)/g;
   while ((match = bareUrlPattern.exec(markdown)) !== null) {
     const url = cleanUrl(match[1]);
     if (url && isValidAppUrl(url)) {
@@ -172,7 +196,7 @@ function isValidAppUrl(url: string): boolean {
   // Skip common non-app URLs
   const skipPatterns = [
     /github\.com\/.*\/(issues|pull|blob|tree|commit|raw)/,
-    /github\.com\/[^/]+\/[^/]+$/,  // GitHub repo pages (not apps)
+    /github\.com\/[^/]+\/[^/]+$/, // GitHub repo pages (not apps)
     /npmjs\.(com|org)/,
     /developer\.mozilla\.org/,
     /web\.dev\//,

@@ -7,30 +7,34 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
     Body: {
       url: string;
     };
-  }>('/check', {
-    schema: {
-      body: {
-        type: 'object',
-        required: ['url'],
-        properties: {
-          url: { type: 'string' },
+  }>(
+    '/check',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['url'],
+          properties: {
+            url: { type: 'string' },
+          },
         },
       },
     },
-  }, async (req, res) => {
-    const { url } = req.body;
+    async (req, res) => {
+      const { url } = req.body;
 
-    if (!url) {
-      return res.send(fail('url is required'));
-    }
+      if (!url) {
+        return res.send(fail('url is required'));
+      }
 
-    try {
-      const checkResult = await checkPwa(url);
-      return res.send(success(checkResult));
-    } catch (err: any) {
-      return res.send(fail(`PWA check failed: ${err.message}`));
-    }
-  });
+      try {
+        const checkResult = await checkPwa(url);
+        return res.send(success(checkResult));
+      } catch (err: any) {
+        return res.send(fail(`PWA check failed: ${err.message}`));
+      }
+    },
+  );
 
   done();
 };

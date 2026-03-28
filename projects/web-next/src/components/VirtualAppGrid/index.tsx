@@ -49,16 +49,10 @@ export function VirtualAppGrid({
 
   return (
     <div className={styles.virtualContainer}>
-      <div className={styles.virtualRow}>
-        {apps.map((app) => renderCard(app, categories))}
-      </div>
+      <div className={styles.virtualRow}>{apps.map((app) => renderCard(app, categories))}</div>
 
       {hasMore && (
-        <div
-          ref={sentinelRef}
-          data-testid="load-more-sentinel"
-          className={styles.sentinel}
-        />
+        <div ref={sentinelRef} data-testid="load-more-sentinel" className={styles.sentinel} />
       )}
 
       {loadingMore && (

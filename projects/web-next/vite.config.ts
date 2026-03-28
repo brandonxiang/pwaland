@@ -1,5 +1,5 @@
 import path, { dirname } from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv } from 'vite-plus';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -67,8 +67,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'PWALand — Discover Progressive Web Apps',
           short_name: 'PWALand',
-          description:
-            'Discover, explore, and install the best Progressive Web Apps.',
+          description: 'Discover, explore, and install the best Progressive Web Apps.',
           theme_color: '#1C1917',
           background_color: '#1C1917',
           display: 'standalone',

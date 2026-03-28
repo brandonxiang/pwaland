@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="description"
+      content="PWALand — Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
     />
-    <meta name="description" content="PWALand — Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications." />
     <meta name="theme-color" content="#1C1917" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
@@ -20,6 +20,53 @@
       rel="stylesheet"
     />
     <title>PWALand — Discover Progressive Web Apps</title>
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pwaland.brandonxiang.top" />
+    <meta property="og:title" content="PWALand — Discover Progressive Web Apps" />
+    <meta
+      property="og:description"
+      content="Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
+    />
+    <meta property="og:image" content="https://pwaland.brandonxiang.top/og-image.png" />
+    <meta property="og:locale" content="zh_CN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PWALand — Discover Progressive Web Apps" />
+    <meta
+      name="twitter:description"
+      content="Discover, explore, and install the best Progressive Web Apps."
+    />
+    <meta name="twitter:image" content="https://pwaland.brandonxiang.top/og-image.png" />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PWALand",
+        "url": "https://pwaland.brandonxiang.top",
+        "description": "Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "PWALand",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pwaland.brandonxiang.top/logo.svg"
+          }
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://pwaland.brandonxiang.top/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

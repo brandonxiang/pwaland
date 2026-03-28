@@ -2,20 +2,21 @@
   "name": "pwaland",
   "version": "1.0.0",
   "description": "A simple starter with svelteup",
-  "main": "index.js",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "build": "pnpm -r run build",
-    "format": "oxfmt",
-    "lint": "oxlint",
-    "test": "pnpm -r run test"
+    "format": "vp fmt",
+    "lint": "vp lint",
+    "test": "pnpm -r run test",
+    "prepare": "vp config"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.10.0",
-    "oxfmt": "^0.33.0",
-    "oxlint": "^1.48.0"
-  }
+    "vite-plus": "catalog:"
+  },
+  "packageManager": "pnpm@10.33.0"
 }

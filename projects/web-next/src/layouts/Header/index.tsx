@@ -6,9 +6,7 @@ import styles from './index.module.scss';
 
 const navItems = [
   { path: '/', label: 'Home' },
-  { path: '/categories', label: 'Categories' },
   { path: '/submit', label: 'Submit' },
-  { path: '/about', label: 'About' },
 ];
 
 export const Header = () => {

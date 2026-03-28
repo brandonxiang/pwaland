@@ -13,6 +13,7 @@
 ## Task 1: Install @tanstack/react-virtual
 
 **Files:**
+
 - Modify: `projects/web-next/package.json`
 
 **Step 1: Install the dependency**
@@ -39,6 +40,7 @@ git commit -m "chore: add @tanstack/react-virtual for virtual list rendering"
 ## Task 2: Create `fetchAppsPage()` service function
 
 **Files:**
+
 - Modify: `projects/web-next/src/services/appService.ts`
 - Test: `projects/web-next/src/services/appService.test.ts`
 
@@ -47,78 +49,78 @@ git commit -m "chore: add @tanstack/react-virtual for virtual list rendering"
 Add to `projects/web-next/src/services/appService.test.ts`:
 
 ```typescript
-describe("fetchAppsPage", () => {
+describe('fetchAppsPage', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
-  it("fetches a single page without cursor", async () => {
+  it('fetches a single page without cursor', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
         {
-          title: "Page App",
-          description: "A paged app",
-          tags: ["Tools"],
-          link: "https://paged.com",
-          icon: "",
+          title: 'Page App',
+          description: 'A paged app',
+          tags: ['Tools'],
+          link: 'https://paged.com',
+          icon: '',
         },
       ],
       has_more: true,
-      next_cursor: "cursor-abc",
-    })
+      next_cursor: 'cursor-abc',
+    });
 
-    const result = await fetchAppsPage()
-    expect(mockPostRaw).toHaveBeenCalledTimes(1)
-    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+    const result = await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+    expect(mockPostRaw).toHaveBeenCalledWith('/api/client/list', {
       start_cursor: undefined,
-    })
-    expect(result.apps).toHaveLength(1)
-    expect(result.apps[0]).toMatchObject({ id: "page-app", name: "Page App" })
-    expect(result.hasMore).toBe(true)
-    expect(result.nextCursor).toBe("cursor-abc")
-  })
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.apps[0]).toMatchObject({ id: 'page-app', name: 'Page App' });
+    expect(result.hasMore).toBe(true);
+    expect(result.nextCursor).toBe('cursor-abc');
+  });
 
-  it("fetches a specific page with cursor", async () => {
+  it('fetches a specific page with cursor', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [
         {
-          title: "Second Page",
-          description: "",
-          tags: ["Social"],
-          link: "https://second.com",
-          icon: "",
+          title: 'Second Page',
+          description: '',
+          tags: ['Social'],
+          link: 'https://second.com',
+          icon: '',
         },
       ],
       has_more: false,
       next_cursor: null,
-    })
+    });
 
-    const result = await fetchAppsPage("cursor-xyz")
-    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
-      start_cursor: "cursor-xyz",
-    })
-    expect(result.apps).toHaveLength(1)
-    expect(result.hasMore).toBe(false)
-    expect(result.nextCursor).toBeNull()
-  })
+    const result = await fetchAppsPage('cursor-xyz');
+    expect(mockPostRaw).toHaveBeenCalledWith('/api/client/list', {
+      start_cursor: 'cursor-xyz',
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.hasMore).toBe(false);
+    expect(result.nextCursor).toBeNull();
+  });
 
-  it("makes exactly ONE API call per invocation", async () => {
+  it('makes exactly ONE API call per invocation', async () => {
     mockPostRaw.mockResolvedValueOnce({
       properties: [],
       has_more: true,
-      next_cursor: "more-cursor",
-    })
+      next_cursor: 'more-cursor',
+    });
 
-    await fetchAppsPage()
-    expect(mockPostRaw).toHaveBeenCalledTimes(1)
-  })
-})
+    await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+  });
+});
 ```
 
 Also add the import at the top alongside the existing `fetchAllApps` import:
 
 ```typescript
-import { fetchAllApps, fetchAppsPage } from "./appService"
+import { fetchAllApps, fetchAppsPage } from './appService';
 ```
 
 **Step 2: Run tests to verify they fail**
@@ -169,6 +171,7 @@ git commit -m "feat: add fetchAppsPage() for single-page data fetching"
 ## Task 3: Create `useInfiniteApps()` hook
 
 **Files:**
+
 - Create: `projects/web-next/src/hooks/useInfiniteApps.ts`
 - Create: `projects/web-next/src/hooks/useInfiniteApps.test.ts`
 
@@ -177,200 +180,206 @@ git commit -m "feat: add fetchAppsPage() for single-page data fetching"
 Create `projects/web-next/src/hooks/useInfiniteApps.test.ts`:
 
 ```typescript
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import { renderHook, waitFor, act } from "@testing-library/react"
-import { useInfiniteApps } from "./useInfiniteApps"
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderHook, waitFor, act } from '@testing-library/react';
+import { useInfiniteApps } from './useInfiniteApps';
 
-vi.mock("@/services/appService", () => ({
+vi.mock('@/services/appService', () => ({
   fetchAppsPage: vi.fn(),
-}))
+}));
 
-vi.mock("@/utils/cache", () => ({
+vi.mock('@/utils/cache', () => ({
   getCache: vi.fn(() => null),
   setCache: vi.fn(),
   getStaleCacheData: vi.fn(() => null),
-}))
+}));
 
-import { fetchAppsPage } from "@/services/appService"
-import { getCache, getStaleCacheData } from "@/utils/cache"
+import { fetchAppsPage } from '@/services/appService';
+import { getCache, getStaleCacheData } from '@/utils/cache';
 
-const mockFetchAppsPage = vi.mocked(fetchAppsPage)
-const mockGetCache = vi.mocked(getCache)
-const mockGetStaleCacheData = vi.mocked(getStaleCacheData)
+const mockFetchAppsPage = vi.mocked(fetchAppsPage);
+const mockGetCache = vi.mocked(getCache);
+const mockGetStaleCacheData = vi.mocked(getStaleCacheData);
 
 const page1 = {
   apps: [
     {
-      id: "app-1",
-      name: "App 1",
-      description: "First",
-      category: "tools",
-      icon: "",
-      developer: "",
+      id: 'app-1',
+      name: 'App 1',
+      description: 'First',
+      category: 'tools',
+      icon: '',
+      developer: '',
       rating: 0,
-      url: "https://a.com",
-      color: "#000",
+      url: 'https://a.com',
+      color: '#000',
     },
   ],
   hasMore: true,
-  nextCursor: "cursor-2",
-}
+  nextCursor: 'cursor-2',
+};
 
 const page2 = {
   apps: [
     {
-      id: "app-2",
-      name: "App 2",
-      description: "Second",
-      category: "social",
-      icon: "",
-      developer: "",
+      id: 'app-2',
+      name: 'App 2',
+      description: 'Second',
+      category: 'social',
+      icon: '',
+      developer: '',
       rating: 0,
-      url: "https://b.com",
-      color: "#111",
+      url: 'https://b.com',
+      color: '#111',
     },
   ],
   hasMore: false,
   nextCursor: null,
-}
+};
 
-describe("useInfiniteApps", () => {
+describe('useInfiniteApps', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-    mockGetStaleCacheData.mockReturnValue(null)
-    mockGetCache.mockReturnValue(null)
-  })
+    vi.clearAllMocks();
+    mockGetStaleCacheData.mockReturnValue(null);
+    mockGetCache.mockReturnValue(null);
+  });
 
-  it("loads the first page on mount", async () => {
-    mockFetchAppsPage.mockResolvedValueOnce(page1)
+  it('loads the first page on mount', async () => {
+    mockFetchAppsPage.mockResolvedValueOnce(page1);
 
-    const { result } = renderHook(() => useInfiniteApps())
+    const { result } = renderHook(() => useInfiniteApps());
 
-    expect(result.current.loading).toBe(true)
-
-    await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
-
-    expect(result.current.apps).toHaveLength(1)
-    expect(result.current.apps[0].id).toBe("app-1")
-    expect(result.current.hasMore).toBe(true)
-    expect(result.current.error).toBeNull()
-    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1)
-    expect(mockFetchAppsPage).toHaveBeenCalledWith(undefined)
-  })
-
-  it("loads the next page when loadMore is called", async () => {
-    mockFetchAppsPage
-      .mockResolvedValueOnce(page1)
-      .mockResolvedValueOnce(page2)
-
-    const { result } = renderHook(() => useInfiniteApps())
+    expect(result.current.loading).toBe(true);
 
     await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
+      expect(result.current.loading).toBe(false);
+    });
 
-    expect(result.current.apps).toHaveLength(1)
-    expect(result.current.hasMore).toBe(true)
+    expect(result.current.apps).toHaveLength(1);
+    expect(result.current.apps[0].id).toBe('app-1');
+    expect(result.current.hasMore).toBe(true);
+    expect(result.current.error).toBeNull();
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1);
+    expect(mockFetchAppsPage).toHaveBeenCalledWith(undefined);
+  });
+
+  it('loads the next page when loadMore is called', async () => {
+    mockFetchAppsPage.mockResolvedValueOnce(page1).mockResolvedValueOnce(page2);
+
+    const { result } = renderHook(() => useInfiniteApps());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(result.current.apps).toHaveLength(1);
+    expect(result.current.hasMore).toBe(true);
 
     await act(async () => {
-      result.current.loadMore()
-    })
+      result.current.loadMore();
+    });
 
     await waitFor(() => {
-      expect(result.current.loadingMore).toBe(false)
-    })
+      expect(result.current.loadingMore).toBe(false);
+    });
 
-    expect(result.current.apps).toHaveLength(2)
-    expect(result.current.apps[1].id).toBe("app-2")
-    expect(result.current.hasMore).toBe(false)
-    expect(mockFetchAppsPage).toHaveBeenCalledTimes(2)
-    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, "cursor-2")
-  })
+    expect(result.current.apps).toHaveLength(2);
+    expect(result.current.apps[1].id).toBe('app-2');
+    expect(result.current.hasMore).toBe(false);
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(2);
+    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, 'cursor-2');
+  });
 
-  it("does not loadMore when hasMore is false", async () => {
-    mockFetchAppsPage.mockResolvedValueOnce({ ...page1, hasMore: false, nextCursor: null })
+  it('does not loadMore when hasMore is false', async () => {
+    mockFetchAppsPage.mockResolvedValueOnce({ ...page1, hasMore: false, nextCursor: null });
 
-    const { result } = renderHook(() => useInfiniteApps())
+    const { result } = renderHook(() => useInfiniteApps());
 
     await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
+      expect(result.current.loading).toBe(false);
+    });
 
     await act(async () => {
-      result.current.loadMore()
-    })
+      result.current.loadMore();
+    });
 
-    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1)
-  })
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1);
+  });
 
-  it("does not loadMore when already loading more", async () => {
-    let resolveSecond: (v: any) => void
-    const secondPromise = new Promise((r) => { resolveSecond = r })
+  it('does not loadMore when already loading more', async () => {
+    let resolveSecond: (v: any) => void;
+    const secondPromise = new Promise((r) => {
+      resolveSecond = r;
+    });
 
-    mockFetchAppsPage
-      .mockResolvedValueOnce(page1)
-      .mockReturnValueOnce(secondPromise as any)
+    mockFetchAppsPage.mockResolvedValueOnce(page1).mockReturnValueOnce(secondPromise as any);
 
-    const { result } = renderHook(() => useInfiniteApps())
-
-    await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
-
-    act(() => { result.current.loadMore() })
-
-    expect(result.current.loadingMore).toBe(true)
-
-    act(() => { result.current.loadMore() })
-
-    expect(mockFetchAppsPage).toHaveBeenCalledTimes(2)
-
-    await act(async () => { resolveSecond!(page2) })
-  })
-
-  it("sets error when initial fetch fails", async () => {
-    mockFetchAppsPage.mockRejectedValueOnce(new Error("API down"))
-
-    const { result } = renderHook(() => useInfiniteApps())
+    const { result } = renderHook(() => useInfiniteApps());
 
     await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
+      expect(result.current.loading).toBe(false);
+    });
 
-    expect(result.current.error).toBe("API down")
-  })
+    act(() => {
+      result.current.loadMore();
+    });
 
-  it("builds categories incrementally from loaded apps", async () => {
-    mockFetchAppsPage.mockResolvedValueOnce(page1)
+    expect(result.current.loadingMore).toBe(true);
 
-    const { result } = renderHook(() => useInfiniteApps())
+    act(() => {
+      result.current.loadMore();
+    });
+
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(2);
+
+    await act(async () => {
+      resolveSecond!(page2);
+    });
+  });
+
+  it('sets error when initial fetch fails', async () => {
+    mockFetchAppsPage.mockRejectedValueOnce(new Error('API down'));
+
+    const { result } = renderHook(() => useInfiniteApps());
 
     await waitFor(() => {
-      expect(result.current.loading).toBe(false)
-    })
+      expect(result.current.loading).toBe(false);
+    });
 
-    expect(result.current.categories.length).toBeGreaterThanOrEqual(1)
-    expect(result.current.categories.find((c) => c.id === "tools")).toBeTruthy()
-  })
+    expect(result.current.error).toBe('API down');
+  });
 
-  it("uses stale cache for initial render", async () => {
+  it('builds categories incrementally from loaded apps', async () => {
+    mockFetchAppsPage.mockResolvedValueOnce(page1);
+
+    const { result } = renderHook(() => useInfiniteApps());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(result.current.categories.length).toBeGreaterThanOrEqual(1);
+    expect(result.current.categories.find((c) => c.id === 'tools')).toBeTruthy();
+  });
+
+  it('uses stale cache for initial render', async () => {
     const cachedData = {
       apps: page1.apps,
-      categories: [{ id: "tools", name: "Tools", icon: "🔧", color: "#64748B", gradient: "", count: 1 }],
+      categories: [
+        { id: 'tools', name: 'Tools', icon: '🔧', color: '#64748B', gradient: '', count: 1 },
+      ],
       hasMore: true,
-      nextCursor: "cursor-2",
-    }
-    mockGetStaleCacheData.mockReturnValue(cachedData)
-    mockFetchAppsPage.mockResolvedValueOnce(page1)
+      nextCursor: 'cursor-2',
+    };
+    mockGetStaleCacheData.mockReturnValue(cachedData);
+    mockFetchAppsPage.mockResolvedValueOnce(page1);
 
-    const { result } = renderHook(() => useInfiniteApps())
+    const { result } = renderHook(() => useInfiniteApps());
 
-    expect(result.current.loading).toBe(false)
-    expect(result.current.apps).toHaveLength(1)
-  })
-})
+    expect(result.current.loading).toBe(false);
+    expect(result.current.apps).toHaveLength(1);
+  });
+});
 ```
 
 **Step 2: Run tests to verify they fail**
@@ -435,14 +444,17 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
 
   const loadingMoreRef = useRef(false);
 
-  const updateCache = useCallback((newApps: PWAApp[], cats: Category[], more: boolean, cursor: string | null) => {
-    setCache<CachedInfiniteData>(CACHE_KEY, {
-      apps: newApps,
-      categories: cats,
-      hasMore: more,
-      nextCursor: cursor,
-    });
-  }, []);
+  const updateCache = useCallback(
+    (newApps: PWAApp[], cats: Category[], more: boolean, cursor: string | null) => {
+      setCache<CachedInfiniteData>(CACHE_KEY, {
+        apps: newApps,
+        categories: cats,
+        hasMore: more,
+        nextCursor: cursor,
+      });
+    },
+    [],
+  );
 
   const loadInitial = useCallback(async () => {
     try {
@@ -534,6 +546,7 @@ git commit -m "feat: add useInfiniteApps hook for paginated on-demand loading"
 ## Task 4: Create `VirtualAppGrid` component
 
 **Files:**
+
 - Create: `projects/web-next/src/components/VirtualAppGrid/index.tsx`
 - Create: `projects/web-next/src/components/VirtualAppGrid/index.module.scss`
 - Create: `projects/web-next/src/components/VirtualAppGrid/VirtualAppGrid.test.tsx`
@@ -543,67 +556,67 @@ git commit -m "feat: add useInfiniteApps hook for paginated on-demand loading"
 Create `projects/web-next/src/components/VirtualAppGrid/VirtualAppGrid.test.tsx`:
 
 ```tsx
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import { render, screen } from "@testing-library/react"
-import { VirtualAppGrid } from "./index"
-import type { PWAApp, Category } from "@/data/apps"
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { VirtualAppGrid } from './index';
+import type { PWAApp, Category } from '@/data/apps';
 
-const mockObserve = vi.fn()
-const mockUnobserve = vi.fn()
-const mockDisconnect = vi.fn()
+const mockObserve = vi.fn();
+const mockUnobserve = vi.fn();
+const mockDisconnect = vi.fn();
 
 class MockIntersectionObserver {
-  callback: IntersectionObserverCallback
+  callback: IntersectionObserverCallback;
   constructor(callback: IntersectionObserverCallback) {
-    this.callback = callback
+    this.callback = callback;
   }
-  observe = mockObserve
-  unobserve = mockUnobserve
-  disconnect = mockDisconnect
+  observe = mockObserve;
+  unobserve = mockUnobserve;
+  disconnect = mockDisconnect;
 }
 
 class MockResizeObserver {
-  callback: ResizeObserverCallback
+  callback: ResizeObserverCallback;
   constructor(callback: ResizeObserverCallback) {
-    this.callback = callback
+    this.callback = callback;
     // Simulate an initial call with a 900px container
     setTimeout(() => {
       callback(
         [{ contentRect: { width: 900 } } as ResizeObserverEntry],
         this as unknown as ResizeObserver,
-      )
-    }, 0)
+      );
+    }, 0);
   }
-  observe = vi.fn()
-  unobserve = vi.fn()
-  disconnect = vi.fn()
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
 }
 
 beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", MockIntersectionObserver)
-  vi.stubGlobal("ResizeObserver", MockResizeObserver)
-})
+  vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
+  vi.stubGlobal('ResizeObserver', MockResizeObserver);
+});
 
 const makeApps = (count: number): PWAApp[] =>
   Array.from({ length: count }, (_, i) => ({
     id: `app-${i}`,
     name: `App ${i}`,
     description: `Description ${i}`,
-    category: "tools",
-    icon: "",
-    developer: "",
+    category: 'tools',
+    icon: '',
+    developer: '',
     rating: 0,
     url: `https://app${i}.com`,
-    color: "#000",
-  }))
+    color: '#000',
+  }));
 
 const categories: Category[] = [
-  { id: "tools", name: "Tools", icon: "🔧", color: "#64748B", gradient: "", count: 10 },
-]
+  { id: 'tools', name: 'Tools', icon: '🔧', color: '#64748B', gradient: '', count: 10 },
+];
 
-describe("VirtualAppGrid", () => {
-  it("renders app cards for the provided apps", () => {
-    const apps = makeApps(3)
+describe('VirtualAppGrid', () => {
+  it('renders app cards for the provided apps', () => {
+    const apps = makeApps(3);
     render(
       <VirtualAppGrid
         apps={apps}
@@ -612,13 +625,13 @@ describe("VirtualAppGrid", () => {
         loadingMore={false}
         onLoadMore={vi.fn()}
       />,
-    )
-    expect(screen.getByText("App 0")).toBeInTheDocument()
-    expect(screen.getByText("App 1")).toBeInTheDocument()
-    expect(screen.getByText("App 2")).toBeInTheDocument()
-  })
+    );
+    expect(screen.getByText('App 0')).toBeInTheDocument();
+    expect(screen.getByText('App 1')).toBeInTheDocument();
+    expect(screen.getByText('App 2')).toBeInTheDocument();
+  });
 
-  it("shows loading indicator when loadingMore is true", () => {
+  it('shows loading indicator when loadingMore is true', () => {
     render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -627,11 +640,11 @@ describe("VirtualAppGrid", () => {
         loadingMore={true}
         onLoadMore={vi.fn()}
       />,
-    )
-    expect(screen.getByText("Loading more apps...")).toBeInTheDocument()
-  })
+    );
+    expect(screen.getByText('Loading more apps...')).toBeInTheDocument();
+  });
 
-  it("renders sentinel element when hasMore is true", () => {
+  it('renders sentinel element when hasMore is true', () => {
     const { container } = render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -640,11 +653,11 @@ describe("VirtualAppGrid", () => {
         loadingMore={false}
         onLoadMore={vi.fn()}
       />,
-    )
-    expect(container.querySelector("[data-testid='load-more-sentinel']")).toBeInTheDocument()
-  })
+    );
+    expect(container.querySelector("[data-testid='load-more-sentinel']")).toBeInTheDocument();
+  });
 
-  it("does not render sentinel when hasMore is false", () => {
+  it('does not render sentinel when hasMore is false', () => {
     const { container } = render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -653,11 +666,11 @@ describe("VirtualAppGrid", () => {
         loadingMore={false}
         onLoadMore={vi.fn()}
       />,
-    )
-    expect(container.querySelector("[data-testid='load-more-sentinel']")).not.toBeInTheDocument()
-  })
+    );
+    expect(container.querySelector("[data-testid='load-more-sentinel']")).not.toBeInTheDocument();
+  });
 
-  it("renders empty state when no apps provided", () => {
+  it('renders empty state when no apps provided', () => {
     render(
       <VirtualAppGrid
         apps={[]}
@@ -666,10 +679,10 @@ describe("VirtualAppGrid", () => {
         loadingMore={false}
         onLoadMore={vi.fn()}
       />,
-    )
-    expect(screen.getByText("No apps found")).toBeInTheDocument()
-  })
-})
+    );
+    expect(screen.getByText('No apps found')).toBeInTheDocument();
+  });
+});
 ```
 
 **Step 2: Run test to verify it fails**
@@ -813,16 +826,10 @@ export function VirtualAppGrid({
 
   return (
     <div className={styles.virtualContainer}>
-      <div className={styles.virtualRow}>
-        {apps.map((app) => renderCard(app, categories))}
-      </div>
+      <div className={styles.virtualRow}>{apps.map((app) => renderCard(app, categories))}</div>
 
       {hasMore && (
-        <div
-          ref={sentinelRef}
-          data-testid="load-more-sentinel"
-          className={styles.sentinel}
-        />
+        <div ref={sentinelRef} data-testid="load-more-sentinel" className={styles.sentinel} />
       )}
 
       {loadingMore && (
@@ -855,6 +862,7 @@ git commit -m "feat: add VirtualAppGrid component with IntersectionObserver infi
 ## Task 5: Integrate into Home page
 
 **Files:**
+
 - Modify: `projects/web-next/src/pages/Home/index.tsx`
 
 **Step 1: Replace `useApps` with `useInfiniteApps`**
@@ -862,19 +870,25 @@ git commit -m "feat: add VirtualAppGrid component with IntersectionObserver infi
 In `projects/web-next/src/pages/Home/index.tsx`, change the import and hook usage:
 
 Replace:
+
 ```tsx
 import { useApps } from '@/hooks/useApps';
 ```
+
 With:
+
 ```tsx
 import { useInfiniteApps } from '@/hooks/useInfiniteApps';
 ```
 
 Replace:
+
 ```tsx
 const { apps, categories, loading, error } = useApps();
 ```
+
 With:
+
 ```tsx
 const { apps, categories, loading, loadingMore, hasMore, error, loadMore } = useInfiniteApps();
 ```
@@ -882,6 +896,7 @@ const { apps, categories, loading, loadingMore, hasMore, error, loadMore } = use
 **Step 2: Import `VirtualAppGrid`**
 
 Add import:
+
 ```tsx
 import { VirtualAppGrid } from '@/components/VirtualAppGrid';
 ```
@@ -912,23 +927,25 @@ Replace the entire "App Grid Section" block (lines ~348-378):
 With:
 
 ```tsx
-{/* ── App Grid Section ─────────────────────── */}
-{(apps.length > 0 || loadingMore) && (
-  <section className={styles.section}>
-    <div className={styles.container}>
-      <VirtualAppGrid
-        apps={filteredApps}
-        categories={categories}
-        hasMore={!searchQuery && !activeCategory ? hasMore : false}
-        loadingMore={loadingMore}
-        onLoadMore={loadMore}
-        renderCard={(app, cats) => (
-          <AppCard key={app.id} app={app} allCategories={cats} />
-        )}
-      />
-    </div>
-  </section>
-)}
+{
+  /* ── App Grid Section ─────────────────────── */
+}
+{
+  (apps.length > 0 || loadingMore) && (
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <VirtualAppGrid
+          apps={filteredApps}
+          categories={categories}
+          hasMore={!searchQuery && !activeCategory ? hasMore : false}
+          loadingMore={loadingMore}
+          onLoadMore={loadMore}
+          renderCard={(app, cats) => <AppCard key={app.id} app={app} allCategories={cats} />}
+        />
+      </div>
+    </section>
+  );
+}
 ```
 
 Key detail: `hasMore` is only passed as `true` when no search/category filter is active. When filtering, we only show loaded data (since filtering is client-side on partial data).
@@ -955,6 +972,7 @@ git commit -m "feat: integrate VirtualAppGrid with infinite scroll into Home pag
 ## Task 6: Add Home page integration test
 
 **Files:**
+
 - Create: `projects/web-next/src/pages/Home/Home.test.tsx`
 
 **Step 1: Write the integration test**
@@ -962,84 +980,84 @@ git commit -m "feat: integrate VirtualAppGrid with infinite scroll into Home pag
 Create `projects/web-next/src/pages/Home/Home.test.tsx`:
 
 ```tsx
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import { render, screen, waitFor } from "@testing-library/react"
-import { MemoryRouter } from "react-router"
-import Home from "./index"
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
+import Home from './index';
 
 const page1Result = {
   apps: [
     {
-      id: "app-1",
-      name: "Test PWA",
-      description: "A test PWA app",
-      category: "tools",
-      icon: "",
-      developer: "",
+      id: 'app-1',
+      name: 'Test PWA',
+      description: 'A test PWA app',
+      category: 'tools',
+      icon: '',
+      developer: '',
       rating: 0,
-      url: "https://test.com",
-      color: "#64748B",
+      url: 'https://test.com',
+      color: '#64748B',
     },
   ],
   hasMore: false,
   nextCursor: null,
-}
+};
 
-vi.mock("@/services/appService", () => ({
+vi.mock('@/services/appService', () => ({
   fetchAppsPage: vi.fn().mockResolvedValue(page1Result),
-}))
+}));
 
-vi.mock("@/utils/cache", () => ({
+vi.mock('@/utils/cache', () => ({
   getCache: vi.fn(() => null),
   setCache: vi.fn(),
   getStaleCacheData: vi.fn(() => null),
-}))
+}));
 
-const mockObserve = vi.fn()
-const mockDisconnect = vi.fn()
+const mockObserve = vi.fn();
+const mockDisconnect = vi.fn();
 
 class MockIntersectionObserver {
   constructor(public callback: IntersectionObserverCallback) {}
-  observe = mockObserve
-  unobserve = vi.fn()
-  disconnect = mockDisconnect
+  observe = mockObserve;
+  unobserve = vi.fn();
+  disconnect = mockDisconnect;
 }
 
 class MockResizeObserver {
   constructor(public callback: ResizeObserverCallback) {}
-  observe = vi.fn()
-  unobserve = vi.fn()
-  disconnect = vi.fn()
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
 }
 
 beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", MockIntersectionObserver)
-  vi.stubGlobal("ResizeObserver", MockResizeObserver)
-})
+  vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
+  vi.stubGlobal('ResizeObserver', MockResizeObserver);
+});
 
-describe("Home page", () => {
-  it("renders loaded apps after fetch completes", async () => {
+describe('Home page', () => {
+  it('renders loaded apps after fetch completes', async () => {
     render(
       <MemoryRouter>
         <Home />
       </MemoryRouter>,
-    )
+    );
 
     await waitFor(() => {
-      expect(screen.getByText("Test PWA")).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText('Test PWA')).toBeInTheDocument();
+    });
+  });
 
-  it("shows the hero section", () => {
+  it('shows the hero section', () => {
     render(
       <MemoryRouter>
         <Home />
       </MemoryRouter>,
-    )
+    );
 
-    expect(screen.getByText("Discover the Best")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByText('Discover the Best')).toBeInTheDocument();
+  });
+});
 ```
 
 **Step 2: Run test**
@@ -1088,6 +1106,7 @@ Use agent-browser to navigate to `http://localhost:5173/`.
 **Step 3: Take screenshots**
 
 Capture:
+
 1. Initial page load with first batch of apps
 2. Loading indicator while fetching next page
 3. After all pages loaded
@@ -1106,20 +1125,21 @@ git commit -m "fix: address issues found during browser verification"
 
 ## Summary of Changes
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `package.json` | Modify | Add `@tanstack/react-virtual` |
-| `src/services/appService.ts` | Modify | Add `fetchAppsPage()` single-page fetcher |
-| `src/services/appService.test.ts` | Modify | Add tests for `fetchAppsPage()` |
-| `src/hooks/useInfiniteApps.ts` | Create | Infinite pagination hook with cursor state |
-| `src/hooks/useInfiniteApps.test.ts` | Create | Tests for infinite loading behavior |
-| `src/components/VirtualAppGrid/index.tsx` | Create | Grid component with IntersectionObserver |
-| `src/components/VirtualAppGrid/index.module.scss` | Create | Styles for virtual grid and loading states |
-| `src/components/VirtualAppGrid/VirtualAppGrid.test.tsx` | Create | Component tests |
-| `src/pages/Home/index.tsx` | Modify | Wire up `useInfiniteApps` + `VirtualAppGrid` |
-| `src/pages/Home/Home.test.tsx` | Create | Integration test for Home page |
+| File                                                    | Action | Purpose                                      |
+| ------------------------------------------------------- | ------ | -------------------------------------------- |
+| `package.json`                                          | Modify | Add `@tanstack/react-virtual`                |
+| `src/services/appService.ts`                            | Modify | Add `fetchAppsPage()` single-page fetcher    |
+| `src/services/appService.test.ts`                       | Modify | Add tests for `fetchAppsPage()`              |
+| `src/hooks/useInfiniteApps.ts`                          | Create | Infinite pagination hook with cursor state   |
+| `src/hooks/useInfiniteApps.test.ts`                     | Create | Tests for infinite loading behavior          |
+| `src/components/VirtualAppGrid/index.tsx`               | Create | Grid component with IntersectionObserver     |
+| `src/components/VirtualAppGrid/index.module.scss`       | Create | Styles for virtual grid and loading states   |
+| `src/components/VirtualAppGrid/VirtualAppGrid.test.tsx` | Create | Component tests                              |
+| `src/pages/Home/index.tsx`                              | Modify | Wire up `useInfiniteApps` + `VirtualAppGrid` |
+| `src/pages/Home/Home.test.tsx`                          | Create | Integration test for Home page               |
 
 **Before → After:**
+
 - Before: `fetchAllApps()` makes N sequential API calls on page load (e.g., 3 calls for 300 apps)
 - After: First page loads with 1 API call; additional pages load on scroll only when needed
 - Existing `useApps` hook and its tests are **untouched** for backward compatibility

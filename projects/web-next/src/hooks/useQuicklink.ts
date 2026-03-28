@@ -13,10 +13,7 @@ export function useQuicklink() {
   useEffect(() => {
     const cleanup = listen({
       origins: [window.location.hostname],
-      ignores: [
-        /\/api\//,
-        (uri: string) => uri.includes('#'),
-      ],
+      ignores: [/\/api\//, (uri: string) => uri.includes('#')],
     });
 
     return cleanup;

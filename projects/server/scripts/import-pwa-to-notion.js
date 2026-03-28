@@ -31,9 +31,8 @@ async function checkDuplicate(link) {
 async function addPwaToNotion(data) {
   const { title, link, icon, description, tags } = data;
 
-  const multiSelect = (tags && tags.length > 0)
-    ? tags.map(name => ({ name }))
-    : [{ name: 'Imported' }];
+  const multiSelect =
+    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: 'Imported' }];
 
   const response = await notion.pages.create({
     parent: {
@@ -79,13 +78,16 @@ async function addPwaToNotion(data) {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const concurrency = parseInt(args.find(a => a.startsWith('--concurrency='))?.split('=')[1] || '3', 10);
+  const concurrency = parseInt(
+    args.find((a) => a.startsWith('--concurrency='))?.split('=')[1] || '3',
+    10,
+  );
 
   const pwaJsonPath = path.join(__dirname, '..', '..', '..', 'data', 'pwa.json');
   const raw = await readFile(pwaJsonPath, 'utf-8');
@@ -141,7 +143,7 @@ async function main() {
           console.error(`[ERROR] ${title}: ${err.message}`);
           return { status: 'failed', error: err.message };
         }
-      })
+      }),
     );
 
     for (const result of results) {
@@ -171,7 +173,7 @@ async function main() {
   console.log(`Failed: ${summary.failed}`);
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Fatal error:', err);
   process.exit(1);
 });

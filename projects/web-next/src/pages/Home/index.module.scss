@@ -62,13 +62,7 @@
   position: relative;
   padding: $space-24 0 $space-16;
   overflow: hidden;
-  background: linear-gradient(
-    168deg,
-    $bg-primary 0%,
-    #f3f0ff 35%,
-    #eef9ff 65%,
-    $bg-primary 100%
-  );
+  background: linear-gradient(168deg, $bg-primary 0%, #f3f0ff 35%, #eef9ff 65%, $bg-primary 100%);
 
   :global(:root.dark) & {
     background: linear-gradient(168deg, #141414 0%, #1a1528 35%, #0f1a24 65%, #141414 100%);
@@ -153,14 +147,19 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 8px #10B98180;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b98180;
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .heroTitle {
@@ -228,7 +227,9 @@
 
   &:focus-within {
     border-color: $accent-primary;
-    box-shadow: $shadow-lg, 0 0 0 4px #{$accent-primary}12;
+    box-shadow:
+      $shadow-lg,
+      0 0 0 4px #{$accent-primary}12;
   }
 
   :global(:root.dark) & {
@@ -238,7 +239,9 @@
 
     &:focus-within {
       border-color: $accent-primary;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(124, 58, 237, 0.15);
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 0 4px rgba(124, 58, 237, 0.15);
     }
   }
 }
@@ -847,7 +850,7 @@
 }
 
 .ctaCard {
-  background: linear-gradient(135deg, $text-primary, #2D2A3E);
+  background: linear-gradient(135deg, $text-primary, #2d2a3e);
   border-radius: $border-radius-xl;
   padding: $space-16 $space-12;
   text-align: center;

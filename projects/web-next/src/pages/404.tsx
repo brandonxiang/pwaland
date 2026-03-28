@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 const NotFound = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = '404 - Page Not Found | PWALand';
+  }, []);
 
   return (
     <div
@@ -36,7 +41,7 @@ const NotFound = () => {
           maxWidth: '400px',
         }}
       >
-        The page you are looking for doesn't exist or has been moved.
+        The page you are looking for doesn&apos;t exist or has been moved.
       </p>
       <button
         onClick={() => navigate('/')}

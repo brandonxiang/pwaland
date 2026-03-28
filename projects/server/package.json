@@ -1,30 +1,30 @@
 {
   "name": "fastify-starter",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "description": "A simple starter with fastify",
+  "license": "MIT",
+  "author": "brandonxiang",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "APP_REGION=sg APP_ENV=development tsdown --watch --on-success \"pnpm run start:dev\"",
+    "dev": "APP_REGION=sg APP_ENV=development vp pack --watch --on-success \"pnpm run start:dev\"",
     "start:dev": "sleep 3 && APP_REGION=sg APP_ENV=development node ./dist/server.mjs",
     "start": "node ./dist/server.js",
     "start:prod": "NODE_ENV=production node ./dist/server.js",
-    "build": "NODE_ENV=production tsdown",
-    "build:dev": "tsdown",
+    "build": "NODE_ENV=production vp pack",
+    "build:dev": "vp pack",
     "compile-schemas": "json2ts -i src/schemas -o src/types",
     "clean": "rimraf .tmp dist .tsbuildinfo",
     "type-check": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "test:coverage": "vp test run --coverage",
     "deps:check": "pnpm outdated",
     "deps:update": "pnpm update",
     "import:pwa": "node scripts/import-pwa-to-notion.js",
     "import:pwa:dry": "node scripts/import-pwa-to-notion.js --dry-run"
   },
-  "author": "brandonxiang",
-  "license": "MIT",
   "dependencies": {
     "@fastify/autoload": "^6.3.1",
     "@fastify/cors": "^11.1.0",
@@ -48,8 +48,8 @@
     "@types/uuid": "^10.0.0",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.1",
-    "tsdown": "^0.20.3",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   }
 }

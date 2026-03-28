@@ -47,14 +47,17 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
   const cursorRef = useRef<string | null>(getStaleData()?.nextCursor ?? null);
   const loadingMoreRef = useRef(false);
 
-  const updateCache = useCallback((newApps: PWAApp[], cats: Category[], more: boolean, cursor: string | null) => {
-    setCache<CachedInfiniteData>(CACHE_KEY, {
-      apps: newApps,
-      categories: cats,
-      hasMore: more,
-      nextCursor: cursor,
-    });
-  }, []);
+  const updateCache = useCallback(
+    (newApps: PWAApp[], cats: Category[], more: boolean, cursor: string | null) => {
+      setCache<CachedInfiniteData>(CACHE_KEY, {
+        apps: newApps,
+        categories: cats,
+        hasMore: more,
+        nextCursor: cursor,
+      });
+    },
+    [],
+  );
 
   const loadInitial = useCallback(async () => {
     try {

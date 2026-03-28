@@ -67,7 +67,11 @@ export function hdel(key: string, fields: string[]) {
   }
 }
 
-export async function setex(key: string, seconds: number, value: string | Record<string, any> | Buffer) {
+export async function setex(
+  key: string,
+  seconds: number,
+  value: string | Record<string, any> | Buffer,
+) {
   return redis.setex(key, seconds, typeof value === 'string' ? value : JSON.stringify(value));
 }
 

@@ -25,48 +25,57 @@ The requests use a `base_url` variable that is configured through environment fi
 4. All requests will automatically use the `base_url` from the selected environment
 
 The environment files are located in the `environments/` folder:
+
 - `environments/Local.bru.env` - Local development environment
 - `environments/Production.bru.env` - Production environment
 
 ## Available Requests
 
 ### 1. Check PWA
+
 - **File**: `Check PWA.bru`
 - **Endpoint**: `POST /api/pwa/check`
 - **Description**: Checks if a website qualifies as a PWA
 - **Body**: `{ "url": "twitter.com" }`
 
 ### 2. Add PWA
+
 - **File**: `Add PWA.bru`
 - **Endpoint**: `POST /api/pwa/add`
 - **Description**: Adds a validated PWA to the Notion database
 - **Body**: `{ "title": "...", "link": "...", "icon": "...", "description": "...", "tags": [...] }`
 
 ### 3. Check PWA - Invalid URL
+
 - **File**: `Check PWA - Invalid URL.bru`
 - **Description**: Example request with invalid URL to test error handling
 
 ### 4. Add PWA - Missing Fields
+
 - **File**: `Add PWA - Missing Fields.bru`
 - **Description**: Example request with missing required fields to test validation
 
 ### 5. Get Client List
+
 - **File**: `Get Client List.bru`
 - **Endpoint**: `POST /api/client/list`
 - **Description**: Retrieves a paginated list of PWAs from the Notion database
 - **Body**: `{ "start_cursor": null }` (optional for first page)
 
 ### 6. Get Client List - Paginated
+
 - **File**: `Get Client List - Paginated.bru`
 - **Description**: Example request for fetching the next page using pagination cursor
 
 ### 7. Discover PWAs
+
 - **File**: `Discover PWAs.bru`
 - **Endpoint**: `POST /api/pwa/discover`
 - **Description**: Batch-discover PWAs from Tranco + GitHub lists, validate, and insert to Notion
 - **Body**: `{ "source": "all", "limit": 100, "dryRun": true }`
 
 ### 8. Discover PWAs - Tranco
+
 - **File**: `Discover PWAs - Tranco.bru`
 - **Description**: Discover PWAs from Tranco Top 500 and insert to Notion (production run)
 

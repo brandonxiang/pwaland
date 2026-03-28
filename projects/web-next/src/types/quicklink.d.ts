@@ -14,8 +14,5 @@ declare module 'quicklink' {
   }
 
   export function listen(options?: ListenOptions): () => void;
-  export function prefetch(
-    urls: string | string[],
-    isPriority?: boolean,
-  ): Promise<void[]>;
+  export function prefetch(urls: string | string[], isPriority?: boolean): Promise<void[]>;
 }

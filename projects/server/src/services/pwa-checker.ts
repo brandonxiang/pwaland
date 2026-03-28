@@ -1,5 +1,6 @@
 // Browser-like User-Agent to avoid being blocked
-const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+const USER_AGENT =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 const FETCH_TIMEOUT = 15_000;
 
@@ -56,7 +57,7 @@ export async function safeFetch(url: string): Promise<Response> {
     const response = await fetch(url, {
       headers: {
         'User-Agent': USER_AGENT,
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
       },
       redirect: 'follow',
@@ -151,16 +152,25 @@ export function detectServiceWorker(html: string): { found: boolean; detail: str
 export function findBestIcon(icons: ManifestIcon[], baseUrl: string): string | null {
   if (!icons || icons.length === 0) return null;
 
-  const preferredSizes = ['512x512', '384x384', '256x256', '192x192', '144x144', '128x128', '96x96', '72x72'];
+  const preferredSizes = [
+    '512x512',
+    '384x384',
+    '256x256',
+    '192x192',
+    '144x144',
+    '128x128',
+    '96x96',
+    '72x72',
+  ];
 
   for (const size of preferredSizes) {
-    const icon = icons.find(i => i.sizes?.includes(size));
+    const icon = icons.find((i) => i.sizes?.includes(size));
     if (icon?.src) {
       return resolveUrl(icon.src, baseUrl);
     }
   }
 
-  const fallback = icons.find(i => i.src);
+  const fallback = icons.find((i) => i.src);
   return fallback ? resolveUrl(fallback.src, baseUrl) : null;
 }
 
@@ -233,7 +243,7 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
       if (!manifestResponse.ok) {
         throw new Error(`HTTP ${manifestResponse.status}`);
       }
-      manifestData = await manifestResponse.json() as ManifestData;
+      manifestData = (await manifestResponse.json()) as ManifestData;
 
       if (!manifestData.name && !manifestData.short_name) {
         result.checks.manifest = {
@@ -302,15 +312,15 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
   } else {
     result.checks.display = {
       pass: false,
-      detail: manifestData ? 'No display mode specified in manifest' : 'Cannot check display mode without manifest',
+      detail: manifestData
+        ? 'No display mode specified in manifest'
+        : 'Cannot check display mode without manifest',
     };
   }
 
   // Determine overall isPwa: requires HTTPS + manifest + service worker
   result.isPwa =
-    result.checks.https.pass &&
-    result.checks.manifest.pass &&
-    result.checks.serviceWorker.pass;
+    result.checks.https.pass && result.checks.manifest.pass && result.checks.serviceWorker.pass;
 
   // Build suggestion from manifest data, with meta description as fallback
   const manifestDescription = manifestData?.description || '';

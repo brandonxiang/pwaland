@@ -33,9 +33,8 @@ export async function addPwaToNotion(data: AddPwaData): Promise<{ id: string }> 
   const { title, link, icon, description, tags } = data;
 
   // Build multi_select tags
-  const multiSelect = (tags && tags.length > 0)
-    ? tags.map(name => ({ name }))
-    : [{ name: 'Uncategorized' }];
+  const multiSelect =
+    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: 'Uncategorized' }];
 
   const response = await notion.pages.create({
     parent: {

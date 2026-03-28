@@ -1,6 +1,6 @@
 export enum ROLE {
-    MAINTAINER = 'Maintainer',
-    DEVELOPER = 'Developer',
+  MAINTAINER = 'Maintainer',
+  DEVELOPER = 'Developer',
 }
 
 export default {};

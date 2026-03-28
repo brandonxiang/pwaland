@@ -47,7 +47,7 @@ interface DiscoverSummary {
  * Sleep for a given number of milliseconds
  */
 function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -73,7 +73,7 @@ function saveResults(summary: DiscoverSummary): void {
     existing.push({
       ...summary,
       // Only keep found PWAs in the saved file to save space
-      results: summary.results.filter(r => r.isPwa),
+      results: summary.results.filter((r) => r.isPwa),
     });
 
     fs.writeFileSync(RESULTS_FILE, JSON.stringify(existing, null, 2));
@@ -150,156 +150,164 @@ async function processDomain(
 export default (fastify: FastifyInstance, _: any, done: any) => {
   fastify.post<{
     Body: DiscoverBody;
-  }>('/discover', {
-    schema: {
-      body: {
-        type: 'object',
-        required: ['source'],
-        properties: {
-          source: { type: 'string', enum: ['tranco', 'github', 'all'] },
-          limit: { type: 'number', default: 500 },
-          offset: { type: 'number', default: 0 },
-          concurrency: { type: 'number', default: 3 },
-          dryRun: { type: 'boolean', default: false },
+  }>(
+    '/discover',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['source'],
+          properties: {
+            source: { type: 'string', enum: ['tranco', 'github', 'all'] },
+            limit: { type: 'number', default: 500 },
+            offset: { type: 'number', default: 0 },
+            concurrency: { type: 'number', default: 3 },
+            dryRun: { type: 'boolean', default: false },
+          },
         },
       },
     },
-  }, async (req, res) => {
-    const {
-      source,
-      limit = 500,
-      offset = 0,
-      concurrency = 3,
-      dryRun = false,
-    } = req.body;
+    async (req, res) => {
+      const { source, limit = 500, offset = 0, concurrency = 3, dryRun = false } = req.body;
 
-    const logger = fastify.log;
+      const logger = fastify.log;
 
-    try {
-      // Step 1: Fetch domains from selected source(s)
-      logger.info(`Starting PWA discovery: source=${source}, limit=${limit}, offset=${offset}, concurrency=${concurrency}, dryRun=${dryRun}`);
-
-      const domainLists: string[][] = [];
-
-      if (source === 'tranco' || source === 'all') {
-        logger.info('Fetching Tranco domain list...');
-        try {
-          const trancoDomains = await fetchTranco(limit + offset);
-          domainLists.push(trancoDomains);
-          logger.info(`Fetched ${trancoDomains.length} domains from Tranco`);
-        } catch (err: any) {
-          logger.error(`Failed to fetch Tranco: ${err.message}`);
-        }
-      }
-
-      if (source === 'github' || source === 'all') {
-        logger.info('Fetching GitHub awesome-pwa lists...');
-        try {
-          const githubDomains = await fetchAwesomePwa();
-          domainLists.push(githubDomains);
-          logger.info(`Fetched ${githubDomains.length} domains from GitHub`);
-        } catch (err: any) {
-          logger.error(`Failed to fetch GitHub sources: ${err.message}`);
-        }
-      }
-
-      if (domainLists.length === 0 || domainLists.every(l => l.length === 0)) {
-        return res.send(fail('No domains could be fetched from any source'));
-      }
-
-      // Step 2: Merge and deduplicate
-      const allDomains = mergeAndDeduplicate(...domainLists);
-      logger.info(`Total unique domains after merge: ${allDomains.length}`);
-
-      // Step 3: Slice by offset and limit
-      const domainsToCheck = allDomains.slice(offset, offset + limit);
-      logger.info(`Checking ${domainsToCheck.length} domains (offset=${offset}, limit=${limit})`);
-
-      // Step 4: Process in batches with concurrency and rate limiting
-      const summary: DiscoverSummary = {
-        source,
-        totalDomains: allDomains.length,
-        checked: 0,
-        found: 0,
-        added: 0,
-        skipped: 0,
-        failed: 0,
-        dryRun,
-        results: [],
-      };
-
-      for (let i = 0; i < domainsToCheck.length; i += concurrency) {
-        const batch = domainsToCheck.slice(i, i + concurrency);
-
-        // Process batch concurrently using Promise.allSettled
-        const batchResults = await Promise.allSettled(
-          batch.map(domain => processDomain(domain, dryRun, logger))
+      try {
+        // Step 1: Fetch domains from selected source(s)
+        logger.info(
+          `Starting PWA discovery: source=${source}, limit=${limit}, offset=${offset}, concurrency=${concurrency}, dryRun=${dryRun}`,
         );
 
-        for (const settled of batchResults) {
-          if (settled.status === 'fulfilled') {
-            const result = settled.value;
-            summary.results.push(result);
-            summary.checked++;
+        const domainLists: string[][] = [];
 
-            if (result.isPwa) summary.found++;
-            if (result.added) summary.added++;
-            if (result.skipped) summary.skipped++;
-            if (result.error) summary.failed++;
-          } else {
-            summary.checked++;
-            summary.failed++;
-            summary.results.push({
-              domain: batch[0] || 'unknown',
-              isPwa: false,
-              added: false,
-              skipped: false,
-              error: settled.reason?.message || 'Unknown error',
-            });
+        if (source === 'tranco' || source === 'all') {
+          logger.info('Fetching Tranco domain list...');
+          try {
+            const trancoDomains = await fetchTranco(limit + offset);
+            domainLists.push(trancoDomains);
+            logger.info(`Fetched ${trancoDomains.length} domains from Tranco`);
+          } catch (err: any) {
+            logger.error(`Failed to fetch Tranco: ${err.message}`);
           }
         }
 
-        // Log progress every batch
-        const progress = Math.min(i + concurrency, domainsToCheck.length);
-        logger.info(`Progress: ${progress}/${domainsToCheck.length} checked, ${summary.found} PWAs found, ${summary.added} added`);
-
-        // Save intermediate results every 10 batches
-        if ((i / concurrency) % 10 === 0 && i > 0) {
-          saveResults(summary);
+        if (source === 'github' || source === 'all') {
+          logger.info('Fetching GitHub awesome-pwa lists...');
+          try {
+            const githubDomains = await fetchAwesomePwa();
+            domainLists.push(githubDomains);
+            logger.info(`Fetched ${githubDomains.length} domains from GitHub`);
+          } catch (err: any) {
+            logger.error(`Failed to fetch GitHub sources: ${err.message}`);
+          }
         }
 
-        // Rate limit: wait between batches (skip for the last batch)
-        if (i + concurrency < domainsToCheck.length) {
-          await sleep(1500);
+        if (domainLists.length === 0 || domainLists.every((l) => l.length === 0)) {
+          return res.send(fail('No domains could be fetched from any source'));
         }
+
+        // Step 2: Merge and deduplicate
+        const allDomains = mergeAndDeduplicate(...domainLists);
+        logger.info(`Total unique domains after merge: ${allDomains.length}`);
+
+        // Step 3: Slice by offset and limit
+        const domainsToCheck = allDomains.slice(offset, offset + limit);
+        logger.info(`Checking ${domainsToCheck.length} domains (offset=${offset}, limit=${limit})`);
+
+        // Step 4: Process in batches with concurrency and rate limiting
+        const summary: DiscoverSummary = {
+          source,
+          totalDomains: allDomains.length,
+          checked: 0,
+          found: 0,
+          added: 0,
+          skipped: 0,
+          failed: 0,
+          dryRun,
+          results: [],
+        };
+
+        for (let i = 0; i < domainsToCheck.length; i += concurrency) {
+          const batch = domainsToCheck.slice(i, i + concurrency);
+
+          // Process batch concurrently using Promise.allSettled
+          const batchResults = await Promise.allSettled(
+            batch.map((domain) => processDomain(domain, dryRun, logger)),
+          );
+
+          for (const settled of batchResults) {
+            if (settled.status === 'fulfilled') {
+              const result = settled.value;
+              summary.results.push(result);
+              summary.checked++;
+
+              if (result.isPwa) summary.found++;
+              if (result.added) summary.added++;
+              if (result.skipped) summary.skipped++;
+              if (result.error) summary.failed++;
+            } else {
+              summary.checked++;
+              summary.failed++;
+              summary.results.push({
+                domain: batch[0] || 'unknown',
+                isPwa: false,
+                added: false,
+                skipped: false,
+                error: settled.reason?.message || 'Unknown error',
+              });
+            }
+          }
+
+          // Log progress every batch
+          const progress = Math.min(i + concurrency, domainsToCheck.length);
+          logger.info(
+            `Progress: ${progress}/${domainsToCheck.length} checked, ${summary.found} PWAs found, ${summary.added} added`,
+          );
+
+          // Save intermediate results every 10 batches
+          if ((i / concurrency) % 10 === 0 && i > 0) {
+            saveResults(summary);
+          }
+
+          // Rate limit: wait between batches (skip for the last batch)
+          if (i + concurrency < domainsToCheck.length) {
+            await sleep(1500);
+          }
+        }
+
+        // Step 5: Save final results
+        saveResults(summary);
+
+        logger.info(
+          `Discovery complete: ${summary.checked} checked, ${summary.found} found, ${summary.added} added, ${summary.skipped} skipped, ${summary.failed} failed`,
+        );
+
+        return res.send(
+          success({
+            totalDomains: summary.totalDomains,
+            checked: summary.checked,
+            found: summary.found,
+            added: summary.added,
+            skipped: summary.skipped,
+            failed: summary.failed,
+            dryRun: summary.dryRun,
+            // Only return found PWAs in the response to keep it manageable
+            foundPwas: summary.results
+              .filter((r) => r.isPwa)
+              .map((r) => ({
+                domain: r.domain,
+                title: r.title,
+                added: r.added,
+                skipped: r.skipped,
+              })),
+          }),
+        );
+      } catch (err: any) {
+        logger.error(err, 'PWA discovery failed');
+        return res.send(fail(`Discovery failed: ${err.message}`));
       }
-
-      // Step 5: Save final results
-      saveResults(summary);
-
-      logger.info(`Discovery complete: ${summary.checked} checked, ${summary.found} found, ${summary.added} added, ${summary.skipped} skipped, ${summary.failed} failed`);
-
-      return res.send(success({
-        totalDomains: summary.totalDomains,
-        checked: summary.checked,
-        found: summary.found,
-        added: summary.added,
-        skipped: summary.skipped,
-        failed: summary.failed,
-        dryRun: summary.dryRun,
-        // Only return found PWAs in the response to keep it manageable
-        foundPwas: summary.results.filter(r => r.isPwa).map(r => ({
-          domain: r.domain,
-          title: r.title,
-          added: r.added,
-          skipped: r.skipped,
-        })),
-      }));
-    } catch (err: any) {
-      logger.error(err, 'PWA discovery failed');
-      return res.send(fail(`Discovery failed: ${err.message}`));
-    }
-  });
+    },
+  );
 
   done();
 };
