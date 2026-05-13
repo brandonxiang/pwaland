@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router';
+import { RouteObject } from "react-router";
 
 export interface MenuType {
   path: string;
@@ -21,7 +21,7 @@ export interface MenuType {
 }
 
 // Route configuration for data router mode
-export interface DataRouteConfig extends Omit<RouteObject, 'children'> {
+export interface DataRouteConfig extends Omit<RouteObject, "children"> {
   id?: string;
   title?: string;
   icon?: any;

@@ -1,13 +1,13 @@
-import { defineConfig } from 'vite-plus/pack';
+import { defineConfig } from "vite-plus/pack";
 
 export default defineConfig({
   // Entry point
-  entry: ['src/server.ts', 'src/plugin.ts'],
+  entry: ["src/server.ts", "src/plugin.ts"],
 
   // Output configuration
-  format: 'esm',
-  outDir: 'dist',
-  platform: 'node',
+  format: "esm",
+  outDir: "dist",
+  platform: "node",
 
   // Use unbundle mode for better module structure
   unbundle: true,
@@ -17,28 +17,28 @@ export default defineConfig({
 
   // Environment variables
   env: {
-    NODE_ENV: process.env.NODE_ENV || 'development',
-    APP_REGION: process.env.APP_REGION || 'sg',
-    APP_ENV: process.env.APP_ENV || 'development',
+    NODE_ENV: process.env.NODE_ENV || "development",
+    APP_REGION: process.env.APP_REGION || "sg",
+    APP_ENV: process.env.APP_ENV || "development",
   },
 
   deps: {
     // External dependencies (don't bundle these)
     neverBundle: [
-      'fastify',
-      '@fastify/autoload',
-      '@fastify/swagger',
-      '@fastify/swagger-ui',
-      '@fastify/static',
-      '@fastify/cors',
-      'dayjs',
-      'ioredis',
-      'knex',
-      'lodash',
-      'mysql',
-      'uuid',
-      'pino-pretty',
-      'puppeteer',
+      "fastify",
+      "@fastify/autoload",
+      "@fastify/swagger",
+      "@fastify/swagger-ui",
+      "@fastify/static",
+      "@fastify/cors",
+      "dayjs",
+      "ioredis",
+      "knex",
+      "lodash",
+      "mysql",
+      "uuid",
+      "pino-pretty",
+      "puppeteer",
     ],
   },
 
@@ -52,8 +52,8 @@ export default defineConfig({
   sourcemap: false,
 
   // Target ES2022 for modern Node.js
-  target: 'node18',
+  target: "node18",
 
   // Copy static files if any
-  copy: [{ from: 'public', to: 'dist/public' }],
+  copy: [{ from: "public", to: "dist/public" }],
 });

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vite-plus/test';
+import { describe, it, expect, beforeEach, vi, afterEach } from "vite-plus/test";
 
 const store = new Map<string, string>();
 const localStorageMock: Storage = {
@@ -18,11 +18,11 @@ const localStorageMock: Storage = {
   key: (index: number) => Array.from(store.keys())[index] ?? null,
 };
 
-vi.stubGlobal('localStorage', localStorageMock);
+vi.stubGlobal("localStorage", localStorageMock);
 
-import { getCache, setCache, getStaleCacheData, isCacheExpired } from './cache';
+import { getCache, setCache, getStaleCacheData, isCacheExpired } from "./cache";
 
-describe('cache utilities', () => {
+describe("cache utilities", () => {
   beforeEach(() => {
     store.clear();
     vi.useFakeTimers();
@@ -32,55 +32,55 @@ describe('cache utilities', () => {
     vi.useRealTimers();
   });
 
-  describe('setCache / getCache', () => {
-    it('stores and retrieves data', () => {
-      setCache('key1', { value: 42 });
-      expect(getCache('key1')).toEqual({ value: 42 });
+  describe("setCache / getCache", () => {
+    it("stores and retrieves data", () => {
+      setCache("key1", { value: 42 });
+      expect(getCache("key1")).toEqual({ value: 42 });
     });
 
-    it('returns null for expired cache', () => {
-      setCache('key2', 'data', 1000);
+    it("returns null for expired cache", () => {
+      setCache("key2", "data", 1000);
       vi.advanceTimersByTime(1500);
-      expect(getCache('key2')).toBeNull();
+      expect(getCache("key2")).toBeNull();
     });
 
-    it('returns null for non-existent key', () => {
-      expect(getCache('nope')).toBeNull();
+    it("returns null for non-existent key", () => {
+      expect(getCache("nope")).toBeNull();
     });
 
-    it('returns null and cleans up on corrupt data', () => {
-      store.set('bad', 'not-json{{{');
-      expect(getCache('bad')).toBeNull();
-      expect(store.has('bad')).toBe(false);
+    it("returns null and cleans up on corrupt data", () => {
+      store.set("bad", "not-json{{{");
+      expect(getCache("bad")).toBeNull();
+      expect(store.has("bad")).toBe(false);
     });
   });
 
-  describe('getStaleCacheData', () => {
-    it('returns data even after TTL expires', () => {
-      setCache('stale', { fresh: true }, 1000);
+  describe("getStaleCacheData", () => {
+    it("returns data even after TTL expires", () => {
+      setCache("stale", { fresh: true }, 1000);
       vi.advanceTimersByTime(5000);
-      expect(getStaleCacheData('stale')).toEqual({ fresh: true });
+      expect(getStaleCacheData("stale")).toEqual({ fresh: true });
     });
 
-    it('returns null for non-existent key', () => {
-      expect(getStaleCacheData('missing')).toBeNull();
+    it("returns null for non-existent key", () => {
+      expect(getStaleCacheData("missing")).toBeNull();
     });
   });
 
-  describe('isCacheExpired', () => {
-    it('returns false for fresh cache', () => {
-      setCache('fresh', 'data', 60_000);
-      expect(isCacheExpired('fresh')).toBe(false);
+  describe("isCacheExpired", () => {
+    it("returns false for fresh cache", () => {
+      setCache("fresh", "data", 60_000);
+      expect(isCacheExpired("fresh")).toBe(false);
     });
 
-    it('returns true for expired cache', () => {
-      setCache('old', 'data', 1000);
+    it("returns true for expired cache", () => {
+      setCache("old", "data", 1000);
       vi.advanceTimersByTime(2000);
-      expect(isCacheExpired('old')).toBe(true);
+      expect(isCacheExpired("old")).toBe(true);
     });
 
-    it('returns true for non-existent key', () => {
-      expect(isCacheExpired('missing')).toBe(true);
+    it("returns true for non-existent key", () => {
+      expect(isCacheExpired("missing")).toBe(true);
     });
   });
 });

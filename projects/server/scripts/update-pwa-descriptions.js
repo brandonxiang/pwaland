@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import { Client } from '@notionhq/client';
-import { readFile } from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { Client } from "@notionhq/client";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,23 +15,23 @@ function getRequiredEnv(name) {
   return value;
 }
 
-const PWADatabaseId = getRequiredEnv('NOTION_PWA_DATABASE_ID');
-const notionApiKey = getRequiredEnv('NOTION_API_KEY');
+const PWADatabaseId = getRequiredEnv("NOTION_PWA_DATABASE_ID");
+const notionApiKey = getRequiredEnv("NOTION_API_KEY");
 
 const notion = new Client({
   auth: notionApiKey,
 });
 
 function isEnglish(text) {
-  if (!text || text.trim() === '') return true;
+  if (!text || text.trim() === "") return true;
   const englishPattern = /^[a-zA-Z0-9\s\-.,!?()'":;%$/@#&*+=<>[\]{}|^~`\\u00C0-\u024F]+$/;
   return englishPattern.test(text);
 }
 
 function isEmptyOrHelloOrNonEnglish(description) {
-  if (!description || description.trim() === '') return true;
+  if (!description || description.trim() === "") return true;
   const lower = description.toLowerCase().trim();
-  if (lower === 'hello') return true;
+  if (lower === "hello") return true;
   if (!isEnglish(description)) return true;
   return false;
 }
@@ -52,9 +51,9 @@ async function fetchSeoDescription(url) {
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        Accept: 'text/html,application/xhtml+xml',
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept: "text/html,application/xhtml+xml",
       },
     });
 
@@ -104,9 +103,9 @@ async function fetchAllPWAs() {
 
   return allResults.map((page) => {
     const props = page.properties;
-    const title = props.title?.title?.[0]?.plain_text || '';
-    const link = props.link?.url || '';
-    const description = props.description?.rich_text?.[0]?.plain_text || '';
+    const title = props.title?.title?.[0]?.plain_text || "";
+    const link = props.link?.url || "";
+    const description = props.description?.rich_text?.[0]?.plain_text || "";
 
     return {
       id: page.id,
@@ -122,7 +121,7 @@ async function updateDescription(pageId, newDescription) {
     page_id: pageId,
     properties: {
       description: {
-        type: 'rich_text',
+        type: "rich_text",
         rich_text: [
           {
             text: {
@@ -141,24 +140,24 @@ function sleep(ms) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const dryRun = args.includes('--dry-run');
+  const dryRun = args.includes("--dry-run");
   const concurrency = parseInt(
-    args.find((a) => a.startsWith('--concurrency='))?.split('=')[1] || '3',
+    args.find((a) => a.startsWith("--concurrency="))?.split("=")[1] || "3",
     10,
   );
 
-  console.log('Fetching PWAs from Notion...');
+  console.log("Fetching PWAs from Notion...");
   const pwas = await fetchAllPWAs();
   console.log(`Found ${pwas.length} PWAs in Notion`);
 
   const needUpdate = pwas.filter((pwa) => isEmptyOrHelloOrNonEnglish(pwa.description));
   console.log(`Found ${needUpdate.length} PWAs with empty/hello/non-English descriptions`);
-  console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`);
+  console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log(`Concurrency: ${concurrency}`);
-  console.log('---');
+  console.log("---");
 
   if (needUpdate.length === 0) {
-    console.log('No PWAs need description update!');
+    console.log("No PWAs need description update!");
     return;
   }
 
@@ -181,9 +180,9 @@ async function main() {
         if (dryRun) {
           console.log(`[DRY RUN] Would update: ${pwa.title}`);
           console.log(`  Old: "${pwa.description}"`);
-          console.log(`  Fetched SEO: "${seoDesc || 'none'}"`);
+          console.log(`  Fetched SEO: "${seoDesc || "none"}"`);
           console.log(`  New: "${newDescription}"`);
-          return { status: 'dry_run' };
+          return { status: "dry_run" };
         }
 
         try {
@@ -193,20 +192,20 @@ async function main() {
           } else {
             console.log(`[UPDATED] ${pwa.title} (fallback)`);
           }
-          return { status: 'updated' };
+          return { status: "updated" };
         } catch (err) {
           console.error(`[ERROR] ${pwa.title}: ${err.message}`);
-          return { status: 'failed', error: err.message };
+          return { status: "failed", error: err.message };
         }
       }),
     );
 
     for (const result of results) {
-      if (result.status === 'fulfilled') {
+      if (result.status === "fulfilled") {
         const { status } = result.value;
-        if (status === 'updated') summary.updated++;
-        else if (status === 'dry_run') summary.skipped++;
-        else if (status === 'failed') summary.failed++;
+        if (status === "updated") summary.updated++;
+        else if (status === "dry_run") summary.skipped++;
+        else if (status === "failed") summary.failed++;
       } else {
         summary.failed++;
       }
@@ -220,8 +219,8 @@ async function main() {
     }
   }
 
-  console.log('');
-  console.log('=== Summary ===');
+  console.log("");
+  console.log("=== Summary ===");
   console.log(`Total needing update: ${summary.total}`);
   console.log(`Updated: ${summary.updated}`);
   console.log(`Skipped (dry run): ${summary.skipped}`);
@@ -229,6 +228,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal error:', err);
+  console.error("Fatal error:", err);
   process.exit(1);
 });

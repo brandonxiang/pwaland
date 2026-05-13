@@ -1,21 +1,21 @@
-import { lazy } from 'react';
-import { DataRouteConfig } from '@/types';
+import { lazy } from "react";
+import { DataRouteConfig } from "@/types";
+import Home from "@/pages/Home";
 
-const Home = lazy(() => import('@/pages/Home'));
-const Submit = lazy(() => import('@/pages/Submit'));
+const Submit = lazy(() => import("@/pages/Submit"));
 
 // Route configurations for PWALand
 export const dataRoutes: DataRouteConfig[] = [
   {
-    id: 'home',
-    path: '/',
-    title: 'Home',
+    id: "home",
+    path: "/",
+    title: "Home",
     Component: Home,
   },
   {
-    id: 'submit',
-    path: '/submit',
-    title: 'Submit',
+    id: "submit",
+    path: "/submit",
+    title: "Submit",
     Component: Submit,
   },
 ];

@@ -1,5 +1,5 @@
-@use '../../style/variable.scss' as *;
-@use '../../style/mixin.scss' as *;
+@use "../../style/variable.scss" as *;
+@use "../../style/mixin.scss" as *;
 
 // ── Page Container ──────────────────────────────────
 .home {
@@ -28,7 +28,7 @@
   font-size: $font-size-3xl;
   font-weight: 700;
   color: $text-primary;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   margin-bottom: $space-2;
 
   :global(:root.dark) & {
@@ -73,52 +73,10 @@
   }
 }
 
-.heroDecor {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.heroOrb1 {
-  position: absolute;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #{$accent-primary}12, transparent 70%);
-  top: -120px;
-  right: -80px;
-  animation: float 8s ease-in-out infinite;
-}
-
-.heroOrb2 {
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #{$accent-secondary}10, transparent 70%);
-  bottom: -40px;
-  left: -60px;
-  animation: float 10s ease-in-out infinite reverse;
-}
-
-.heroOrb3 {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #{$accent-rose}08, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: float 6s ease-in-out infinite;
-}
-
 .heroContent {
   @include container;
   position: relative;
   text-align: center;
-  animation: fadeInUp 700ms ease both;
 }
 
 .heroBadge {
@@ -167,7 +125,7 @@
   font-size: $font-size-6xl;
   font-weight: 800;
   line-height: 1.1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: $text-primary;
   margin-bottom: $space-6;
 
@@ -362,7 +320,6 @@
   align-items: center;
   justify-content: center;
   gap: $space-6;
-  animation: fadeInUp 700ms 300ms ease both;
 }
 
 .stat {
@@ -489,7 +446,12 @@
   font-size: $font-size-xs;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
+  color: $text-secondary;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.72);
+  }
 }
 
 .featuredName {
@@ -498,7 +460,7 @@
   font-weight: 700;
   color: $text-primary;
   margin-bottom: $space-1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 
   :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.95);
@@ -591,8 +553,8 @@
 
 .categoryCount {
   font-size: $font-size-xs;
-  color: $text-tertiary;
-  font-weight: 500;
+  color: $text-primary;
+  font-weight: 600;
   background: $bg-secondary;
   padding: 2px 8px;
   border-radius: $border-radius-full;
@@ -602,7 +564,7 @@
   }
 
   :global(:root.dark) & {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.72);
     background: rgba(255, 255, 255, 0.08);
   }
 }
@@ -685,7 +647,7 @@
   color: $text-primary;
   margin-bottom: 2px;
   transition: color $transition-fast;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 
   :global(:root.dark) & {
     color: rgba(255, 255, 255, 0.95);
@@ -728,6 +690,13 @@
   padding: 2px $space-2;
   border-radius: $border-radius-full;
   white-space: nowrap;
+  color: $text-primary;
+  background: $bg-secondary;
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.08);
+  }
 }
 
 .stars {
@@ -773,6 +742,21 @@
     p {
       color: rgba(255, 255, 255, 0.55);
     }
+  }
+}
+
+.loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid $border-light;
+  border-top-color: $accent-primary;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -858,7 +842,7 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background:
@@ -985,13 +969,13 @@
   font-size: $font-size-xl;
   font-weight: 700;
   color: white;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .footerDesc {
   font-size: $font-size-sm;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .footerLinks {
@@ -1012,7 +996,7 @@
 
   a {
     font-size: $font-size-sm;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.72);
     transition: color $transition-fast;
 
     &:hover {
@@ -1026,7 +1010,7 @@
   font-size: $font-size-sm;
   font-weight: 600;
   color: white;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   margin-bottom: $space-1;
 }
 
@@ -1037,7 +1021,7 @@
   padding-top: $space-8;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: $font-size-sm;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.72);
 
   @include mobile {
     flex-direction: column;
@@ -1051,7 +1035,7 @@
   gap: $space-6;
 
   a {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.72);
     transition: color $transition-fast;
 
     &:hover {

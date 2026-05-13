@@ -1,38 +1,50 @@
-import { Suspense } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router';
-import { dataRoutes } from './menus';
-import NotFound from '@/pages/404';
-import { PageLoading } from '@/components/PageLoading';
-import { ContentLayout } from '@/layouts/BaseLayout';
-import { DataRouteConfig } from '@/types';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import Home from "@/pages/Home";
+import NotFound from "@/pages/404";
+import { PageLoading } from "@/components/PageLoading";
+import { ContentLayout } from "@/layouts/BaseLayout";
+import { NavigationContext } from "./navigation";
 
-// Create router using data mode with createBrowserRouter
-export const router = createBrowserRouter([
-  {
-    id: 'root',
-    path: '/',
-    Component: () => (
+const Submit = lazy(() => import("@/pages/Submit"));
+
+function normalizePath(pathname: string): string {
+  if (pathname === "") {
+    return "/";
+  }
+
+  return pathname.replace(/\/+$/, "") || "/";
+}
+
+export const AppRouter = () => {
+  const [pathname, setPathname] = useState(() => normalizePath(window.location.pathname));
+
+  useEffect(() => {
+    const onPopState = () => setPathname(normalizePath(window.location.pathname));
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  const navigate = useCallback((path: string) => {
+    const nextPath = normalizePath(path);
+    if (nextPath === normalizePath(window.location.pathname)) {
+      return;
+    }
+
+    window.history.pushState(null, "", nextPath);
+    setPathname(nextPath);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const contextValue = useMemo(() => ({ pathname, navigate }), [navigate, pathname]);
+  const Page = pathname === "/" ? Home : pathname === "/submit" ? Submit : NotFound;
+
+  return (
+    <NavigationContext.Provider value={contextValue}>
       <ContentLayout>
         <Suspense fallback={<PageLoading />}>
-          <Outlet />
+          <Page />
         </Suspense>
       </ContentLayout>
-    ),
-    children: [
-      ...dataRoutes.map((route: DataRouteConfig) => ({
-        id: route.id,
-        path: route.path === '/' ? undefined : route.path,
-        index: route.path === '/' ? true : undefined,
-        Component: route.Component,
-        loader: route.loader,
-        action: route.action,
-        errorElement: route.errorElement,
-      })),
-      // 404 catch-all route
-      {
-        path: '*',
-        Component: NotFound,
-      },
-    ],
-  },
-]);
+    </NavigationContext.Provider>
+  );
+};

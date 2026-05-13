@@ -1,4 +1,4 @@
-import { notion, PWADatabaseId } from '../model/notion';
+import { notion, PWADatabaseId } from "../model/notion";
 
 export interface AddPwaData {
   title: string;
@@ -15,7 +15,7 @@ export async function checkDuplicate(link: string): Promise<boolean> {
   const response = await notion.databases.query({
     database_id: PWADatabaseId,
     filter: {
-      property: 'link',
+      property: "link",
       url: {
         equals: link,
       },
@@ -34,11 +34,11 @@ export async function addPwaToNotion(data: AddPwaData): Promise<{ id: string }> 
 
   // Build multi_select tags
   const multiSelect =
-    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: 'Uncategorized' }];
+    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: "Uncategorized" }];
 
   const response = await notion.pages.create({
     parent: {
-      type: 'database_id',
+      type: "database_id",
       database_id: PWADatabaseId,
     },
     properties: {
@@ -52,25 +52,25 @@ export async function addPwaToNotion(data: AddPwaData): Promise<{ id: string }> 
         ],
       },
       link: {
-        type: 'url',
+        type: "url",
         url: link,
       },
       icon: {
-        type: 'url',
+        type: "url",
         url: icon,
       },
       description: {
-        type: 'rich_text',
+        type: "rich_text",
         rich_text: [
           {
             text: {
-              content: description || '',
+              content: description || "",
             },
           },
         ],
       },
       tags: {
-        type: 'multi_select',
+        type: "multi_select",
         multi_select: multiSelect,
       },
     },

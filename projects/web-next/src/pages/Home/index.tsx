@@ -1,14 +1,13 @@
-import { useState, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router';
-import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
-import { searchApps, getAppsByCategory, getFeaturedApps } from '@/data/apps';
-import type { PWAApp, Category } from '@/data/apps';
-import { useInfiniteApps } from '@/hooks/useInfiniteApps';
-import { VirtualAppGrid } from '@/components/VirtualAppGrid';
-import styles from './index.module.scss';
+import { useState, useMemo } from "react";
+import { usePageMeta } from "@/hooks/usePageMeta";
+import { useAppNavigate } from "@/router/navigation";
+import { searchApps, getAppsByCategory, getFeaturedApps } from "@/data/apps";
+import type { PWAApp, Category } from "@/data/apps";
+import { useInfiniteApps } from "@/hooks/useInfiniteApps";
+import { VirtualAppGrid } from "@/components/VirtualAppGrid";
+import styles from "./index.module.scss";
 
-const isUrl = (str: string) => str.startsWith('http://') || str.startsWith('https://');
+const isUrl = (str: string) => str.startsWith("http://") || str.startsWith("https://");
 
 // ── Star Rating Component ──────────────────────────
 const StarRating = ({ rating }: { rating: number }) => {
@@ -17,8 +16,8 @@ const StarRating = ({ rating }: { rating: number }) => {
   const hasHalf = rating - full >= 0.5;
   return (
     <span className={styles.stars}>
-      {'★'.repeat(full)}
-      {hasHalf && '½'}
+      {"★".repeat(full)}
+      {hasHalf && "½"}
       <span className={styles.ratingNum}>{rating.toFixed(1)}</span>
     </span>
   );
@@ -26,25 +25,11 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 // ── App Icon (supports both URL images and emoji) ──
 const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: string }) => {
-  if (isUrl(icon)) {
-    return (
-      <div className={styles.appIcon} style={{ background: color }}>
-        <img
-          src={icon}
-          alt={name}
-          className={styles.appIconImg}
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-            (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
-          }}
-        />
-        <span style={{ display: 'none' }}>{name.charAt(0)}</span>
-      </div>
-    );
-  }
+  const glyph = isUrl(icon) ? name.charAt(0).toUpperCase() : icon || name.charAt(0).toUpperCase();
+
   return (
     <div className={styles.appIcon} style={{ background: color }}>
-      <span>{icon || name.charAt(0)}</span>
+      <span>{glyph}</span>
     </div>
   );
 };
@@ -62,13 +47,7 @@ const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[
         <p className={styles.appDesc}>{app.description}</p>
         <div className={styles.appMeta}>
           {category && (
-            <span
-              className={styles.categoryTag}
-              style={{
-                color: category.color,
-                background: `${category.color}14`,
-              }}
-            >
+            <span className={styles.categoryTag}>
               {category.icon} {category.name}
             </span>
           )}
@@ -92,16 +71,14 @@ const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Cate
         }}
       />
       <div className={styles.featuredIcon} style={{ background: app.color }}>
-        {isUrl(app.icon) ? (
-          <img src={app.icon} alt={app.name} className={styles.appIconImg} />
-        ) : (
-          <span>{app.icon || app.name.charAt(0)}</span>
-        )}
+        <span>
+          {isUrl(app.icon) ? app.name.charAt(0).toUpperCase() : app.icon || app.name.charAt(0)}
+        </span>
       </div>
       <div className={styles.featuredInfo}>
         <div className={styles.featuredTop}>
           {category && (
-            <span className={styles.featuredTag} style={{ color: category.color }}>
+            <span className={styles.featuredTag}>
               {category.icon} {category.name}
             </span>
           )}
@@ -127,10 +104,11 @@ const CategoryCard = ({
 }) => {
   return (
     <button
-      className={`${styles.categoryCard} ${isActive ? styles.categoryActive : ''}`}
+      className={`${styles.categoryCard} ${isActive ? styles.categoryActive : ""}`}
       onClick={onClick}
+      aria-pressed={isActive}
       style={
-        isActive ? { background: category.gradient, color: '#fff', borderColor: 'transparent' } : {}
+        isActive ? { background: category.gradient, color: "#fff", borderColor: "transparent" } : {}
       }
     >
       <span className={styles.categoryEmoji}>{category.icon}</span>
@@ -142,9 +120,9 @@ const CategoryCard = ({
 
 // ── Main Home Page ─────────────────────────────────
 const Home = () => {
-  const navigate = useNavigate();
+  const navigate = useAppNavigate();
   const { apps, categories, loading, loadingMore, hasMore, error, loadMore } = useInfiniteApps();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const featured = useMemo(() => getFeaturedApps(apps), [apps]);
@@ -161,7 +139,7 @@ const Home = () => {
 
   const handleCategoryClick = (categoryId: string) => {
     setActiveCategory((prev) => (prev === categoryId ? null : categoryId));
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   const handleSearch = (value: string) => {
@@ -171,30 +149,28 @@ const Home = () => {
     }
   };
 
-  const popularTags = ['Telegram', 'Notion', 'Spotify', 'Wordle', 'Duolingo'];
+  const popularTags = ["Telegram", "Notion", "Spotify", "Wordle", "Duolingo"];
+
+  usePageMeta({
+    title: "PWALand — Discover Progressive Web Apps",
+    description:
+      "PWALand is a curated Progressive Web App directory for discovering installable, offline-capable web apps across productivity, social, games, education, finance, and tools.",
+    canonical: "https://pwaland.brandonxiang.top/",
+    keywords:
+      "Progressive Web Apps, PWA directory, installable web apps, offline web apps, web app directory",
+    openGraph: {
+      title: "PWALand — Discover Progressive Web Apps",
+      description:
+        "Discover installable, offline-capable Progressive Web Apps in a curated directory.",
+      url: "https://pwaland.brandonxiang.top/",
+      image: "https://pwaland.brandonxiang.top/og-image.jpg",
+    },
+  });
 
   return (
     <div className={styles.home}>
-      <Helmet>
-        <title>PWALand — Discover Progressive Web Apps</title>
-        <meta
-          name="description"
-          content="Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
-        />
-        <meta property="og:title" content="PWALand — Discover Progressive Web Apps" />
-        <meta
-          property="og:description"
-          content="Discover, explore, and install the best Progressive Web Apps."
-        />
-        <link rel="canonical" href="https://pwaland.brandonxiang.top/" />
-      </Helmet>
       {/* ── Hero Section ─────────────────────────── */}
       <section className={styles.hero}>
-        <div className={styles.heroDecor}>
-          <div className={styles.heroOrb1} />
-          <div className={styles.heroOrb2} />
-          <div className={styles.heroOrb3} />
-        </div>
         <div className={styles.heroContent}>
           <div className={styles.heroBadge}>
             <span className={styles.heroBadgeDot} />
@@ -213,17 +189,24 @@ const Home = () => {
           {/* Search Bar */}
           <div className={styles.searchWrapper}>
             <div className={styles.searchBox}>
-              <SearchOutlined className={styles.searchIcon} />
+              <span className={styles.searchIcon} aria-hidden="true">
+                ⌕
+              </span>
               <input
                 type="text"
+                aria-label="Search PWA apps"
                 placeholder="Search PWA apps..."
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 className={styles.searchInput}
               />
               {searchQuery && (
-                <button className={styles.searchClear} onClick={() => handleSearch('')}>
-                  ✕
+                <button
+                  className={styles.searchClear}
+                  onClick={() => handleSearch("")}
+                  aria-label="Clear search"
+                >
+                  <span aria-hidden="true">×</span>
                 </button>
               )}
             </div>
@@ -264,7 +247,7 @@ const Home = () => {
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.loadingState}>
-              <LoadingOutlined style={{ fontSize: 32 }} />
+              <span className={styles.loader} aria-hidden="true" />
               <p>Loading apps...</p>
             </div>
           </div>
@@ -276,7 +259,7 @@ const Home = () => {
           <div className={styles.container}>
             <div className={styles.emptyState}>
               <span className={styles.emptyIcon}>⚠️</span>
-              <h3 className={styles.emptyTitle}>Failed to load apps</h3>
+              <h2 className={styles.emptyTitle}>Failed to load apps</h2>
               <p className={styles.emptyDesc}>{error}</p>
             </div>
           </div>
@@ -285,7 +268,7 @@ const Home = () => {
 
       {/* ── Featured Section ─────────────────────── */}
       {!searchQuery && !activeCategory && featured.length > 0 && (
-        <section className={styles.section}>
+        <section id="featured" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Featured Apps</h2>
@@ -304,16 +287,16 @@ const Home = () => {
 
       {/* ── Categories Section ───────────────────── */}
       {categories.length > 0 && (
-        <section className={styles.section}>
+        <section id="categories" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>
-                {searchQuery ? 'Search Results' : 'Browse by Category'}
+                {searchQuery ? "Search Results" : "Browse by Category"}
               </h2>
               <p className={styles.sectionSub}>
                 {searchQuery
-                  ? `${filteredApps.length} app${filteredApps.length !== 1 ? 's' : ''} found for "${searchQuery}"`
-                  : 'Find the perfect app for your needs'}
+                  ? `${filteredApps.length} app${filteredApps.length !== 1 ? "s" : ""} found for "${searchQuery}"`
+                  : "Find the perfect app for your needs"}
               </p>
             </div>
 
@@ -335,7 +318,7 @@ const Home = () => {
 
       {/* ── App Grid Section ─────────────────────── */}
       {(apps.length > 0 || loadingMore) && (
-        <section className={styles.section}>
+        <section id="apps" className={styles.section}>
           <div className={styles.container}>
             <VirtualAppGrid
               apps={filteredApps}
@@ -359,7 +342,7 @@ const Home = () => {
                 Built an amazing Progressive Web App? Submit it to our directory and get discovered
                 by thousands of users.
               </p>
-              <button className={styles.ctaBtn} onClick={() => navigate('/submit')}>
+              <button className={styles.ctaBtn} onClick={() => navigate("/submit")}>
                 Submit Your PWA
                 <span>→</span>
               </button>
@@ -384,22 +367,29 @@ const Home = () => {
             </div>
             <div className={styles.footerLinks}>
               <div className={styles.footerCol}>
-                <h4 className={styles.footerColTitle}>Directory</h4>
+                <h2 className={styles.footerColTitle}>Directory</h2>
                 <a href="/">All Apps</a>
                 <a href="/#featured">Featured</a>
-                <a href="/#new">New Additions</a>
+                <a href="/#categories">Categories</a>
+                <a href="/#apps">Browse Apps</a>
               </div>
               <div className={styles.footerCol}>
-                <h4 className={styles.footerColTitle}>Resources</h4>
-                <a href="https://web.dev/learn/pwa">What is PWA?</a>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps">
+                <h2 className={styles.footerColTitle}>Resources</h2>
+                <a href="https://web.dev/learn/pwa" target="_blank" rel="noopener noreferrer">
+                  What is PWA?
+                </a>
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Developer Guide
                 </a>
                 <a href="/submit">Submit an App</a>
-                <a href="/api-docs">API Docs</a>
+                <a href="/llms.txt">AI Summary</a>
               </div>
               <div className={styles.footerCol}>
-                <h4 className={styles.footerColTitle}>Community</h4>
+                <h2 className={styles.footerColTitle}>Community</h2>
                 <a
                   href="https://github.com/brandonxiang/pwaland"
                   target="_blank"
@@ -407,21 +397,22 @@ const Home = () => {
                 >
                   GitHub
                 </a>
-                <a href="https://twitter.com/pwaland" target="_blank" rel="noopener noreferrer">
-                  Twitter
+                <a href="/submit">Submit a PWA</a>
+                <a
+                  href="https://web.dev/explore/progressive-web-apps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  PWA resources
                 </a>
-                <a href="https://discord.gg/pwaland" target="_blank" rel="noopener noreferrer">
-                  Discord
-                </a>
-                <a href="/blog">Blog</a>
               </div>
             </div>
           </div>
           <div className={styles.footerBottom}>
             <span>© {new Date().getFullYear()} PWALand. Open source & community driven.</span>
             <div className={styles.footerBottomLinks}>
-              <a href="/privacy">Privacy</a>
-              <a href="/terms">Terms</a>
+              <a href="/robots.txt">Robots</a>
+              <a href="/sitemap.xml">Sitemap</a>
             </div>
           </div>
         </div>

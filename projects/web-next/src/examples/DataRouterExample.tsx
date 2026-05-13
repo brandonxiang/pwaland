@@ -5,10 +5,10 @@
  * including loaders, actions, and useLoaderData hook.
  */
 
-import { useEffect } from 'react';
-import { useLoaderData, useNavigate, Form, useActionData } from 'react-router';
-import { Button, Card, List, Input, Space, message } from 'antd';
-import type { LoaderFunctionArgs, ActionFunctionArgs } from 'react-router';
+import { useEffect } from "react";
+import { useLoaderData, useNavigate, Form, useActionData } from "react-router";
+import { Button, Card, List, Input, Space, message } from "antd";
+import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router";
 
 // Example data type
 interface User {
@@ -44,10 +44,10 @@ interface ActionData {
 export async function usersLoader({ request }: LoaderFunctionArgs): Promise<LoaderData> {
   // You can access request URL, search params, etc.
   const url = new URL(request.url);
-  const search = url.searchParams.get('search') || '';
+  const search = url.searchParams.get("search") || "";
 
   // Simulate API call
-  const response = await fetch('/api/users?search=' + search);
+  const response = await fetch("/api/users?search=" + search);
   const users = await response.json();
 
   return {
@@ -72,32 +72,32 @@ export async function usersLoader({ request }: LoaderFunctionArgs): Promise<Load
  */
 export async function usersAction({ request }: ActionFunctionArgs): Promise<ActionData> {
   const formData = await request.formData();
-  const name = formData.get('name') as string;
-  const email = formData.get('email') as string;
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
 
   try {
     // Simulate API call to create user
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email }),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create user');
+      throw new Error("Failed to create user");
     }
 
     const user = await response.json();
 
     return {
       success: true,
-      message: 'User created successfully!',
+      message: "User created successfully!",
       user,
     };
   } catch (error) {
     return {
       success: false,
-      message: error instanceof Error ? error.message : 'Unknown error',
+      message: error instanceof Error ? error.message : "Unknown error",
     };
   }
 }
@@ -126,8 +126,8 @@ export default function UsersPage() {
   }, [actionData]);
 
   return (
-    <div style={{ padding: '24px' }}>
-      <Space direction="vertical" style={{ width: '100%' }} size="large">
+    <div style={{ padding: "24px" }}>
+      <Space direction="vertical" style={{ width: "100%" }} size="large">
         <Card title="Users List" extra={<small>Loaded at: {timestamp}</small>}>
           <List
             dataSource={users}
@@ -145,7 +145,7 @@ export default function UsersPage() {
         <Card title="Add New User">
           {/* Form component from react-router automatically submits to the action */}
           <Form method="post">
-            <Space direction="vertical" style={{ width: '100%' }}>
+            <Space direction="vertical" style={{ width: "100%" }}>
               <Input name="name" placeholder="Name" required />
               <Input name="email" type="email" placeholder="Email" required />
               <Button type="primary" htmlType="submit">
@@ -187,7 +187,7 @@ export async function userDetailLoader({ params }: LoaderFunctionArgs) {
   const response = await fetch(`/api/users/${userId}`);
 
   if (!response.ok) {
-    throw new Response('User not found', { status: 404 });
+    throw new Response("User not found", { status: 404 });
   }
 
   return response.json();
@@ -200,7 +200,7 @@ export function UserDetailPage() {
   return (
     <Card
       title={`User: ${user.name}`}
-      extra={<Button onClick={() => navigate('/users')}>Back</Button>}
+      extra={<Button onClick={() => navigate("/users")}>Back</Button>}
     >
       <p>
         <strong>ID:</strong> {user.id}

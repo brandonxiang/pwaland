@@ -1,17 +1,17 @@
 export default {
   mysql: {
-    host: '',
+    host: "",
     port: 3333,
-    user: '',
-    password: '',
-    database: '',
+    user: "",
+    password: "",
+    database: "",
   },
   redis: {
-    password: '',
+    password: "",
     sentinels: [],
     cluster: [
       {
-        host: '',
+        host: "",
         port: 3333,
       },
     ],

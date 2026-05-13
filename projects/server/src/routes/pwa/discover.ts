@@ -1,21 +1,21 @@
-import { FastifyInstance } from 'fastify';
-import { fail, success } from '../../utils';
-import { checkPwa, PwaCheckResponse } from '../../services/pwa-checker';
-import { checkDuplicate, addPwaToNotion } from '../../services/pwa-store';
-import { fetchTranco, fetchAwesomePwa, mergeAndDeduplicate } from '../../services/domain-sources';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { FastifyInstance } from "fastify";
+import { fail, success } from "../../utils";
+import { checkPwa, PwaCheckResponse } from "../../services/pwa-checker";
+import { checkDuplicate, addPwaToNotion } from "../../services/pwa-store";
+import { fetchTranco, fetchAwesomePwa, mergeAndDeduplicate } from "../../services/domain-sources";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path to save intermediate results
-const RESULTS_DIR = path.join(__dirname, '..', '..', '..', 'data');
-const RESULTS_FILE = path.join(RESULTS_DIR, 'discover-results.json');
+const RESULTS_DIR = path.join(__dirname, "..", "..", "..", "data");
+const RESULTS_FILE = path.join(RESULTS_DIR, "discover-results.json");
 
 interface DiscoverBody {
-  source: 'tranco' | 'github' | 'all';
+  source: "tranco" | "github" | "all";
   limit?: number;
   offset?: number;
   concurrency?: number;
@@ -63,7 +63,7 @@ function saveResults(summary: DiscoverSummary): void {
     let existing: DiscoverSummary[] = [];
     if (fs.existsSync(RESULTS_FILE)) {
       try {
-        const raw = fs.readFileSync(RESULTS_FILE, 'utf-8');
+        const raw = fs.readFileSync(RESULTS_FILE, "utf-8");
         existing = JSON.parse(raw);
       } catch {
         existing = [];
@@ -78,7 +78,7 @@ function saveResults(summary: DiscoverSummary): void {
 
     fs.writeFileSync(RESULTS_FILE, JSON.stringify(existing, null, 2));
   } catch (err) {
-    console.error('Failed to save discover results:', err);
+    console.error("Failed to save discover results:", err);
   }
 }
 
@@ -135,7 +135,7 @@ async function processDomain(
       link: check.suggestion.link,
       icon: check.suggestion.icon,
       description: check.suggestion.description,
-      tags: ['Auto-discovered'],
+      tags: ["Auto-discovered"],
     });
 
     result.added = true;
@@ -151,18 +151,18 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
   fastify.post<{
     Body: DiscoverBody;
   }>(
-    '/discover',
+    "/discover",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['source'],
+          type: "object",
+          required: ["source"],
           properties: {
-            source: { type: 'string', enum: ['tranco', 'github', 'all'] },
-            limit: { type: 'number', default: 500 },
-            offset: { type: 'number', default: 0 },
-            concurrency: { type: 'number', default: 3 },
-            dryRun: { type: 'boolean', default: false },
+            source: { type: "string", enum: ["tranco", "github", "all"] },
+            limit: { type: "number", default: 500 },
+            offset: { type: "number", default: 0 },
+            concurrency: { type: "number", default: 3 },
+            dryRun: { type: "boolean", default: false },
           },
         },
       },
@@ -180,8 +180,8 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
 
         const domainLists: string[][] = [];
 
-        if (source === 'tranco' || source === 'all') {
-          logger.info('Fetching Tranco domain list...');
+        if (source === "tranco" || source === "all") {
+          logger.info("Fetching Tranco domain list...");
           try {
             const trancoDomains = await fetchTranco(limit + offset);
             domainLists.push(trancoDomains);
@@ -191,8 +191,8 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           }
         }
 
-        if (source === 'github' || source === 'all') {
-          logger.info('Fetching GitHub awesome-pwa lists...');
+        if (source === "github" || source === "all") {
+          logger.info("Fetching GitHub awesome-pwa lists...");
           try {
             const githubDomains = await fetchAwesomePwa();
             domainLists.push(githubDomains);
@@ -202,8 +202,8 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           }
         }
 
-        if (domainLists.length === 0 || domainLists.every((l) => l.length === 0)) {
-          return res.send(fail('No domains could be fetched from any source'));
+        if (domainLists.every((l) => l.length === 0)) {
+          return res.send(fail("No domains could be fetched from any source"));
         }
 
         // Step 2: Merge and deduplicate
@@ -236,7 +236,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           );
 
           for (const settled of batchResults) {
-            if (settled.status === 'fulfilled') {
+            if (settled.status === "fulfilled") {
               const result = settled.value;
               summary.results.push(result);
               summary.checked++;
@@ -249,11 +249,11 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
               summary.checked++;
               summary.failed++;
               summary.results.push({
-                domain: batch[0] || 'unknown',
+                domain: batch[0] || "unknown",
                 isPwa: false,
                 added: false,
                 skipped: false,
-                error: settled.reason?.message || 'Unknown error',
+                error: settled.reason?.message || "Unknown error",
               });
             }
           }
@@ -303,7 +303,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           }),
         );
       } catch (err: any) {
-        logger.error(err, 'PWA discovery failed');
+        logger.error(err, "PWA discovery failed");
         return res.send(fail(`Discovery failed: ${err.message}`));
       }
     },

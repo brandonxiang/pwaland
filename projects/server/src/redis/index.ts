@@ -1,5 +1,5 @@
-import IORedis, { RedisKey } from 'ioredis';
-import { getConfig } from '../config';
+import IORedis, { RedisKey } from "ioredis";
+import { getConfig } from "../config";
 
 const config = getConfig();
 
@@ -7,9 +7,9 @@ function initRedis() {
   // 如果提供了多个地址, 使用Redis Cluster
   if (config.redis.cluster.length > 1) {
     return new IORedis.Cluster(config.redis.cluster, {
-      scaleReads: 'slave',
+      scaleReads: "slave",
       dnsLookup: (address: string, callback: any) => {
-        console.log('redis dnsLookup log', address);
+        console.log("redis dnsLookup log", address);
         callback(null, address);
       },
       redisOptions: {
@@ -42,13 +42,13 @@ export async function hgetall(key: string) {
 }
 
 export function hset(key: string, filed: string, value: string | Record<string, any>) {
-  return redis.hset(key, filed, typeof value === 'string' ? value : JSON.stringify(value));
+  return redis.hset(key, filed, typeof value === "string" ? value : JSON.stringify(value));
 }
 
 export function hmset(key: string, sets: Record<string, string | Record<string, any>>) {
   const args = Object.keys(sets).reduce((prev: string[], k: string) => {
     const value = sets[k];
-    prev.push(k, typeof value === 'string' ? value : JSON.stringify(value));
+    prev.push(k, typeof value === "string" ? value : JSON.stringify(value));
     return prev;
   }, []);
 
@@ -72,7 +72,7 @@ export async function setex(
   seconds: number,
   value: string | Record<string, any> | Buffer,
 ) {
-  return redis.setex(key, seconds, typeof value === 'string' ? value : JSON.stringify(value));
+  return redis.setex(key, seconds, typeof value === "string" ? value : JSON.stringify(value));
 }
 
 export async function getex(key: string) {

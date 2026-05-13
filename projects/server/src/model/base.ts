@@ -1,11 +1,11 @@
-import dayjs from 'dayjs';
-import knex, { Knex } from 'knex';
-import { getConfig } from '../config';
+import dayjs from "dayjs";
+import knex, { Knex } from "knex";
+import { getConfig } from "../config";
 
 const config = getConfig();
 
 export const KnexInstance = knex({
-  client: 'mysql',
+  client: "mysql",
   connection: config.mysql,
 });
 
@@ -22,11 +22,11 @@ export default class BasicModel<T extends object> {
   }
 
   async query(condition: Partial<T>): Promise<T[]> {
-    return this.queryBuilder.where(condition).orderBy('id', 'desc').select('*') as Promise<T[]>;
+    return this.queryBuilder.where(condition).orderBy("id", "desc").select("*") as Promise<T[]>;
   }
 
   async queryAll(): Promise<T[]> {
-    return this.queryBuilder.select('*').orderBy('id', 'desc') as Promise<T[]>;
+    return this.queryBuilder.select("*").orderBy("id", "desc") as Promise<T[]>;
   }
 
   async insert(entity: Partial<T>) {

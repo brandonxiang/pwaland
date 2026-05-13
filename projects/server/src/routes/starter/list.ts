@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance } from "fastify";
 import {
   fetchNotionData,
   parseNotionMultiSelect,
@@ -6,8 +6,8 @@ import {
   parseNotionTitle,
   parseNotionUrl,
   StarterDatabaseId,
-} from '../../model/notion';
-import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+} from "../../model/notion";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 function StarterListRouter(fastify: FastifyInstance, _: any, done: any) {
   fastify.post<{
@@ -15,13 +15,13 @@ function StarterListRouter(fastify: FastifyInstance, _: any, done: any) {
       start_cursor?: string;
     };
   }>(
-    '/list',
+    "/list",
     {
       schema: {
         body: {
-          type: 'object',
+          type: "object",
           properties: {
-            start_cursor: { type: 'string' },
+            start_cursor: { type: "string" },
           },
         },
       },
@@ -36,11 +36,11 @@ function StarterListRouter(fastify: FastifyInstance, _: any, done: any) {
         .map((s) => s.properties)
         .map((s) => {
           return {
-            description: parseNotionRichText(s['description']),
-            tag: parseNotionMultiSelect(s['tag']),
-            github: parseNotionUrl(s['github']),
-            key: parseNotionRichText(s['key']),
-            name: parseNotionTitle(s['name']),
+            description: parseNotionRichText(s["description"]),
+            tag: parseNotionMultiSelect(s["tag"]),
+            github: parseNotionUrl(s["github"]),
+            key: parseNotionRichText(s["key"]),
+            name: parseNotionTitle(s["name"]),
           };
         });
 

@@ -1,7 +1,7 @@
-import React from 'react';
-import { LogoutOutlined } from '@ant-design/icons';
-import { Dropdown, Avatar, MenuProps } from 'antd';
-import styles from './index.module.scss';
+import React from "react";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Dropdown, Avatar, MenuProps } from "antd";
+import styles from "./index.module.scss";
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -15,7 +15,7 @@ export class HeaderRightContent extends React.PureComponent<HeaderProps> {
     const { onMenuClick, user } = this.props;
     const { name, picture } = user;
 
-    const items: MenuProps['items'] = [
+    const items: MenuProps["items"] = [
       {
         label: (
           <>
@@ -23,7 +23,7 @@ export class HeaderRightContent extends React.PureComponent<HeaderProps> {
             <span>logout</span>
           </>
         ),
-        key: 'logout',
+        key: "logout",
         onClick: onMenuClick,
       },
     ];

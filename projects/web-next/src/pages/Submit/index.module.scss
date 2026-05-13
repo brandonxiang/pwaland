@@ -1,5 +1,5 @@
-@use '../../style/variable.scss' as *;
-@use '../../style/mixin.scss' as *;
+@use "../../style/variable.scss" as *;
+@use "../../style/mixin.scss" as *;
 
 .submit {
   min-height: calc(100vh - $header-height);

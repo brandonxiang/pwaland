@@ -1,4 +1,4 @@
-import { safeFetch } from './pwa-checker';
+import { safeFetch } from "./pwa-checker";
 
 /**
  * Fetch top domains from the Tranco list.
@@ -10,7 +10,7 @@ export async function fetchTranco(limit: number = 10000): Promise<string[]> {
   // Use the latest list from their download page
   try {
     // Fetch the main page to find the latest list
-    const pageRes = await safeFetch('https://tranco-list.eu/');
+    const pageRes = await safeFetch("https://tranco-list.eu/");
     const pageHtml = await pageRes.text();
 
     // Try to extract list ID from the page
@@ -38,7 +38,7 @@ export async function fetchTranco(limit: number = 10000): Promise<string[]> {
     } else {
       // Fallback: use a static top sites list (top 10k)
       // This is a simpler approach - use a known good source
-      csvUrl = 'https://tranco-list.eu/download_daily/top-1m.csv';
+      csvUrl = "https://tranco-list.eu/download_daily/top-1m.csv";
     }
 
     console.log(`Fetching Tranco list from: ${csvUrl}`);
@@ -51,16 +51,16 @@ export async function fetchTranco(limit: number = 10000): Promise<string[]> {
     }
 
     const csvText = await response.text();
-    const lines = csvText.trim().split('\n');
+    const lines = csvText.trim().split("\n");
 
     const domains: string[] = [];
     for (const line of lines) {
       if (domains.length >= limit) break;
 
-      const parts = line.split(',');
+      const parts = line.split(",");
       // CSV format: rank,domain
       const domain = parts.length >= 2 ? parts[1]?.trim() : parts[0]?.trim();
-      if (domain && domain.includes('.')) {
+      if (domain && domain.includes(".")) {
         domains.push(domain);
       }
     }
@@ -78,36 +78,36 @@ export async function fetchTranco(limit: number = 10000): Promise<string[]> {
  */
 function getFallbackTopDomains(limit: number): string[] {
   const topDomains = [
-    'google.com',
-    'youtube.com',
-    'facebook.com',
-    'twitter.com',
-    'instagram.com',
-    'wikipedia.org',
-    'yahoo.com',
-    'reddit.com',
-    'amazon.com',
-    'netflix.com',
-    'microsoft.com',
-    'apple.com',
-    'linkedin.com',
-    'pinterest.com',
-    'tumblr.com',
-    'ebay.com',
-    'paypal.com',
-    'github.com',
-    'stackoverflow.com',
-    'adobe.com',
-    'spotify.com',
-    'twitch.tv',
-    'discord.com',
-    'zoom.us',
-    'slack.com',
-    'notion.so',
-    'figma.com',
-    'canva.com',
-    'trello.com',
-    'asana.com',
+    "google.com",
+    "youtube.com",
+    "facebook.com",
+    "twitter.com",
+    "instagram.com",
+    "wikipedia.org",
+    "yahoo.com",
+    "reddit.com",
+    "amazon.com",
+    "netflix.com",
+    "microsoft.com",
+    "apple.com",
+    "linkedin.com",
+    "pinterest.com",
+    "tumblr.com",
+    "ebay.com",
+    "paypal.com",
+    "github.com",
+    "stackoverflow.com",
+    "adobe.com",
+    "spotify.com",
+    "twitch.tv",
+    "discord.com",
+    "zoom.us",
+    "slack.com",
+    "notion.so",
+    "figma.com",
+    "canva.com",
+    "trello.com",
+    "asana.com",
   ];
   return topDomains.slice(0, Math.min(limit, topDomains.length));
 }
@@ -118,11 +118,11 @@ function getFallbackTopDomains(limit: number): string[] {
  */
 export async function fetchAwesomePwa(): Promise<string[]> {
   const sources = [
-    'https://raw.githubusercontent.com/hemanth/awesome-pwa/refs/heads/master/README.md',
-    'https://raw.githubusercontent.com/sandermangel/awesome-pwa-ecommerce/refs/heads/master/README.md',
-    'https://raw.githubusercontent.com/hzzheng/awesome-pwa/refs/heads/master/README.md',
-    'https://raw.githubusercontent.com/sundway/awesome-pwa/refs/heads/master/README.md',
-    'https://raw.githubusercontent.com/nabil6391/awesome-pwa/refs/heads/master/README.md',
+    "https://raw.githubusercontent.com/hemanth/awesome-pwa/refs/heads/master/README.md",
+    "https://raw.githubusercontent.com/sandermangel/awesome-pwa-ecommerce/refs/heads/master/README.md",
+    "https://raw.githubusercontent.com/hzzheng/awesome-pwa/refs/heads/master/README.md",
+    "https://raw.githubusercontent.com/sundway/awesome-pwa/refs/heads/master/README.md",
+    "https://raw.githubusercontent.com/nabil6391/awesome-pwa/refs/heads/master/README.md",
   ];
 
   const allUrls: Set<string> = new Set();
@@ -183,9 +183,9 @@ function extractUrlsFromMarkdown(markdown: string): string[] {
  */
 function cleanUrl(url: string): string {
   // Remove trailing punctuation that might be part of markdown
-  url = url.replace(/[.,;:!?]+$/, '');
+  url = url.replace(/[.,;:!?]+$/, "");
   // Remove fragment
-  url = url.split('#')[0];
+  url = url.split("#")[0];
   return url;
 }
 
@@ -235,7 +235,7 @@ export function mergeAndDeduplicate(...lists: string[][]): string[] {
       let domain: string;
 
       // If it's a full URL, extract the hostname
-      if (entry.startsWith('http')) {
+      if (entry.startsWith("http")) {
         try {
           domain = new URL(entry).hostname;
         } catch {
@@ -246,9 +246,9 @@ export function mergeAndDeduplicate(...lists: string[][]): string[] {
       }
 
       // Remove www. prefix for dedup
-      const normalized = domain.replace(/^www\./, '');
+      const normalized = domain.replace(/^www\./, "");
 
-      if (!seen.has(normalized) && normalized.includes('.')) {
+      if (!seen.has(normalized) && normalized.includes(".")) {
         seen.add(normalized);
         // Keep the original entry (full URL or domain)
         result.push(entry);

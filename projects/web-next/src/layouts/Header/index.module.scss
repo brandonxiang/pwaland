@@ -1,5 +1,5 @@
-@use '../../style/variable.scss' as *;
-@use '../../style/mixin.scss' as *;
+@use "../../style/variable.scss" as *;
+@use "../../style/mixin.scss" as *;
 
 .header {
   position: fixed;
@@ -151,6 +151,11 @@
       background: rgba(255, 255, 255, 0.08);
     }
   }
+}
+
+.themeIcon {
+  display: block;
+  line-height: 1;
 }
 
 .githubLink {

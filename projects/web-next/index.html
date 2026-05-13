@@ -1,76 +1,194 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta
       name="description"
-      content="PWALand — Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
+      content="PWALand is a curated Progressive Web App directory for discovering installable, offline-capable web apps across productivity, social, games, education, finance, and tools."
+    />
+    <meta
+      name="keywords"
+      content="Progressive Web Apps, PWA directory, installable web apps, offline web apps, web app directory, PWALand"
+    />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     />
     <meta name="google-site-verification" content="ZfnkPGiiib1qWkg4pkWmUEhMvQv4U1Eddlh3ciePLYI" />
     <meta name="theme-color" content="#1C1917" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://pwaland.brandonxiang.top/" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="PWALand" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
     <title>PWALand — Discover Progressive Web Apps</title>
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pwaland.brandonxiang.top" />
+    <meta property="og:site_name" content="PWALand" />
     <meta property="og:title" content="PWALand — Discover Progressive Web Apps" />
     <meta
       property="og:description"
-      content="Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications."
+      content="Discover installable, offline-capable Progressive Web Apps in a curated directory built for modern web software."
     />
     <meta property="og:image" content="https://pwaland.brandonxiang.top/og-image.jpg" />
-    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="PWALand — Discover Progressive Web Apps" />
     <meta
       name="twitter:description"
-      content="Discover, explore, and install the best Progressive Web Apps."
+      content="Discover installable, offline-capable Progressive Web Apps in a curated directory."
     />
+    <meta name="twitter:url" content="https://pwaland.brandonxiang.top" />
     <meta name="twitter:image" content="https://pwaland.brandonxiang.top/og-image.jpg" />
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "PWALand",
-        "url": "https://pwaland.brandonxiang.top",
-        "description": "Discover, explore, and install the best Progressive Web Apps. Your curated directory of modern web applications.",
-        "publisher": {
-          "@type": "Organization",
-          "name": "PWALand",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://pwaland.brandonxiang.top/logo.svg"
-          }
-        },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://pwaland.brandonxiang.top/?q={search_term_string}"
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://pwaland.brandonxiang.top/#organization",
+            "name": "PWALand",
+            "url": "https://pwaland.brandonxiang.top/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://pwaland.brandonxiang.top/pwa-512x512.png",
+              "width": 512,
+              "height": 512
+            },
+            "sameAs": ["https://github.com/brandonxiang/pwaland"]
           },
-          "query-input": "required name=search_term_string"
-        }
+          {
+            "@type": "WebSite",
+            "@id": "https://pwaland.brandonxiang.top/#website",
+            "name": "PWALand",
+            "url": "https://pwaland.brandonxiang.top/",
+            "description": "PWALand is a curated directory for discovering installable, offline-capable Progressive Web Apps.",
+            "publisher": { "@id": "https://pwaland.brandonxiang.top/#organization" },
+            "inLanguage": "en",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://pwaland.brandonxiang.top/?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://pwaland.brandonxiang.top/#collection",
+            "url": "https://pwaland.brandonxiang.top/",
+            "name": "PWALand Progressive Web App Directory",
+            "headline": "Discover the Best Progressive Web Apps",
+            "description": "Browse curated Progressive Web Apps across productivity, social, entertainment, shopping, education, games, health, news, tools, finance, design, and music.",
+            "isPartOf": { "@id": "https://pwaland.brandonxiang.top/#website" },
+            "about": [
+              "Progressive Web Apps",
+              "PWA directory",
+              "installable web applications",
+              "offline-capable web apps"
+            ],
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "PWALand app categories",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Productivity PWAs" },
+                { "@type": "ListItem", "position": 2, "name": "Social PWAs" },
+                { "@type": "ListItem", "position": 3, "name": "Education PWAs" },
+                { "@type": "ListItem", "position": 4, "name": "Games PWAs" },
+                { "@type": "ListItem", "position": 5, "name": "Finance PWAs" },
+                { "@type": "ListItem", "position": 6, "name": "Developer tool PWAs" }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://pwaland.brandonxiang.top/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is PWALand?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "PWALand is a curated directory for discovering and submitting Progressive Web Apps, including installable and offline-capable web applications across common app categories."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What makes an app a Progressive Web App?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A Progressive Web App typically uses HTTPS, a web app manifest, responsive UI, and service worker capabilities so it can be installed and feel closer to a native app."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can developers submit a PWA to PWALand?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Developers can use the Submit a PWA page to check whether a website meets core PWA criteria and then add it to the PWALand directory."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main
+        id="seo-fallback"
+        style="
+          max-width: 760px;
+          margin: 0 auto;
+          padding: 48px 20px;
+          font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+          color: #1c1917;
+          line-height: 1.55;
+        "
+      >
+        <h1 style="font-size: 40px; line-height: 1.1; margin: 0 0 16px">
+          Discover the Best Progressive Web Apps
+        </h1>
+        <p style="font-size: 18px; margin: 0 0 24px">
+          PWALand is a curated Progressive Web App directory for finding installable,
+          offline-capable web apps across productivity, social, education, games, finance, developer
+          tools, and more.
+        </p>
+        <nav aria-label="Primary pages" style="display: flex; gap: 16px; flex-wrap: wrap">
+          <a href="/">Browse PWA directory</a>
+          <a href="/submit">Submit a PWA</a>
+          <a href="/llms.txt">AI crawler summary</a>
+          <a href="https://github.com/brandonxiang/pwaland" rel="noopener noreferrer">GitHub</a>
+        </nav>
+        <section aria-labelledby="pwa-faq" style="margin-top: 32px">
+          <h2 id="pwa-faq" style="font-size: 24px; margin: 0 0 12px">Progressive Web App FAQ</h2>
+          <h3 style="font-size: 18px; margin: 20px 0 8px">What is PWALand?</h3>
+          <p style="margin: 0">
+            PWALand helps users discover and developers submit Progressive Web Apps.
+          </p>
+          <h3 style="font-size: 18px; margin: 20px 0 8px">What makes a good PWA?</h3>
+          <p style="margin: 0">
+            A good PWA is fast, secure, installable, responsive, and can provide useful offline or
+            low-connectivity behavior through a service worker.
+          </p>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

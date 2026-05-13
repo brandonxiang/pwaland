@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import type { PWAApp, Category } from '@/data/apps';
-import { fetchAllApps, type AppData } from '@/services/appService';
-import { getCache, setCache, getStaleCacheData } from '@/utils/cache';
+import { useState, useEffect, useCallback } from "react";
+import type { PWAApp, Category } from "@/data/apps";
+import { fetchAllApps, type AppData } from "@/services/appService";
+import { getCache, setCache, getStaleCacheData } from "@/utils/cache";
 
-const CACHE_KEY = 'pwaland_apps';
+const CACHE_KEY = "pwaland_apps";
 
 interface UseAppsResult {
   apps: PWAApp[];
@@ -32,7 +32,7 @@ export function useApps(): UseAppsResult {
     } catch (err) {
       const cached = getStaleCacheData<AppData>(CACHE_KEY);
       if (!cached || cached.apps.length === 0) {
-        setError(err instanceof Error ? err.message : 'Failed to load apps');
+        setError(err instanceof Error ? err.message : "Failed to load apps");
       }
     } finally {
       setLoading(false);

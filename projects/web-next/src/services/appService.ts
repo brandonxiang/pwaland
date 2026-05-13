@@ -1,6 +1,6 @@
-import type { PWAApp, Category } from '@/data/apps';
-import { CATEGORY_META, buildCategories } from '@/data/apps';
-import { postRaw } from '@/utils/request';
+import type { PWAApp, Category } from "@/data/apps";
+import { CATEGORY_META, buildCategories } from "@/data/apps";
+import { postRaw } from "@/utils/request";
 
 interface NotionAppProperty {
   title: string;
@@ -24,8 +24,8 @@ export interface AppData {
 function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function hashColor(str: string): string {
@@ -38,20 +38,20 @@ function hashColor(str: string): string {
 }
 
 function transformNotionApp(item: NotionAppProperty): PWAApp {
-  const id = slugify(item.title || 'unknown');
-  const category = item.tags?.[0]?.toLowerCase() || 'other';
+  const id = slugify(item.title || "unknown");
+  const category = item.tags?.[0]?.toLowerCase() || "other";
   const meta = CATEGORY_META[category];
   const color = meta?.color ?? hashColor(item.title);
 
   return {
     id,
-    name: item.title || 'Untitled',
-    description: item.description || '',
+    name: item.title || "Untitled",
+    description: item.description || "",
     category,
-    icon: item.icon || '',
-    developer: '',
+    icon: item.icon || "",
+    developer: "",
     rating: 0,
-    url: item.link || '',
+    url: item.link || "",
     featured: false,
     color,
     tags: item.tags || [],
@@ -65,7 +65,7 @@ export interface PageResult {
 }
 
 export async function fetchAppsPage(cursor?: string): Promise<PageResult> {
-  const res = await postRaw<ClientListResponse>('/api/client/list', {
+  const res = await postRaw<ClientListResponse>("/api/client/list", {
     start_cursor: cursor,
   });
 
@@ -83,7 +83,7 @@ export async function fetchAllApps(): Promise<AppData> {
   let cursor: string | undefined;
 
   do {
-    const res = await postRaw<ClientListResponse>('/api/client/list', {
+    const res = await postRaw<ClientListResponse>("/api/client/list", {
       start_cursor: cursor,
     });
 

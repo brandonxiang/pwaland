@@ -44,7 +44,7 @@ Ant Design 6 brings significant improvements:
 - **TypeScript Improvements**: Better type inference and autocompletion
 
 ```tsx
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme } from "antd";
 
 function App() {
   return (
@@ -52,7 +52,7 @@ function App() {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: '#1890ff',
+          colorPrimary: "#1890ff",
         },
       }}
     >
@@ -81,9 +81,9 @@ All routes are defined in `src/router/menus.tsx`:
 ```tsx
 export const dataRoutes: DataRouteConfig[] = [
   {
-    id: 'dashboard',
-    path: '/dashboard',
-    title: 'Dashboard',
+    id: "dashboard",
+    path: "/dashboard",
+    title: "Dashboard",
     icon: <DashboardOutlined />,
     Component: Dashboard,
     loader: async ({ params }) => {
@@ -92,15 +92,15 @@ export const dataRoutes: DataRouteConfig[] = [
     },
   },
   {
-    id: 'table-list',
-    path: '/table-list',
-    title: 'Table List',
+    id: "table-list",
+    path: "/table-list",
+    title: "Table List",
     icon: <TableOutlined />,
     Component: TableList,
     action: async ({ request }) => {
       const formData = await request.formData();
       await saveTableData(formData);
-      return redirect('/table-list');
+      return redirect("/table-list");
     },
   },
 ];
@@ -196,17 +196,17 @@ vite-antd-starter/
 2. Add route to `src/router/menus.tsx`:
 
 ```tsx
-import { lazy } from 'react';
-import { YourIcon } from '@ant-design/icons';
+import { lazy } from "react";
+import { YourIcon } from "@ant-design/icons";
 
-const YourPage = lazy(() => import('@/pages/YourPage'));
+const YourPage = lazy(() => import("@/pages/YourPage"));
 
 export const dataRoutes: DataRouteConfig[] = [
   // ... existing routes
   {
-    id: 'your-page',
-    path: '/your-page',
-    title: 'Your Page',
+    id: "your-page",
+    path: "/your-page",
+    title: "Your Page",
     icon: <YourIcon />,
     Component: YourPage,
     // Optional: Add data loading
@@ -218,7 +218,7 @@ export const dataRoutes: DataRouteConfig[] = [
     action: async ({ request }) => {
       const formData = await request.formData();
       await processData(formData);
-      return redirect('/your-page');
+      return redirect("/your-page");
     },
   },
 ];

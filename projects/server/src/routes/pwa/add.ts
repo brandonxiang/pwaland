@@ -1,25 +1,25 @@
-import { FastifyInstance } from 'fastify';
-import { fail, success } from '../../utils';
-import { checkDuplicate, addPwaToNotion, AddPwaData } from '../../services/pwa-store';
+import { FastifyInstance } from "fastify";
+import { fail, success } from "../../utils";
+import { checkDuplicate, addPwaToNotion, AddPwaData } from "../../services/pwa-store";
 
 export default (fastify: FastifyInstance, _: any, done: any) => {
   fastify.post<{
     Body: AddPwaData;
   }>(
-    '/add',
+    "/add",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['title', 'link', 'icon'],
+          type: "object",
+          required: ["title", "link", "icon"],
           properties: {
-            title: { type: 'string' },
-            link: { type: 'string' },
-            icon: { type: 'string' },
-            description: { type: 'string' },
+            title: { type: "string" },
+            link: { type: "string" },
+            icon: { type: "string" },
+            description: { type: "string" },
             tags: {
-              type: 'array',
-              items: { type: 'string' },
+              type: "array",
+              items: { type: "string" },
             },
           },
         },
@@ -29,7 +29,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       const { title, link, icon, description, tags } = req.body;
 
       if (!title || !link || !icon) {
-        return res.send(fail('title, link, and icon are required'));
+        return res.send(fail("title, link, and icon are required"));
       }
 
       try {
@@ -48,7 +48,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           }),
         );
       } catch (err: any) {
-        fastify.log.error(err, 'Failed to add PWA to Notion');
+        fastify.log.error(err, "Failed to add PWA to Notion");
         return res.send(fail(`Failed to add PWA: ${err.message}`));
       }
     },

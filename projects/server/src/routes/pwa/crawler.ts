@@ -1,18 +1,18 @@
-import { FastifyInstance } from 'fastify';
-import { success } from '../../utils';
-import fs from 'fs';
-import { CRAWLER_TAGS } from '../../consts/crawler';
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import { fetchNotionData, notion, PWADatabaseId } from '../../model/notion';
+import { FastifyInstance } from "fastify";
+import { success } from "../../utils";
+import fs from "fs";
+import { CRAWLER_TAGS } from "../../consts/crawler";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { fetchNotionData, notion, PWADatabaseId } from "../../model/notion";
 
 const token =
-  'CfDJ8PNhbTKpPf1GhYfHgzDUPUqG8cTDr08l8UkJ_fNGckfibfkT0nv8qRrC26qfspoptRsdYkECe3JKi_yOeELjUkUkM6ffQCYSqj2ltFTniyzkNeDDAW_fFblL6KacllRvRjL3KCXETCzdAf38SJlTaJs';
+  "CfDJ8PNhbTKpPf1GhYfHgzDUPUqG8cTDr08l8UkJ_fNGckfibfkT0nv8qRrC26qfspoptRsdYkECe3JKi_yOeELjUkUkM6ffQCYSqj2ltFTniyzkNeDDAW_fFblL6KacllRvRjL3KCXETCzdAf38SJlTaJs";
 
 async function fetchPwaList(body: any) {
-  const response = await fetch('https://pwapp.net/api/Pwa/List', {
-    method: 'POST',
+  const response = await fetch("https://pwapp.net/api/Pwa/List", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
@@ -26,14 +26,14 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       url: string;
     };
   }>(
-    '/crawler',
+    "/crawler",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['url'],
+          type: "object",
+          required: ["url"],
           properties: {
-            url: { type: 'string' },
+            url: { type: "string" },
           },
         },
       },
@@ -59,11 +59,11 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
 
         fs.writeFileSync(`data/pwaapp${i}.json`, JSON.stringify(data, null, 2));
       }
-      res.send(success('hello world'));
+      res.send(success("hello world"));
     },
   );
 
-  fastify.get('/readFromNotion', async (req, res) => {
+  fastify.get("/readFromNotion", async (req, res) => {
     const response = await notion.databases.query({
       database_id: PWADatabaseId,
     });
@@ -74,9 +74,9 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
     res.send(tableData);
   });
 
-  fastify.post('/writeToNotion', async (req, res) => {
+  fastify.post("/writeToNotion", async (req, res) => {
     for (let i = 0; i < 16 + 1; i++) {
-      const res = fs.readFileSync(`data/pwaapp${i}.json`, { encoding: 'utf-8' });
+      const res = fs.readFileSync(`data/pwaapp${i}.json`, { encoding: "utf-8" });
       const resObj = JSON.parse(res);
       console.log(resObj.data);
 
@@ -91,16 +91,16 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
           try {
             await notion.pages.create({
               parent: {
-                type: 'database_id',
+                type: "database_id",
                 database_id: PWADatabaseId,
               },
               properties: {
                 link: {
-                  type: 'url',
+                  type: "url",
                   url: item.url,
                 },
                 icon: {
-                  type: 'url',
+                  type: "url",
                   url: item.iconUrl,
                 },
                 title: {
@@ -113,16 +113,16 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
                   ],
                 },
                 tags: {
-                  type: 'multi_select',
+                  type: "multi_select",
                   multi_select: [
                     {
-                      name: CRAWLER_TAGS[item.category] || '未分类',
-                      color: 'default',
+                      name: CRAWLER_TAGS[item.category] || "未分类",
+                      color: "default",
                     },
                   ],
                 },
                 description: {
-                  type: 'rich_text',
+                  type: "rich_text",
                   rich_text: [
                     {
                       text: {
@@ -133,9 +133,9 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
                 },
               },
             });
-            console.log('success to insert ', item.name);
+            console.log("success to insert ", item.name);
           } catch {
-            console.log('failed to insert ', item.name);
+            console.log("failed to insert ", item.name);
           }
         },
       );
@@ -144,23 +144,23 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
     res.send(success(1));
   });
 
-  fastify.get('/removeDuplicated', async (req, res) => {
+  fastify.get("/removeDuplicated", async (req, res) => {
     const cachePages: PageObjectResponse[] = [];
     const removeList: string[] = [];
     const cacheList = new Map<string, number>();
 
-    let name = '';
+    let name = "";
 
     let hasMore = true;
-    let nextCursor = '';
+    let nextCursor = "";
 
     while (hasMore) {
       const response = await fetchNotionData(PWADatabaseId, nextCursor);
       const { results, has_more, next_cursor } = response;
       hasMore = has_more;
-      nextCursor = next_cursor ? next_cursor : '';
+      nextCursor = next_cursor ? next_cursor : "";
       cachePages.push(...(results as PageObjectResponse[]));
-      console.log('This notion data has more, nextCursor is ', nextCursor);
+      console.log("This notion data has more, nextCursor is ", nextCursor);
     }
 
     cachePages.forEach((item: any, index: number) => {
@@ -178,7 +178,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
         page_id: pageId,
         archived: true, // or in_trash: true
       });
-      console.log('Now remove duplicated page, pageId is ', pageId);
+      console.log("Now remove duplicated page, pageId is ", pageId);
     });
 
     // const tableData =  /** @type {Array<import('@notionhq/client/build/src/api-endpoints').DatabaseObjectResponse>} */ (response.results);

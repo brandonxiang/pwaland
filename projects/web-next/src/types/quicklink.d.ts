@@ -1,4 +1,4 @@
-declare module 'quicklink' {
+declare module "quicklink" {
   interface ListenOptions {
     el?: Element;
     limit?: number;

@@ -1,18 +1,18 @@
-import { describe, it, expect, vi, beforeEach } from 'vite-plus/test';
-import Fastify from 'fastify';
-import PwaCheckRouter from './check';
+import { describe, it, expect, vi, beforeEach } from "vite-plus/test";
+import Fastify from "fastify";
+import PwaCheckRouter from "./check";
 
-vi.mock('../../services/pwa-checker', () => ({
+vi.mock("../../services/pwa-checker", () => ({
   checkPwa: vi.fn(),
 }));
 
-import { checkPwa } from '../../services/pwa-checker';
+import { checkPwa } from "../../services/pwa-checker";
 const mockCheckPwa = vi.mocked(checkPwa);
 
-describe('POST /check', () => {
+describe("POST /check", () => {
   const buildApp = async () => {
     const app = Fastify();
-    app.register(PwaCheckRouter, { prefix: '/api/pwa' });
+    app.register(PwaCheckRouter, { prefix: "/api/pwa" });
     await app.ready();
     return app;
   };
@@ -21,10 +21,10 @@ describe('POST /check', () => {
     vi.clearAllMocks();
   });
 
-  it('returns success with check result', async () => {
+  it("returns success with check result", async () => {
     const fakeResult = {
       isPwa: true,
-      url: 'https://example.com',
+      url: "https://example.com",
       checks: {},
       suggestion: {},
     };
@@ -32,9 +32,9 @@ describe('POST /check', () => {
 
     const app = await buildApp();
     const res = await app.inject({
-      method: 'POST',
-      url: '/api/pwa/check',
-      payload: { url: 'https://example.com' },
+      method: "POST",
+      url: "/api/pwa/check",
+      payload: { url: "https://example.com" },
     });
 
     const body = JSON.parse(res.body);
@@ -44,27 +44,27 @@ describe('POST /check', () => {
     await app.close();
   });
 
-  it('returns fail when checkPwa throws', async () => {
-    mockCheckPwa.mockRejectedValue(new Error('network error'));
+  it("returns fail when checkPwa throws", async () => {
+    mockCheckPwa.mockRejectedValue(new Error("network error"));
 
     const app = await buildApp();
     const res = await app.inject({
-      method: 'POST',
-      url: '/api/pwa/check',
-      payload: { url: 'https://example.com' },
+      method: "POST",
+      url: "/api/pwa/check",
+      payload: { url: "https://example.com" },
     });
 
     const body = JSON.parse(res.body);
     expect(body.ret).toBe(1);
-    expect(body.msg).toContain('network error');
+    expect(body.msg).toContain("network error");
     await app.close();
   });
 
-  it('returns 400 when url is missing from body', async () => {
+  it("returns 400 when url is missing from body", async () => {
     const app = await buildApp();
     const res = await app.inject({
-      method: 'POST',
-      url: '/api/pwa/check',
+      method: "POST",
+      url: "/api/pwa/check",
       payload: {},
     });
 

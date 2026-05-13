@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vite-plus/test';
-import { render, screen } from '@testing-library/react';
-import { VirtualAppGrid } from './index';
-import type { PWAApp, Category } from '@/data/apps';
+import { describe, it, expect, vi, beforeEach } from "vite-plus/test";
+import { render, screen } from "@testing-library/react";
+import { VirtualAppGrid } from "./index";
+import type { PWAApp, Category } from "@/data/apps";
 
 const mockObserve = vi.fn();
 const mockUnobserve = vi.fn();
@@ -18,7 +18,7 @@ class MockIntersectionObserver {
 }
 
 beforeEach(() => {
-  vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
+  vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
 });
 
 const makeApps = (count: number): PWAApp[] =>
@@ -26,17 +26,17 @@ const makeApps = (count: number): PWAApp[] =>
     id: `app-${i}`,
     name: `App ${i}`,
     description: `Description ${i}`,
-    category: 'tools',
-    icon: '',
-    developer: '',
+    category: "tools",
+    icon: "",
+    developer: "",
     rating: 0,
     url: `https://app${i}.com`,
-    color: '#000',
-    tags: ['tools'],
+    color: "#000",
+    tags: ["tools"],
   }));
 
 const categories: Category[] = [
-  { id: 'tools', name: 'Tools', icon: '🔧', color: '#64748B', gradient: '', count: 10 },
+  { id: "tools", name: "Tools", icon: "🔧", color: "#64748B", gradient: "", count: 10 },
 ];
 
 const defaultRenderCard = (app: PWAApp) => (
@@ -45,8 +45,8 @@ const defaultRenderCard = (app: PWAApp) => (
   </div>
 );
 
-describe('VirtualAppGrid', () => {
-  it('renders app cards for the provided apps', () => {
+describe("VirtualAppGrid", () => {
+  it("renders app cards for the provided apps", () => {
     const apps = makeApps(3);
     render(
       <VirtualAppGrid
@@ -58,12 +58,12 @@ describe('VirtualAppGrid', () => {
         renderCard={defaultRenderCard}
       />,
     );
-    expect(screen.getByText('App 0')).toBeInTheDocument();
-    expect(screen.getByText('App 1')).toBeInTheDocument();
-    expect(screen.getByText('App 2')).toBeInTheDocument();
+    expect(screen.getByText("App 0")).toBeInTheDocument();
+    expect(screen.getByText("App 1")).toBeInTheDocument();
+    expect(screen.getByText("App 2")).toBeInTheDocument();
   });
 
-  it('shows loading indicator when loadingMore is true', () => {
+  it("shows loading indicator when loadingMore is true", () => {
     render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -74,10 +74,10 @@ describe('VirtualAppGrid', () => {
         renderCard={defaultRenderCard}
       />,
     );
-    expect(screen.getByText('Loading more apps...')).toBeInTheDocument();
+    expect(screen.getByText("Loading more apps...")).toBeInTheDocument();
   });
 
-  it('renders sentinel element when hasMore is true', () => {
+  it("renders sentinel element when hasMore is true", () => {
     const { container } = render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -91,7 +91,7 @@ describe('VirtualAppGrid', () => {
     expect(container.querySelector("[data-testid='load-more-sentinel']")).toBeInTheDocument();
   });
 
-  it('does not render sentinel when hasMore is false', () => {
+  it("does not render sentinel when hasMore is false", () => {
     const { container } = render(
       <VirtualAppGrid
         apps={makeApps(2)}
@@ -105,7 +105,7 @@ describe('VirtualAppGrid', () => {
     expect(container.querySelector("[data-testid='load-more-sentinel']")).not.toBeInTheDocument();
   });
 
-  it('renders empty state when no apps provided', () => {
+  it("renders empty state when no apps provided", () => {
     render(
       <VirtualAppGrid
         apps={[]}
@@ -116,6 +116,6 @@ describe('VirtualAppGrid', () => {
         renderCard={defaultRenderCard}
       />,
     );
-    expect(screen.getByText('No apps found')).toBeInTheDocument();
+    expect(screen.getByText("No apps found")).toBeInTheDocument();
   });
 });

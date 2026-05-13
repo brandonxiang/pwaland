@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Input, Button, Select, message } from 'antd';
+import { useState } from "react";
+import { Input, Button, Select, message } from "antd";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -9,9 +8,10 @@ import {
   SettingOutlined,
   PictureOutlined,
   CloudServerOutlined,
-} from '@ant-design/icons';
-import { post } from '@/utils/request';
-import styles from './index.module.scss';
+} from "@ant-design/icons";
+import { usePageMeta } from "@/hooks/usePageMeta";
+import { post } from "@/utils/request";
+import styles from "./index.module.scss";
 
 interface CheckResult {
   pass: boolean;
@@ -39,42 +39,42 @@ interface PwaCheckData {
 }
 
 const TAG_OPTIONS = [
-  'Social',
-  'Productivity',
-  'Entertainment',
-  'Shopping',
-  'Education',
-  'Games',
-  'Health',
-  'News',
-  'Developer Tools',
-  'Finance',
-  'Travel',
-  'Utilities',
+  "Social",
+  "Productivity",
+  "Entertainment",
+  "Shopping",
+  "Education",
+  "Games",
+  "Health",
+  "News",
+  "Developer Tools",
+  "Finance",
+  "Travel",
+  "Utilities",
 ];
 
-const CHECK_ITEMS: { key: keyof PwaCheckData['checks']; label: string; icon: React.ReactNode }[] = [
-  { key: 'https', label: 'HTTPS', icon: <SafetyCertificateOutlined /> },
-  { key: 'manifest', label: 'Web App Manifest', icon: <FileTextOutlined /> },
-  { key: 'serviceWorker', label: 'Service Worker', icon: <CloudServerOutlined /> },
-  { key: 'icons', label: 'App Icons', icon: <PictureOutlined /> },
-  { key: 'display', label: 'Display Mode', icon: <SettingOutlined /> },
+const CHECK_ITEMS: { key: keyof PwaCheckData["checks"]; label: string; icon: React.ReactNode }[] = [
+  { key: "https", label: "HTTPS", icon: <SafetyCertificateOutlined /> },
+  { key: "manifest", label: "Web App Manifest", icon: <FileTextOutlined /> },
+  { key: "serviceWorker", label: "Service Worker", icon: <CloudServerOutlined /> },
+  { key: "icons", label: "App Icons", icon: <PictureOutlined /> },
+  { key: "display", label: "Display Mode", icon: <SettingOutlined /> },
 ];
 
 const Submit = () => {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [checking, setChecking] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [checkResult, setCheckResult] = useState<PwaCheckData | null>(null);
 
   // Editable fields for submission
-  const [editTitle, setEditTitle] = useState('');
-  const [editDesc, setEditDesc] = useState('');
+  const [editTitle, setEditTitle] = useState("");
+  const [editDesc, setEditDesc] = useState("");
   const [editTags, setEditTags] = useState<string[]>([]);
 
   const handleCheck = async () => {
     if (!url.trim()) {
-      message.warning('Please enter a URL');
+      message.warning("Please enter a URL");
       return;
     }
 
@@ -82,8 +82,8 @@ const Submit = () => {
     setCheckResult(null);
 
     try {
-      const cleanUrl = url.trim().replace(/^(https?:\/\/)/, '');
-      const res = await post<PwaCheckData>('/api/pwa/check', { url: cleanUrl });
+      const cleanUrl = url.trim().replace(/^(https?:\/\/)/, "");
+      const res = await post<PwaCheckData>("/api/pwa/check", { url: cleanUrl });
       setCheckResult(res.data);
 
       // Pre-fill editable fields from suggestion
@@ -92,12 +92,12 @@ const Submit = () => {
       setEditTags([]);
 
       if (res.data.isPwa) {
-        message.success('This website is a valid PWA!');
+        message.success("This website is a valid PWA!");
       } else {
-        message.info('This website does not fully meet PWA criteria.');
+        message.info("This website does not fully meet PWA criteria.");
       }
     } catch (err: any) {
-      message.error(err.message || 'Check failed');
+      message.error(err.message || "Check failed");
     } finally {
       setChecking(false);
     }
@@ -107,14 +107,14 @@ const Submit = () => {
     if (!checkResult) return;
 
     if (!editTitle.trim()) {
-      message.warning('Title is required');
+      message.warning("Title is required");
       return;
     }
 
     setSubmitting(true);
 
     try {
-      await post('/api/pwa/add', {
+      await post("/api/pwa/add", {
         title: editTitle.trim(),
         link: checkResult.suggestion.link,
         icon: checkResult.suggestion.icon,
@@ -123,13 +123,13 @@ const Submit = () => {
       });
       message.success(`"${editTitle}" has been added to PWALand!`);
       // Reset form
-      setUrl('');
+      setUrl("");
       setCheckResult(null);
-      setEditTitle('');
-      setEditDesc('');
+      setEditTitle("");
+      setEditDesc("");
       setEditTags([]);
     } catch (err: any) {
-      message.error(err.message || 'Submit failed');
+      message.error(err.message || "Submit failed");
     } finally {
       setSubmitting(false);
     }
@@ -140,21 +140,23 @@ const Submit = () => {
     : 0;
   const totalChecks = CHECK_ITEMS.length;
 
+  usePageMeta({
+    title: "Submit a PWA | PWALand",
+    description:
+      "Submit your Progressive Web App to the PWALand directory and run a quick PWA readiness check for HTTPS, manifest, service worker, icons, and display mode.",
+    canonical: "https://pwaland.brandonxiang.top/submit",
+    keywords:
+      "submit PWA, Progressive Web App submission, PWA checker, web app manifest, service worker",
+    openGraph: {
+      title: "Submit a PWA | PWALand",
+      description: "Submit your Progressive Web App and check its core PWA readiness signals.",
+      url: "https://pwaland.brandonxiang.top/submit",
+      image: "https://pwaland.brandonxiang.top/og-image.jpg",
+    },
+  });
+
   return (
     <div className={styles.submit}>
-      <Helmet>
-        <title>Submit a PWA | PWALand</title>
-        <meta
-          name="description"
-          content="Submit your Progressive Web App to PWALand directory. Get discovered by thousands of users looking for quality PWAs."
-        />
-        <meta property="og:title" content="Submit a PWA | PWALand" />
-        <meta
-          property="og:description"
-          content="Submit your Progressive Web App to PWALand directory."
-        />
-        <link rel="canonical" href="https://pwaland.brandonxiang.top/submit" />
-      </Helmet>
       <div className={styles.container}>
         {/* Page Header */}
         <div className={styles.pageHeader}>
@@ -175,7 +177,7 @@ const Submit = () => {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onPressEnter={handleCheck}
-              prefix={<span style={{ color: '#a8a29e' }}>https://</span>}
+              prefix={<span style={{ color: "#a8a29e" }}>https://</span>}
               allowClear
             />
             <Button
@@ -248,7 +250,7 @@ const Submit = () => {
                           src={checkResult.suggestion.icon}
                           alt={checkResult.suggestion.title}
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).style.display = "none";
                           }}
                         />
                       ) : (
@@ -259,7 +261,7 @@ const Submit = () => {
                           {editTitle || checkResult.suggestion.title}
                         </div>
                         <div className={styles.previewDesc}>
-                          {editDesc || checkResult.suggestion.description || 'No description'}
+                          {editDesc || checkResult.suggestion.description || "No description"}
                         </div>
                         <div className={styles.previewLink}>{checkResult.suggestion.link}</div>
                       </div>
@@ -306,8 +308,8 @@ const Submit = () => {
                         onClick={handleSubmit}
                       >
                         {checkResult.isPwa
-                          ? 'Add to PWALand'
-                          : 'Cannot submit - website does not pass PWA checks'}
+                          ? "Add to PWALand"
+                          : "Cannot submit - website does not pass PWA checks"}
                       </Button>
                     </div>
                   </div>

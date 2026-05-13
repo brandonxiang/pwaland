@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance } from "fastify";
 import {
   fetchNotionData,
   parseNotionMultiSelect,
@@ -6,8 +6,8 @@ import {
   parseNotionTitle,
   parseNotionUrl,
   PWADatabaseId,
-} from '../../model/notion';
-import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+} from "../../model/notion";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 // type PwalandTable = {
 //   description: string;
@@ -25,13 +25,13 @@ function ClientListRouter(fastify: FastifyInstance, _: any, done: any) {
       start_cursor?: string;
     };
   }>(
-    '/list',
+    "/list",
     {
       schema: {
         body: {
-          type: 'object',
+          type: "object",
           properties: {
-            start_cursor: { type: 'string' },
+            start_cursor: { type: "string" },
           },
         },
       },
@@ -46,11 +46,11 @@ function ClientListRouter(fastify: FastifyInstance, _: any, done: any) {
         .map((s) => s.properties)
         .map((s) => {
           return {
-            description: parseNotionRichText(s['description']),
-            tags: parseNotionMultiSelect(s['tags']),
-            link: parseNotionUrl(s['link']),
-            icon: parseNotionUrl(s['icon']),
-            title: parseNotionTitle(s['title']),
+            description: parseNotionRichText(s["description"]),
+            tags: parseNotionMultiSelect(s["tags"]),
+            link: parseNotionUrl(s["link"]),
+            icon: parseNotionUrl(s["icon"]),
+            title: parseNotionTitle(s["title"]),
           };
         });
 

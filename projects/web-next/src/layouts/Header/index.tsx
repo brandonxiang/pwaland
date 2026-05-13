@@ -1,32 +1,31 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { MoonOutlined, SunOutlined } from '@ant-design/icons';
-import { useTheme } from '@/providers/ThemeProvider';
-import styles from './index.module.scss';
+import { useState, useEffect } from "react";
+import { useAppLocation, useAppNavigate } from "@/router/navigation";
+import { useTheme } from "@/providers/ThemeProvider";
+import styles from "./index.module.scss";
 
 const navItems = [
-  { path: '/', label: 'Home' },
-  { path: '/submit', label: 'Submit' },
+  { path: "/", label: "Home" },
+  { path: "/submit", label: "Submit" },
 ];
 
 export const Header = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useAppNavigate();
+  const location = useAppLocation();
   const { isDark, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.container}>
         {/* Logo */}
-        <div className={styles.logo} onClick={() => navigate('/')}>
+        <div className={styles.logo} onClick={() => navigate("/")}>
           <span className={styles.logoIcon}>◆</span>
           <span className={styles.logoText}>PWALand</span>
         </div>
@@ -36,7 +35,7 @@ export const Header = () => {
           {navItems.map((item) => (
             <button
               key={item.path}
-              className={`${styles.navItem} ${location.pathname === item.path ? styles.active : ''}`}
+              className={`${styles.navItem} ${location.pathname === item.path ? styles.active : ""}`}
               onClick={() => navigate(item.path)}
             >
               {item.label}
@@ -50,10 +49,12 @@ export const Header = () => {
           <button
             className={styles.themeToggle}
             onClick={toggleTheme}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {isDark ? <SunOutlined /> : <MoonOutlined />}
+            <span aria-hidden="true" className={styles.themeIcon}>
+              {isDark ? "☀" : "☾"}
+            </span>
           </button>
 
           <a
@@ -70,7 +71,7 @@ export const Header = () => {
 
           {/* Mobile Menu Toggle */}
           <button
-            className={`${styles.mobileToggle} ${mobileMenuOpen ? styles.open : ''}`}
+            className={`${styles.mobileToggle} ${mobileMenuOpen ? styles.open : ""}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -87,7 +88,7 @@ export const Header = () => {
           {navItems.map((item) => (
             <button
               key={item.path}
-              className={`${styles.mobileNavItem} ${location.pathname === item.path ? styles.active : ''}`}
+              className={`${styles.mobileNavItem} ${location.pathname === item.path ? styles.active : ""}`}
               onClick={() => {
                 navigate(item.path);
                 setMobileMenuOpen(false);

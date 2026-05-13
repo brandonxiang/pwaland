@@ -1,21 +1,41 @@
-import { useEffect } from 'react';
-import { listen } from 'quicklink';
-import { useLocation } from 'react-router';
+import { useEffect } from "react";
+import { useAppLocation } from "@/router/navigation";
 
-/**
- * Initializes quicklink to prefetch in-viewport links on each route change.
- * Uses IntersectionObserver to detect visible <a> tags and prefetches them
- * during idle time, improving perceived navigation speed.
- */
-export function useQuicklink() {
-  const { pathname } = useLocation();
+const QUICKLINK_IDLE_DELAY_MS = 3000;
+
+function shouldEnableQuicklink(): boolean {
+  return import.meta.env.VITE_ENABLE_QUICKLINK !== "false";
+}
+
+export function useQuicklink(): void {
+  const { pathname } = useAppLocation();
 
   useEffect(() => {
-    const cleanup = listen({
-      origins: [window.location.hostname],
-      ignores: [/\/api\//, (uri: string) => uri.includes('#')],
-    });
+    if (!shouldEnableQuicklink()) {
+      return;
+    }
 
-    return cleanup;
+    let cleanup: (() => void) | undefined;
+    let cancelled = false;
+
+    const timeoutId = window.setTimeout(async () => {
+      const { listen } = await import("quicklink");
+
+      if (cancelled) {
+        return;
+      }
+
+      cleanup = listen({
+        origins: [window.location.origin],
+        limit: 2,
+        ignores: [/\/api\//, /\/submit(?:\/|$)/, (uri: string) => uri.includes("#")],
+      });
+    }, QUICKLINK_IDLE_DELAY_MS);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+      cleanup?.();
+    };
   }, [pathname]);
 }

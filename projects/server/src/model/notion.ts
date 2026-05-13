@@ -1,9 +1,9 @@
-import { Client } from '@notionhq/client';
-import { getRequiredEnv } from '../config/env';
+import { Client } from "@notionhq/client";
+import { getRequiredEnv } from "../config/env";
 
-export const PWADatabaseId = getRequiredEnv('NOTION_PWA_DATABASE_ID');
-export const StarterDatabaseId = getRequiredEnv('NOTION_STARTER_DATABASE_ID');
-const notionApiKey = getRequiredEnv('NOTION_API_KEY');
+export const PWADatabaseId = getRequiredEnv("NOTION_PWA_DATABASE_ID");
+export const StarterDatabaseId = getRequiredEnv("NOTION_STARTER_DATABASE_ID");
+const notionApiKey = getRequiredEnv("NOTION_API_KEY");
 
 export const notion = new Client({
   auth: notionApiKey,
@@ -29,7 +29,7 @@ function getCacheTtlMs(): number {
 }
 
 function cacheKey(databaseId: string, startCursor?: string): string {
-  return `${databaseId}:${startCursor ?? 'first-page'}`;
+  return `${databaseId}:${startCursor ?? "first-page"}`;
 }
 
 export function clearNotionDataCache(): void {
@@ -49,8 +49,8 @@ export async function fetchNotionData(databaseId: string, start_cursor?: string)
     database_id: databaseId,
     sorts: [
       {
-        property: 'title',
-        direction: 'ascending',
+        property: "title",
+        direction: "ascending",
       },
     ],
     start_cursor: start_cursor ? start_cursor : undefined,
@@ -85,12 +85,12 @@ interface NotionMultiSelectProperty {
 
 export function parseNotionRichText(obj: unknown): string {
   const property = obj as NotionRichTextProperty;
-  return property.rich_text?.map((s) => s.plain_text).join('') ?? '';
+  return property.rich_text?.map((s) => s.plain_text).join("") ?? "";
 }
 
 export function parseNotionUrl(obj: unknown): string {
   const property = obj as NotionUrlProperty;
-  return property.url ?? '';
+  return property.url ?? "";
 }
 
 export function parseNotionMultiSelect(obj: unknown): string[] {
@@ -100,5 +100,5 @@ export function parseNotionMultiSelect(obj: unknown): string[] {
 
 export function parseNotionTitle(obj: unknown): string {
   const property = obj as NotionRichTextProperty;
-  return property.title?.map((s) => s.plain_text).join(' ') ?? '';
+  return property.title?.map((s) => s.plain_text).join(" ") ?? "";
 }

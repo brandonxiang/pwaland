@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-export const success = (data: any, ret = 0, msg = 'ok') => ({
+export const success = (data: any, ret = 0, msg = "ok") => ({
   data,
   ret,
   msg,

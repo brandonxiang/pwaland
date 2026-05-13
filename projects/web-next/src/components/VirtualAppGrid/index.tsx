@@ -1,7 +1,6 @@
-import { useRef, useEffect } from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
-import type { PWAApp, Category } from '@/data/apps';
-import styles from './index.module.scss';
+import { useRef, useEffect } from "react";
+import type { PWAApp, Category } from "@/data/apps";
+import styles from "./index.module.scss";
 
 interface VirtualAppGridProps {
   apps: PWAApp[];
@@ -31,7 +30,7 @@ export function VirtualAppGrid({
           onLoadMore();
         }
       },
-      { rootMargin: '200px' },
+      { rootMargin: "200px" },
     );
 
     observer.observe(sentinelRef.current);
@@ -57,7 +56,7 @@ export function VirtualAppGrid({
 
       {loadingMore && (
         <div className={styles.loadingMore}>
-          <LoadingOutlined style={{ fontSize: 24 }} />
+          <span className={styles.loader} aria-hidden="true" />
           <p>Loading more apps...</p>
         </div>
       )}

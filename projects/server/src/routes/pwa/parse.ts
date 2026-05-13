@@ -1,7 +1,7 @@
-import { FastifyInstance } from 'fastify';
-import { fail, success } from '../../utils';
-import puppeteer from 'puppeteer';
-import { Browser } from 'puppeteer';
+import { FastifyInstance } from "fastify";
+import { fail, success } from "../../utils";
+import puppeteer from "puppeteer";
+import { Browser } from "puppeteer";
 
 interface ParsedManifest {
   name?: string;
@@ -34,17 +34,17 @@ const checkPwa = async (inputLink: string) => {
   // Step 1: launch browser and open a new page.
   const browser = await getBrowser();
   if (!browser) {
-    throw new Error('Browser could not be launched');
+    throw new Error("Browser could not be launched");
   }
   const page = await browser.newPage();
 
   try {
     // Step 2: Navigate to the URL and wait for page load
-    await page.goto(inputLink, { waitUntil: 'networkidle0' });
+    await page.goto(inputLink, { waitUntil: "networkidle0" });
 
     // Step 3: Wait for Service Worker registration and installation
     const serviceWorkerStatus = await page.evaluate(async () => {
-      if (!('serviceWorker' in navigator)) {
+      if (!("serviceWorker" in navigator)) {
         return { registered: false, installed: false };
       }
 
@@ -72,12 +72,12 @@ const checkPwa = async (inputLink: string) => {
     // Step 4: Check for Web App Manifest
     const manifestLink = await page.evaluate(() => {
       const manifest = document.querySelector('link[rel="manifest"]');
-      console.log(manifest, 'manifest');
-      return manifest ? manifest.getAttribute('href') : null;
+      console.log(manifest, "manifest");
+      return manifest ? manifest.getAttribute("href") : null;
     });
 
     if (!manifestLink) {
-      throw new Error('Web App Manifest not found');
+      throw new Error("Web App Manifest not found");
     }
 
     // Step 5: Fetch and validate manifest
@@ -87,17 +87,17 @@ const checkPwa = async (inputLink: string) => {
 
     // Validate key PWA manifest properties
     if (!manifestData.name && !manifestData.short_name) {
-      throw new Error('Manifest lacks required name properties');
+      throw new Error("Manifest lacks required name properties");
     }
 
     if (!manifestData.icons || manifestData.icons.length === 0) {
-      throw new Error('No icons defined in manifest');
+      throw new Error("No icons defined in manifest");
     }
 
     // Step 6: Additional PWA checks
     const pwaChecks = await page.evaluate(() => ({
-      offlineCapable: 'serviceWorker' in navigator,
-      installable: window.matchMedia('(display-mode: standalone)').matches,
+      offlineCapable: "serviceWorker" in navigator,
+      installable: window.matchMedia("(display-mode: standalone)").matches,
       responsive: window.innerWidth !== document.documentElement.clientWidth,
     }));
 
@@ -123,14 +123,14 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       url: string;
     };
   }>(
-    '/parse',
+    "/parse",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['url'],
+          type: "object",
+          required: ["url"],
           properties: {
-            url: { type: 'string' },
+            url: { type: "string" },
           },
         },
       },
@@ -139,15 +139,15 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       let { url } = req.body;
 
       if (url) {
-        url = 'https://' + url;
+        url = "https://" + url;
         const output = await checkPwa(url).catch((err) => {
-          res.send(fail('This is not a PWA. ' + err.message));
+          res.send(fail("This is not a PWA. " + err.message));
         });
         if (output) {
           res.send(success(output));
         }
       } else {
-        res.send(fail('url is required'));
+        res.send(fail("url is required"));
       }
     },
   );

@@ -1,8 +1,8 @@
-import { assertSafeExternalUrl } from './url-safety';
+import { assertSafeExternalUrl } from "./url-safety";
 
 // Browser-like User-Agent to avoid being blocked
 const USER_AGENT =
-  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 const FETCH_TIMEOUT = 15_000;
 const MAX_REDIRECTS = 5;
@@ -60,22 +60,22 @@ export async function safeFetch(url: string, redirectCount = 0): Promise<Respons
   try {
     const response = await fetch(safeUrl.href, {
       headers: {
-        'User-Agent': USER_AGENT,
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
+        "User-Agent": USER_AGENT,
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
       },
-      redirect: 'manual',
+      redirect: "manual",
       signal: controller.signal,
     });
 
     if ([301, 302, 303, 307, 308].includes(response.status)) {
       if (redirectCount >= MAX_REDIRECTS) {
-        throw new Error('Too many redirects');
+        throw new Error("Too many redirects");
       }
 
-      const location = response.headers.get('location');
+      const location = response.headers.get("location");
       if (!location) {
-        throw new Error('Redirect response missing Location header');
+        throw new Error("Redirect response missing Location header");
       }
 
       return safeFetch(resolveUrl(location, safeUrl.href), redirectCount + 1);
@@ -159,7 +159,7 @@ export function detectServiceWorker(html: string): { found: boolean; detail: str
 
   return {
     found: false,
-    detail: 'No Service Worker registration patterns found in HTML source',
+    detail: "No Service Worker registration patterns found in HTML source",
   };
 }
 
@@ -171,14 +171,14 @@ export function findBestIcon(icons: ManifestIcon[], baseUrl: string): string | n
   if (!icons || icons.length === 0) return null;
 
   const preferredSizes = [
-    '512x512',
-    '384x384',
-    '256x256',
-    '192x192',
-    '144x144',
-    '128x128',
-    '96x96',
-    '72x72',
+    "512x512",
+    "384x384",
+    "256x256",
+    "192x192",
+    "144x144",
+    "128x128",
+    "96x96",
+    "72x72",
   ];
 
   for (const size of preferredSizes) {
@@ -216,20 +216,20 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
     isPwa: false,
     url,
     checks: {
-      https: { pass: false, detail: '' },
-      manifest: { pass: false, detail: '' },
-      serviceWorker: { pass: false, detail: '' },
-      icons: { pass: false, detail: '' },
-      display: { pass: false, detail: '' },
+      https: { pass: false, detail: "" },
+      manifest: { pass: false, detail: "" },
+      serviceWorker: { pass: false, detail: "" },
+      icons: { pass: false, detail: "" },
+      display: { pass: false, detail: "" },
     },
-    suggestion: { title: '', icon: '', description: '', link: url },
+    suggestion: { title: "", icon: "", description: "", link: url },
   };
 
   // Check 1: HTTPS
-  if (url.startsWith('https://')) {
-    result.checks.https = { pass: true, detail: 'Site is served over HTTPS' };
+  if (url.startsWith("https://")) {
+    result.checks.https = { pass: true, detail: "Site is served over HTTPS" };
   } else {
-    result.checks.https = { pass: false, detail: 'Site is not served over HTTPS' };
+    result.checks.https = { pass: false, detail: "Site is not served over HTTPS" };
   }
 
   // Fetch HTML
@@ -242,9 +242,9 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
     html = await response.text();
   } catch (err: any) {
     result.checks.manifest = { pass: false, detail: `Failed to fetch page: ${err.message}` };
-    result.checks.serviceWorker = { pass: false, detail: 'Could not analyze page' };
-    result.checks.icons = { pass: false, detail: 'Could not analyze page' };
-    result.checks.display = { pass: false, detail: 'Could not analyze page' };
+    result.checks.serviceWorker = { pass: false, detail: "Could not analyze page" };
+    result.checks.icons = { pass: false, detail: "Could not analyze page" };
+    result.checks.display = { pass: false, detail: "Could not analyze page" };
     return result;
   }
 
@@ -303,19 +303,19 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
     } else {
       result.checks.icons = {
         pass: false,
-        detail: 'Icons defined but no valid src found',
+        detail: "Icons defined but no valid src found",
       };
     }
   } else {
     result.checks.icons = {
       pass: false,
-      detail: manifestData ? 'No icons defined in manifest' : 'Cannot check icons without manifest',
+      detail: manifestData ? "No icons defined in manifest" : "Cannot check icons without manifest",
     };
   }
 
   // Check 5: Display mode
   if (manifestData?.display) {
-    const validModes = ['standalone', 'fullscreen', 'minimal-ui'];
+    const validModes = ["standalone", "fullscreen", "minimal-ui"];
     if (validModes.includes(manifestData.display)) {
       result.checks.display = {
         pass: true,
@@ -331,8 +331,8 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
     result.checks.display = {
       pass: false,
       detail: manifestData
-        ? 'No display mode specified in manifest'
-        : 'Cannot check display mode without manifest',
+        ? "No display mode specified in manifest"
+        : "Cannot check display mode without manifest",
     };
   }
 
@@ -341,13 +341,13 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
     result.checks.https.pass && result.checks.manifest.pass && result.checks.serviceWorker.pass;
 
   // Build suggestion from manifest data, with meta description as fallback
-  const manifestDescription = manifestData?.description || '';
+  const manifestDescription = manifestData?.description || "";
   const metaDescription = extractMetaDescription(html);
-  const finalDescription = manifestDescription || metaDescription || '';
+  const finalDescription = manifestDescription || metaDescription || "";
 
   result.suggestion = {
-    title: manifestData?.name || manifestData?.short_name || '',
-    icon: result.checks.icons.bestIcon || '',
+    title: manifestData?.name || manifestData?.short_name || "",
+    icon: result.checks.icons.bestIcon || "",
     description: finalDescription,
     link: url,
   };

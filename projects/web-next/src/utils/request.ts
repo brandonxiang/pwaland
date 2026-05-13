@@ -15,7 +15,7 @@ export async function request<T = any>(
   options: RequestInit = {},
 ): Promise<ApiResponse<T>> {
   const defaultHeaders: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
 
   const response = await fetch(url, {
@@ -33,7 +33,7 @@ export async function request<T = any>(
   const json: ApiResponse<T> = await response.json();
 
   if (json.ret !== 0) {
-    throw new Error(json.msg || 'Request failed');
+    throw new Error(json.msg || "Request failed");
   }
 
   return json;
@@ -44,7 +44,7 @@ export async function request<T = any>(
  */
 export async function post<T = any>(url: string, body: any): Promise<ApiResponse<T>> {
   return request<T>(url, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(body),
   });
 }
@@ -58,11 +58,11 @@ export async function postRaw<T = any>(
   options: RequestInit = {},
 ): Promise<T> {
   const defaultHeaders: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
 
   const response = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(body),
     ...options,
     headers: {

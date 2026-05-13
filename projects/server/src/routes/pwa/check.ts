@@ -1,6 +1,6 @@
-import { FastifyInstance } from 'fastify';
-import { fail, success } from '../../utils';
-import { checkPwa } from '../../services/pwa-checker';
+import { FastifyInstance } from "fastify";
+import { fail, success } from "../../utils";
+import { checkPwa } from "../../services/pwa-checker";
 
 export default (fastify: FastifyInstance, _: any, done: any) => {
   fastify.post<{
@@ -8,14 +8,14 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       url: string;
     };
   }>(
-    '/check',
+    "/check",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['url'],
+          type: "object",
+          required: ["url"],
           properties: {
-            url: { type: 'string' },
+            url: { type: "string" },
           },
         },
       },
@@ -24,7 +24,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
       const { url } = req.body;
 
       if (!url) {
-        return res.send(fail('url is required'));
+        return res.send(fail("url is required"));
       }
 
       try {

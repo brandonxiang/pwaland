@@ -1,7 +1,7 @@
-import { Menu as AntMenu } from 'antd';
-import { Link } from 'react-router';
-import { MenuProps as AntMenuProps } from 'antd/es/menu';
-import { ItemType } from 'antd/es/menu/interface';
+import { Menu as AntMenu } from "antd";
+import { Link } from "react-router";
+import { MenuProps as AntMenuProps } from "antd/es/menu";
+import { ItemType } from "antd/es/menu/interface";
 
 interface MenuItem {
   path: string;
@@ -17,7 +17,7 @@ type MenuProps = {
   menu: MenuItem[];
 } & AntMenuProps;
 
-const getMenu = (menu: MenuItem[]): AntMenuProps['items'] => {
+const getMenu = (menu: MenuItem[]): AntMenuProps["items"] => {
   const items = menu.map((item) => {
     let res: ItemType = {
       key: item.path,

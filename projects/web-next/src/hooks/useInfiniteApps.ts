@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import type { PWAApp, Category } from '@/data/apps';
-import { buildCategories } from '@/data/apps';
-import { fetchAppsPage } from '@/services/appService';
-import { getCache, setCache, getStaleCacheData } from '@/utils/cache';
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { PWAApp, Category } from "@/data/apps";
+import { buildCategories } from "@/data/apps";
+import { fetchAppsPage } from "@/services/appService";
+import { getCache, setCache, getStaleCacheData } from "@/utils/cache";
 
-const CACHE_KEY = 'pwaland_infinite_apps';
+const CACHE_KEY = "pwaland_infinite_apps";
 
 interface CachedInfiniteData {
   apps: PWAApp[];
@@ -81,7 +81,7 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
     } catch (err) {
       const cached = getStaleCacheData<CachedInfiniteData>(CACHE_KEY);
       if (!cached || cached.apps.length === 0) {
-        setError(err instanceof Error ? err.message : 'Failed to load apps');
+        setError(err instanceof Error ? err.message : "Failed to load apps");
       }
     } finally {
       setLoading(false);
@@ -107,7 +107,7 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
         cursorRef.current = result.nextCursor;
       })
       .catch((err) => {
-        setError(err instanceof Error ? err.message : 'Failed to load more');
+        setError(err instanceof Error ? err.message : "Failed to load more");
       })
       .finally(() => {
         loadingMoreRef.current = false;
