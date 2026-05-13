@@ -9,8 +9,8 @@ export const KnexInstance = knex({
   connection: config.mysql,
 });
 
-export default class BasicModel<T> {
-  private builder: Knex.QueryBuilder;
+export default class BasicModel<T extends object> {
+  private builder: Knex.QueryBuilder<any, any>;
   protected knex = KnexInstance;
 
   constructor(table: string) {
@@ -22,11 +22,11 @@ export default class BasicModel<T> {
   }
 
   async query(condition: Partial<T>): Promise<T[]> {
-    return this.queryBuilder.where(condition).orderBy('id', 'desc').select('*');
+    return this.queryBuilder.where(condition).orderBy('id', 'desc').select('*') as Promise<T[]>;
   }
 
   async queryAll(): Promise<T[]> {
-    return this.queryBuilder.select('*').orderBy('id', 'desc');
+    return this.queryBuilder.select('*').orderBy('id', 'desc') as Promise<T[]>;
   }
 
   async insert(entity: Partial<T>) {

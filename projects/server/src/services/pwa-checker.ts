@@ -1,8 +1,11 @@
+import { assertSafeExternalUrl } from './url-safety';
+
 // Browser-like User-Agent to avoid being blocked
 const USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 const FETCH_TIMEOUT = 15_000;
+const MAX_REDIRECTS = 5;
 
 export interface ManifestIcon {
   src: string;
@@ -49,20 +52,35 @@ export interface PwaCheckResponse {
 /**
  * Fetch a URL with timeout and browser-like headers
  */
-export async function safeFetch(url: string): Promise<Response> {
+export async function safeFetch(url: string, redirectCount = 0): Promise<Response> {
+  const safeUrl = await assertSafeExternalUrl(url);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(safeUrl.href, {
       headers: {
         'User-Agent': USER_AGENT,
         Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
       },
-      redirect: 'follow',
+      redirect: 'manual',
       signal: controller.signal,
     });
+
+    if ([301, 302, 303, 307, 308].includes(response.status)) {
+      if (redirectCount >= MAX_REDIRECTS) {
+        throw new Error('Too many redirects');
+      }
+
+      const location = response.headers.get('location');
+      if (!location) {
+        throw new Error('Redirect response missing Location header');
+      }
+
+      return safeFetch(resolveUrl(location, safeUrl.href), redirectCount + 1);
+    }
+
     return response;
   } finally {
     clearTimeout(timer);
@@ -192,7 +210,7 @@ export function resolveUrl(url: string, base: string): string {
  * Perform a lightweight PWA check on the given URL
  */
 export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
-  const url = inputUrl.startsWith('http') ? inputUrl : `https://${inputUrl}`;
+  const url = (await assertSafeExternalUrl(inputUrl)).href;
 
   const result: PwaCheckResponse = {
     isPwa: false,

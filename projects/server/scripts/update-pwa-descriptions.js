@@ -8,8 +8,16 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PWADatabaseId = 'a39d3843c07f43cfa79c43ff7cf88c47';
-const notionApiKey = 'secret_G3MTRaQ29phFKeohjPVzQTfdhS7m841NgUqtRpmMWyw';
+function getRequiredEnv(name) {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
+const PWADatabaseId = getRequiredEnv('NOTION_PWA_DATABASE_ID');
+const notionApiKey = getRequiredEnv('NOTION_API_KEY');
 
 const notion = new Client({
   auth: notionApiKey,

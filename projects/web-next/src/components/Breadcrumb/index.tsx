@@ -4,19 +4,8 @@ import './index.scss';
 import { getMenusFromDataRoutes } from '@/router/config';
 
 const getTitleByPath = (path: string) => {
-  let title = '';
-  getMenusFromDataRoutes().forEach((menu) => {
-    if (menu.subMenu) {
-      const subMenu = menu.subMenu.find((item) => item.path === path);
-      if (subMenu) {
-        title = subMenu.title;
-      }
-    }
-    if (menu.path === path) {
-      title = menu.title;
-    }
-  });
-  return title;
+  const route = getMenusFromDataRoutes().find((menu) => menu.path === path);
+  return route?.title ?? '';
 };
 
 export const BreadcrumbView = () => {

@@ -1,14 +1,50 @@
 import { Client } from '@notionhq/client';
+import { getRequiredEnv } from '../config/env';
 
-export const PWADatabaseId = 'a39d3843c07f43cfa79c43ff7cf88c47';
-export const StarterDatabaseId = '18716235c2cf8007aefcff58b0e7b3ca';
-const notionApiKey = 'secret_G3MTRaQ29phFKeohjPVzQTfdhS7m841NgUqtRpmMWyw';
+export const PWADatabaseId = getRequiredEnv('NOTION_PWA_DATABASE_ID');
+export const StarterDatabaseId = getRequiredEnv('NOTION_STARTER_DATABASE_ID');
+const notionApiKey = getRequiredEnv('NOTION_API_KEY');
 
 export const notion = new Client({
   auth: notionApiKey,
 });
 
+const DEFAULT_NOTION_LIST_CACHE_TTL_MS = 5 * 60 * 1000;
+
+type NotionQueryResponse = Awaited<ReturnType<typeof notion.databases.query>>;
+
+interface NotionCacheEntry {
+  expiresAt: number;
+  response: NotionQueryResponse;
+}
+
+const notionDataCache = new Map<string, NotionCacheEntry>();
+
+function getCacheTtlMs(): number {
+  const raw = process.env.NOTION_LIST_CACHE_TTL_MS;
+  if (!raw) return DEFAULT_NOTION_LIST_CACHE_TTL_MS;
+
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_NOTION_LIST_CACHE_TTL_MS;
+}
+
+function cacheKey(databaseId: string, startCursor?: string): string {
+  return `${databaseId}:${startCursor ?? 'first-page'}`;
+}
+
+export function clearNotionDataCache(): void {
+  notionDataCache.clear();
+}
+
 export async function fetchNotionData(databaseId: string, start_cursor?: string) {
+  const ttlMs = getCacheTtlMs();
+  const key = cacheKey(databaseId, start_cursor);
+  const cached = notionDataCache.get(key);
+
+  if (ttlMs > 0 && cached && cached.expiresAt > Date.now()) {
+    return cached.response;
+  }
+
   const response = await notion.databases.query({
     database_id: databaseId,
     sorts: [
@@ -19,22 +55,50 @@ export async function fetchNotionData(databaseId: string, start_cursor?: string)
     ],
     start_cursor: start_cursor ? start_cursor : undefined,
   });
+
+  if (ttlMs > 0) {
+    notionDataCache.set(key, {
+      expiresAt: Date.now() + ttlMs,
+      response,
+    });
+  }
+
   return response;
 }
 
-// 类型没导出
-export function parseNotionRichText(obj: any): string {
-  return obj.rich_text.map((s) => s.plain_text).join('') as string;
+interface NotionTextItem {
+  plain_text: string;
 }
 
-export function parseNotionUrl(obj: any): string {
-  return obj.url as string;
+interface NotionRichTextProperty {
+  rich_text?: NotionTextItem[];
+  title?: NotionTextItem[];
 }
 
-export function parseNotionMultiSelect(obj: any): string[] {
-  return obj.multi_select.map((s) => s.name);
+interface NotionUrlProperty {
+  url?: string | null;
 }
 
-export function parseNotionTitle(obj: any): string {
-  return obj.title.map((s) => s.plain_text).join(' ') as string;
+interface NotionMultiSelectProperty {
+  multi_select?: { name: string }[];
+}
+
+export function parseNotionRichText(obj: unknown): string {
+  const property = obj as NotionRichTextProperty;
+  return property.rich_text?.map((s) => s.plain_text).join('') ?? '';
+}
+
+export function parseNotionUrl(obj: unknown): string {
+  const property = obj as NotionUrlProperty;
+  return property.url ?? '';
+}
+
+export function parseNotionMultiSelect(obj: unknown): string[] {
+  const property = obj as NotionMultiSelectProperty;
+  return property.multi_select?.map((s) => s.name) ?? [];
+}
+
+export function parseNotionTitle(obj: unknown): string {
+  const property = obj as NotionRichTextProperty;
+  return property.title?.map((s) => s.plain_text).join(' ') ?? '';
 }

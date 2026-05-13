@@ -4,3 +4,5 @@ node_modules
 dist
 .react-router
 .env
+.vercel
+.env*.local

@@ -8,6 +8,7 @@ export default {
   },
   redis: {
     password: '',
+    sentinels: [],
     cluster: [
       {
         host: '',

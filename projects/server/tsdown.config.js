@@ -22,23 +22,25 @@ export default defineConfig({
     APP_ENV: process.env.APP_ENV || 'development',
   },
 
-  // External dependencies (don't bundle these)
-  external: [
-    'fastify',
-    '@fastify/autoload',
-    '@fastify/swagger',
-    '@fastify/swagger-ui',
-    '@fastify/static',
-    '@fastify/cors',
-    'dayjs',
-    'ioredis',
-    'knex',
-    'lodash',
-    'mysql',
-    'uuid',
-    'pino-pretty',
-    'puppeteer',
-  ],
+  deps: {
+    // External dependencies (don't bundle these)
+    neverBundle: [
+      'fastify',
+      '@fastify/autoload',
+      '@fastify/swagger',
+      '@fastify/swagger-ui',
+      '@fastify/static',
+      '@fastify/cors',
+      'dayjs',
+      'ioredis',
+      'knex',
+      'lodash',
+      'mysql',
+      'uuid',
+      'pino-pretty',
+      'puppeteer',
+    ],
+  },
 
   // Enable shims for __dirname and __filename in ESM
   shims: true,

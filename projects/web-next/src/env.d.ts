@@ -1,9 +1,11 @@
+/// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
+/// <reference types="@testing-library/jest-dom" />
 
-declare namespace NodeJS {
-  interface ProcessEnv {
-    NODE_ENV: 'development' | 'production';
-    APP_ENV: 'test' | 'uat' | 'live';
-    __DEV__: boolean;
-  }
+interface ImportMetaEnv {
+  readonly VITE_APP_ENV?: 'test' | 'uat' | 'live' | 'development';
+  readonly MODE: string;
+  readonly DEV: boolean;
+  readonly PROD: boolean;
+  readonly SSR: boolean;
 }

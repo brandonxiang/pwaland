@@ -8,7 +8,7 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "APP_REGION=sg APP_ENV=development vp pack --watch --on-success \"pnpm run start:dev\"",
+    "dev": "APP_REGION=sg APP_ENV=development vp pack --watch --on-success \"vp run start:dev\"",
     "start:dev": "sleep 3 && APP_REGION=sg APP_ENV=development node ./dist/server.mjs",
     "start": "node ./dist/server.js",
     "start:prod": "NODE_ENV=production node ./dist/server.js",
@@ -20,8 +20,8 @@
     "test": "vp test run",
     "test:watch": "vp test",
     "test:coverage": "vp test run --coverage",
-    "deps:check": "pnpm outdated",
-    "deps:update": "pnpm update",
+    "deps:check": "vp outdated",
+    "deps:update": "vp update",
     "import:pwa": "node scripts/import-pwa-to-notion.js",
     "import:pwa:dry": "node scripts/import-pwa-to-notion.js --dry-run"
   },

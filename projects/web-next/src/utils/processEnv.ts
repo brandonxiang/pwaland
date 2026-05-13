@@ -1,3 +1,3 @@
-export const APP_ENV = import.meta.env.APP_ENV;
-export const NODE_ENV = import.meta.env.NODE_ENV;
-export const __DEV__ = import.meta.env.__DEV__;
+export const APP_ENV = import.meta.env.VITE_APP_ENV;
+export const NODE_ENV = import.meta.env.MODE;
+export const __DEV__ = import.meta.env.DEV;

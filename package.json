@@ -8,10 +8,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm -r run build",
+    "build": "vp run --filter './projects/*' build",
     "format": "vp fmt",
     "lint": "vp lint",
-    "test": "pnpm -r run test",
+    "test": "vp run --filter './projects/*' test",
     "prepare": "vp config"
   },
   "devDependencies": {

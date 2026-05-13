@@ -3,6 +3,12 @@ import { fail, success } from '../../utils';
 import puppeteer from 'puppeteer';
 import { Browser } from 'puppeteer';
 
+interface ParsedManifest {
+  name?: string;
+  short_name?: string;
+  icons?: unknown[];
+}
+
 const getBrowser = async (): Promise<Browser | null> => {
   try {
     const browser = await puppeteer.launch();
@@ -44,7 +50,7 @@ const checkPwa = async (inputLink: string) => {
 
       try {
         // Wait for service worker registration
-        const registration = await navigator.serviceWorker.ready;
+        const registration = await (navigator as Navigator).serviceWorker.ready;
 
         // Check installation status
         const installedWorker = registration.active;
@@ -58,7 +64,7 @@ const checkPwa = async (inputLink: string) => {
         return {
           registered: false,
           installed: false,
-          error: error.message,
+          error: error instanceof Error ? error.message : String(error),
         };
       }
     });
@@ -77,7 +83,7 @@ const checkPwa = async (inputLink: string) => {
     // Step 5: Fetch and validate manifest
     const manifestUrl = new URL(manifestLink, inputLink).href;
     const manifestResponse = await fetch(manifestUrl);
-    const manifestData = await manifestResponse.json();
+    const manifestData = (await manifestResponse.json()) as ParsedManifest;
 
     // Validate key PWA manifest properties
     if (!manifestData.name && !manifestData.short_name) {
