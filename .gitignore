@@ -107,3 +107,4 @@ public/dist
 .vercel
 .svelteup
 .env*.local
+build

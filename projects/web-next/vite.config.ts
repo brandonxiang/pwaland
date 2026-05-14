@@ -1,7 +1,6 @@
 import path, { dirname } from "path";
 import { defineConfig, loadEnv } from "vite-plus";
-import react from "@vitejs/plugin-react";
-import { createHtmlPlugin } from "vite-plugin-html";
+import { reactRouter } from "@react-router/dev/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { fileURLToPath } from "url";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -27,7 +26,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       target: "es2015",
-      sourcemap: mode === "production",
+      sourcemap: viteEnv.VITE_BUILD_SOURCEMAP === "true",
       modulePreload: {
         resolveDependencies: (_url, deps) =>
           deps.filter((dep) => !dep.includes("antd-") && !dep.includes("Submit-")),
@@ -59,11 +58,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
-      react({
-        babel: {
-          plugins: [["babel-plugin-react-compiler"]],
-        },
-      }),
+      reactRouter(),
       VitePWA({
         registerType: "autoUpdate",
         injectRegister: "script-defer",
@@ -113,9 +108,6 @@ export default defineConfig(({ mode }) => {
         },
       }),
       viteEnv.VITE_APP_VISUALIZER === "true" && visualizer({ open: true }),
-      createHtmlPlugin({
-        minify: true,
-      }),
     ],
   };
 });
