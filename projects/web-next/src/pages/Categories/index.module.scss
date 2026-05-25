@@ -1,0 +1,226 @@
+@use "../../style/variable.scss" as *;
+@use "../../style/mixin.scss" as *;
+
+.categoriesPage {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.container {
+  @include container;
+}
+
+.hero {
+  padding: $space-24 0 $space-12;
+  background: linear-gradient(168deg, $bg-primary 0%, #f3f0ff 45%, #eef9ff 100%);
+
+  :global(:root.dark) & {
+    background: linear-gradient(168deg, #141414 0%, #1a1528 45%, #0f1a24 100%);
+  }
+}
+
+.heroBadge {
+  display: inline-flex;
+  padding: $space-2 $space-4;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-full;
+  background: $surface;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  margin-bottom: $space-6;
+}
+
+.heroTitle {
+  font-family: $font-heading;
+  font-size: $font-size-5xl;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: $text-primary;
+  margin-bottom: $space-4;
+
+  @include mobile {
+    font-size: $font-size-3xl;
+  }
+}
+
+.heroSub {
+  max-width: 620px;
+  font-size: $font-size-lg;
+  color: $text-secondary;
+  line-height: 1.7;
+}
+
+.section {
+  padding: $space-12 0 $space-16;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-4;
+  margin-bottom: $space-12;
+}
+
+.categoryCard {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-height: 72px;
+  padding: $space-4;
+  border-radius: $border-radius-lg;
+  border: 1px solid $border-light;
+  background: $surface;
+  color: $text-primary;
+  text-align: left;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.categoryActive {
+  color: white;
+  background: linear-gradient(135deg, $accent-primary, $accent-secondary);
+  border-color: transparent;
+  box-shadow: $shadow-md;
+
+  .categoryCount {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.categoryEmoji {
+  font-size: $font-size-2xl;
+}
+
+.categoryName {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+}
+
+.categoryCount {
+  padding: 2px $space-2;
+  border-radius: $border-radius-full;
+  background: $bg-secondary;
+  color: $text-secondary;
+  font-size: $font-size-xs;
+  font-weight: 700;
+}
+
+.sectionHeader {
+  margin-bottom: $space-8;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $text-primary;
+  letter-spacing: 0;
+}
+
+.sectionSub,
+.emptyDesc {
+  color: $text-secondary;
+}
+
+.appCard {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  padding: $space-5;
+  background: $surface;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-lg;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.appIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: $border-radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+  box-shadow: $shadow-sm;
+}
+
+.appInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.appName {
+  font-family: $font-heading;
+  font-size: $font-size-base;
+  font-weight: 700;
+  color: $text-primary;
+  letter-spacing: 0;
+  margin-bottom: $space-2;
+}
+
+.appDesc {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  line-height: 1.55;
+  margin-bottom: $space-3;
+  @include line-clamp(2);
+}
+
+.categoryTag {
+  display: inline-flex;
+  padding: 2px $space-2;
+  border-radius: $border-radius-full;
+  background: $bg-secondary;
+  color: $text-primary;
+  font-size: $font-size-xs;
+  font-weight: 700;
+}
+
+.loadingState,
+.emptyState {
+  text-align: center;
+  padding: $space-16 $space-4;
+}
+
+.loader {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 3px solid $border-light;
+  border-top-color: $accent-primary;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: $space-4;
+}
+
+.emptyTitle {
+  font-family: $font-heading;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

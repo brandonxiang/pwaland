@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { I18nProvider } from "@/providers/I18nProvider";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { ContentLayout } from "@/layouts/BaseLayout";
 import "./index.scss";
@@ -29,9 +30,11 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <ContentLayout>
-        <Outlet />
-      </ContentLayout>
+      <I18nProvider>
+        <ContentLayout>
+          <Outlet />
+        </ContentLayout>
+      </I18nProvider>
     </ThemeProvider>
   );
 }

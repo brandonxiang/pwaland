@@ -10,6 +10,7 @@ import {
   CloudServerOutlined,
 } from "@ant-design/icons";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { useI18n } from "@/providers/I18nProvider";
 import { post } from "@/utils/request";
 import styles from "./index.module.scss";
 
@@ -62,6 +63,7 @@ const CHECK_ITEMS: { key: keyof PwaCheckData["checks"]; label: string; icon: Rea
 ];
 
 const Submit = () => {
+  const { t } = useI18n();
   const [url, setUrl] = useState("");
   const [checking, setChecking] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -74,7 +76,7 @@ const Submit = () => {
 
   const handleCheck = async () => {
     if (!url.trim()) {
-      message.warning("Please enter a URL");
+      message.warning(t("submit.enterUrl"));
       return;
     }
 
@@ -92,12 +94,12 @@ const Submit = () => {
       setEditTags([]);
 
       if (res.data.isPwa) {
-        message.success("This website is a valid PWA!");
+        message.success(t("submit.valid"));
       } else {
-        message.info("This website does not fully meet PWA criteria.");
+        message.info(t("submit.invalid"));
       }
     } catch (err: any) {
-      message.error(err.message || "Check failed");
+      message.error(err.message || t("submit.checkFailed"));
     } finally {
       setChecking(false);
     }
@@ -107,7 +109,7 @@ const Submit = () => {
     if (!checkResult) return;
 
     if (!editTitle.trim()) {
-      message.warning("Title is required");
+      message.warning(t("submit.titleRequired"));
       return;
     }
 
@@ -121,7 +123,7 @@ const Submit = () => {
         description: editDesc.trim(),
         tags: editTags.length > 0 ? editTags : undefined,
       });
-      message.success(`"${editTitle}" has been added to PWALand!`);
+      message.success(t("submit.added", { title: editTitle }));
       // Reset form
       setUrl("");
       setCheckResult(null);
@@ -129,7 +131,7 @@ const Submit = () => {
       setEditDesc("");
       setEditTags([]);
     } catch (err: any) {
-      message.error(err.message || "Submit failed");
+      message.error(err.message || t("submit.submitFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -141,15 +143,14 @@ const Submit = () => {
   const totalChecks = CHECK_ITEMS.length;
 
   usePageMeta({
-    title: "Submit a PWA | PWALand",
-    description:
-      "Submit your Progressive Web App to the PWALand directory and run a quick PWA readiness check for HTTPS, manifest, service worker, icons, and display mode.",
+    title: t("submit.metaTitle"),
+    description: t("submit.metaDescription"),
     canonical: "https://pwaland.brandonxiang.top/submit",
     keywords:
       "submit PWA, Progressive Web App submission, PWA checker, web app manifest, service worker",
     openGraph: {
-      title: "Submit a PWA | PWALand",
-      description: "Submit your Progressive Web App and check its core PWA readiness signals.",
+      title: t("submit.metaTitle"),
+      description: t("submit.metaDescription"),
       url: "https://pwaland.brandonxiang.top/submit",
       image: "https://pwaland.brandonxiang.top/og-image.jpg",
     },
@@ -160,11 +161,8 @@ const Submit = () => {
       <div className={styles.container}>
         {/* Page Header */}
         <div className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>Submit a PWA</h1>
-          <p className={styles.pageDesc}>
-            Check if a website qualifies as a Progressive Web App and add it to the PWALand
-            directory.
-          </p>
+          <h1 className={styles.pageTitle}>{t("submit.title")}</h1>
+          <p className={styles.pageDesc}>{t("submit.description")}</p>
         </div>
 
         {/* URL Input */}
@@ -173,7 +171,7 @@ const Submit = () => {
             <Input
               className={styles.urlInput}
               size="large"
-              placeholder="Enter website URL, e.g. twitter.com"
+              placeholder={t("submit.urlPlaceholder")}
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onPressEnter={handleCheck}
@@ -187,7 +185,7 @@ const Submit = () => {
               loading={checking}
               onClick={handleCheck}
             >
-              Check PWA
+              {t("submit.check")}
             </Button>
           </div>
         </div>
@@ -197,17 +195,17 @@ const Submit = () => {
           <>
             <div className={styles.resultsCard}>
               <div className={styles.resultsHeader}>
-                <span className={styles.resultsTitle}>PWA Check Results</span>
+                <span className={styles.resultsTitle}>{t("submit.results")}</span>
                 <span
                   className={`${styles.statusBadge} ${checkResult.isPwa ? styles.statusPass : styles.statusFail}`}
                 >
                   {checkResult.isPwa ? (
                     <>
-                      <CheckCircleOutlined /> PWA Ready
+                      <CheckCircleOutlined /> {t("submit.ready")}
                     </>
                   ) : (
                     <>
-                      <CloseCircleOutlined /> Not PWA
+                      <CloseCircleOutlined /> {t("submit.notPwa")}
                     </>
                   )}
                   <span>
@@ -241,7 +239,7 @@ const Submit = () => {
                 {/* Preview & Submit Form */}
                 {checkResult.suggestion.title && (
                   <div className={styles.previewSection}>
-                    <h3 className={styles.previewTitle}>App Preview</h3>
+                    <h3 className={styles.previewTitle}>{t("submit.preview")}</h3>
 
                     <div className={styles.previewCard}>
                       {checkResult.suggestion.icon ? (
@@ -261,7 +259,9 @@ const Submit = () => {
                           {editTitle || checkResult.suggestion.title}
                         </div>
                         <div className={styles.previewDesc}>
-                          {editDesc || checkResult.suggestion.description || "No description"}
+                          {editDesc ||
+                            checkResult.suggestion.description ||
+                            t("submit.noDescription")}
                         </div>
                         <div className={styles.previewLink}>{checkResult.suggestion.link}</div>
                       </div>
@@ -269,31 +269,31 @@ const Submit = () => {
 
                     <div className={styles.formSection}>
                       <div className={styles.formRow}>
-                        <label className={styles.formLabel}>Title</label>
+                        <label className={styles.formLabel}>{t("submit.formTitle")}</label>
                         <Input
                           value={editTitle}
                           onChange={(e) => setEditTitle(e.target.value)}
-                          placeholder="App title"
+                          placeholder={t("submit.formTitlePlaceholder")}
                         />
                       </div>
 
                       <div className={styles.formRow}>
-                        <label className={styles.formLabel}>Description</label>
+                        <label className={styles.formLabel}>{t("submit.formDescription")}</label>
                         <Input.TextArea
                           value={editDesc}
                           onChange={(e) => setEditDesc(e.target.value)}
-                          placeholder="Brief description of the app"
+                          placeholder={t("submit.formDescriptionPlaceholder")}
                           rows={3}
                         />
                       </div>
 
                       <div className={styles.formRow}>
-                        <label className={styles.formLabel}>Tags</label>
+                        <label className={styles.formLabel}>{t("submit.tags")}</label>
                         <Select
                           mode="multiple"
                           value={editTags}
                           onChange={setEditTags}
-                          placeholder="Select categories"
+                          placeholder={t("submit.tagsPlaceholder")}
                           options={TAG_OPTIONS.map((t) => ({ label: t, value: t }))}
                         />
                       </div>
@@ -307,9 +307,7 @@ const Submit = () => {
                         loading={submitting}
                         onClick={handleSubmit}
                       >
-                        {checkResult.isPwa
-                          ? "Add to PWALand"
-                          : "Cannot submit - website does not pass PWA checks"}
+                        {checkResult.isPwa ? t("submit.add") : t("submit.cannotSubmit")}
                       </Button>
                     </div>
                   </div>

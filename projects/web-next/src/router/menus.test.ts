@@ -2,10 +2,12 @@ import { describe, expect, it } from "vite-plus/test";
 import { dataRoutes } from "./menus";
 
 describe("dataRoutes", () => {
-  it("does not include deprecated categories and about routes", () => {
+  it("includes the main public pages", () => {
     const paths = dataRoutes.map((route) => route.path);
 
-    expect(paths).not.toContain("/categories");
+    expect(paths).toContain("/");
+    expect(paths).toContain("/categories");
+    expect(paths).toContain("/submit");
     expect(paths).not.toContain("/about");
   });
 });

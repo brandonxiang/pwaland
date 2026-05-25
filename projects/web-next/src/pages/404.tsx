@@ -1,12 +1,14 @@
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { useI18n } from "@/providers/I18nProvider";
 import { useAppNavigate } from "@/router/navigation";
 
 const NotFound = () => {
   const navigate = useAppNavigate();
+  const { t } = useI18n();
 
   usePageMeta({
-    title: "404 - Page Not Found | PWALand",
-    description: "The page you are looking for doesn't exist or has been moved.",
+    title: t("notFound.metaTitle"),
+    description: t("notFound.metaDescription"),
     robots: "noindex, nofollow",
   });
 
@@ -33,7 +35,7 @@ const NotFound = () => {
           letterSpacing: "0",
         }}
       >
-        Page Not Found
+        {t("notFound.title")}
       </h1>
       <p
         style={{
@@ -43,7 +45,7 @@ const NotFound = () => {
           maxWidth: "400px",
         }}
       >
-        The page you are looking for doesn&apos;t exist or has been moved.
+        {t("notFound.description")}
       </p>
       <button
         onClick={() => navigate("/")}
@@ -60,7 +62,7 @@ const NotFound = () => {
           transition: "all 150ms ease",
         }}
       >
-        ← Back to Home
+        {t("notFound.back")}
       </button>
     </div>
   );
