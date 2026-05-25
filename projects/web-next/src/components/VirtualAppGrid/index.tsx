@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import type { PWAApp, Category } from "@/data/apps";
+import { useI18n } from "@/providers/I18nProvider";
 import styles from "./index.module.scss";
 
 interface VirtualAppGridProps {
@@ -19,6 +20,7 @@ export function VirtualAppGrid({
   onLoadMore,
   renderCard,
 }: VirtualAppGridProps) {
+  const { t } = useI18n();
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export function VirtualAppGrid({
     return (
       <div className={styles.emptyState}>
         <span className={styles.emptyIcon}>🔍</span>
-        <h3 className={styles.emptyTitle}>No apps found</h3>
+        <h3 className={styles.emptyTitle}>{t("grid.noApps")}</h3>
       </div>
     );
   }
@@ -57,7 +59,7 @@ export function VirtualAppGrid({
       {loadingMore && (
         <div className={styles.loadingMore}>
           <span className={styles.loader} aria-hidden="true" />
-          <p>Loading more apps...</p>
+          <p>{t("grid.loadingMore")}</p>
         </div>
       )}
     </div>

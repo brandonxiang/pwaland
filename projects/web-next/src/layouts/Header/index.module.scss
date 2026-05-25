@@ -158,6 +158,36 @@
   line-height: 1;
 }
 
+.languageToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 $space-2;
+  border-radius: $border-radius-full;
+  color: $text-secondary;
+  font-family: $font-heading;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-secondary;
+  }
+
+  :global(:root.dark) & {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+}
+
 .githubLink {
   display: flex;
   align-items: center;
