@@ -64,6 +64,7 @@ describe("fetchAllApps", () => {
     expect(mockPostRaw).toHaveBeenCalledTimes(2);
     expect(mockPostRaw).toHaveBeenNthCalledWith(2, "/api/client/list", {
       start_cursor: "cursor-2",
+      query: undefined,
     });
   });
 
@@ -145,6 +146,7 @@ describe("fetchAppsPage", () => {
     expect(mockPostRaw).toHaveBeenCalledTimes(1);
     expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
       start_cursor: undefined,
+      query: undefined,
     });
     expect(result.apps).toHaveLength(1);
     expect(result.apps[0]).toMatchObject({ id: "page-app", name: "Page App" });
@@ -170,6 +172,7 @@ describe("fetchAppsPage", () => {
     const result = await fetchAppsPage("cursor-xyz");
     expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
       start_cursor: "cursor-xyz",
+      query: undefined,
     });
     expect(result.apps).toHaveLength(1);
     expect(result.hasMore).toBe(false);
@@ -185,5 +188,20 @@ describe("fetchAppsPage", () => {
 
     await fetchAppsPage();
     expect(mockPostRaw).toHaveBeenCalledTimes(1);
+  });
+
+  it("sends a trimmed search query", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    await fetchAppsPage(undefined, "  spotify  ");
+
+    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+      start_cursor: undefined,
+      query: "spotify",
+    });
   });
 });

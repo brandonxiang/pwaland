@@ -61,6 +61,7 @@ const dictionaries: Record<Language, Dictionary> = {
     "home.robots": "Robots",
     "home.sitemap": "Sitemap",
     "grid.noApps": "No apps found",
+    "grid.loadMore": "Load more",
     "grid.loadingMore": "Loading more apps...",
     "categories.metaTitle": "Browse PWA Categories | PWALand",
     "categories.metaDescription":
@@ -157,6 +158,7 @@ const dictionaries: Record<Language, Dictionary> = {
     "home.robots": "Robots",
     "home.sitemap": "Sitemap",
     "grid.noApps": "没有找到应用",
+    "grid.loadMore": "加载更多",
     "grid.loadingMore": "正在加载更多应用...",
     "categories.metaTitle": "按分类浏览 PWA | PWALand",
     "categories.metaDescription":

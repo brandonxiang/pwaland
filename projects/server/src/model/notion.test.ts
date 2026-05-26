@@ -53,6 +53,30 @@ describe("fetchNotionData cache", () => {
     expect(queryMock).toHaveBeenCalledTimes(2);
   });
 
+  it("passes a fuzzy search filter to Notion and caches by query", async () => {
+    const response = { results: [], has_more: false, next_cursor: null };
+    queryMock.mockResolvedValue(response);
+
+    const { fetchNotionData } = await import("./notion");
+
+    await fetchNotionData("pwa-db", undefined, "spotify");
+    await fetchNotionData("pwa-db", undefined, "spotify");
+
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    expect(queryMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        database_id: "pwa-db",
+        filter: {
+          or: [
+            { property: "title", title: { contains: "spotify" } },
+            { property: "description", rich_text: { contains: "spotify" } },
+            { property: "tags", multi_select: { contains: "spotify" } },
+          ],
+        },
+      }),
+    );
+  });
+
   it("can disable caching with NOTION_LIST_CACHE_TTL_MS=0", async () => {
     process.env.NOTION_LIST_CACHE_TTL_MS = "0";
     queryMock

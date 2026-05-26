@@ -65,9 +65,11 @@ export interface PageResult {
   nextCursor: string | null;
 }
 
-export async function fetchAppsPage(cursor?: string): Promise<PageResult> {
+export async function fetchAppsPage(cursor?: string, query?: string): Promise<PageResult> {
+  const normalizedQuery = query?.trim();
   const res = await postRaw<ClientListResponse>("/api/client/list", {
     start_cursor: cursor,
+    query: normalizedQuery || undefined,
   });
 
   const apps = res.properties.map(transformNotionApp);

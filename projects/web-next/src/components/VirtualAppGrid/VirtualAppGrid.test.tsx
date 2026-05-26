@@ -1,24 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vite-plus/test";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { VirtualAppGrid } from "./index";
 import type { PWAApp, Category } from "@/data/apps";
 
-const mockObserve = vi.fn();
-const mockUnobserve = vi.fn();
-const mockDisconnect = vi.fn();
-
-class MockIntersectionObserver {
-  callback: IntersectionObserverCallback;
-  constructor(callback: IntersectionObserverCallback) {
-    this.callback = callback;
-  }
-  observe = mockObserve;
-  unobserve = mockUnobserve;
-  disconnect = mockDisconnect;
-}
-
 beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+  vi.clearAllMocks();
 });
 
 const makeApps = (count: number): PWAApp[] =>
@@ -77,22 +63,25 @@ describe("VirtualAppGrid", () => {
     expect(screen.getByText("Loading more apps...")).toBeInTheDocument();
   });
 
-  it("renders sentinel element when hasMore is true", () => {
-    const { container } = render(
+  it("renders load more button when hasMore is true", () => {
+    const onLoadMore = vi.fn();
+    render(
       <VirtualAppGrid
         apps={makeApps(2)}
         categories={categories}
         hasMore={true}
         loadingMore={false}
-        onLoadMore={vi.fn()}
+        onLoadMore={onLoadMore}
         renderCard={defaultRenderCard}
       />,
     );
-    expect(container.querySelector("[data-testid='load-more-sentinel']")).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: "Load more" });
+    fireEvent.click(button);
+    expect(onLoadMore).toHaveBeenCalledTimes(1);
   });
 
-  it("does not render sentinel when hasMore is false", () => {
-    const { container } = render(
+  it("does not render load more button when hasMore is false", () => {
+    render(
       <VirtualAppGrid
         apps={makeApps(2)}
         categories={categories}
@@ -102,7 +91,7 @@ describe("VirtualAppGrid", () => {
         renderCard={defaultRenderCard}
       />,
     );
-    expect(container.querySelector("[data-testid='load-more-sentinel']")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Load more" })).not.toBeInTheDocument();
   });
 
   it("renders empty state when no apps provided", () => {

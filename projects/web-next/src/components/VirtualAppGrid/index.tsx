@@ -1,4 +1,4 @@
-import { Fragment, useRef, useEffect } from "react";
+import { Fragment } from "react";
 import type { PWAApp, Category } from "@/data/apps";
 import { useI18n } from "@/providers/I18nProvider";
 import styles from "./index.module.scss";
@@ -21,23 +21,6 @@ export function VirtualAppGrid({
   renderCard,
 }: VirtualAppGridProps) {
   const { t } = useI18n();
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!hasMore || !sentinelRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !loadingMore) {
-          onLoadMore();
-        }
-      },
-      { rootMargin: "200px" },
-    );
-
-    observer.observe(sentinelRef.current);
-    return () => observer.disconnect();
-  }, [hasMore, loadingMore, onLoadMore]);
 
   if (apps.length === 0 && !loadingMore) {
     return (
@@ -58,14 +41,18 @@ export function VirtualAppGrid({
         ))}
       </div>
 
-      {hasMore && (
-        <div ref={sentinelRef} data-testid="load-more-sentinel" className={styles.sentinel} />
-      )}
-
       {loadingMore && (
         <div className={styles.loadingMore}>
           <span className={styles.loader} aria-hidden="true" />
           <p>{t("grid.loadingMore")}</p>
+        </div>
+      )}
+
+      {hasMore && !loadingMore && (
+        <div className={styles.loadMoreWrap}>
+          <button className={styles.loadMoreButton} type="button" onClick={onLoadMore}>
+            {t("grid.loadMore")}
+          </button>
         </div>
       )}
     </div>

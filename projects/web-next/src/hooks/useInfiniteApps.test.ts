@@ -80,7 +80,7 @@ describe("useInfiniteApps", () => {
     expect(result.current.hasMore).toBe(true);
     expect(result.current.error).toBeNull();
     expect(mockFetchAppsPage).toHaveBeenCalledTimes(1);
-    expect(mockFetchAppsPage).toHaveBeenCalledWith(undefined);
+    expect(mockFetchAppsPage).toHaveBeenCalledWith(undefined, undefined);
   });
 
   it("loads the next page when loadMore is called", async () => {
@@ -107,7 +107,29 @@ describe("useInfiniteApps", () => {
     expect(result.current.apps[1].id).toBe("app-2");
     expect(result.current.hasMore).toBe(false);
     expect(mockFetchAppsPage).toHaveBeenCalledTimes(2);
-    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, "cursor-2");
+    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, "cursor-2", undefined);
+  });
+
+  it("passes search query to initial and next page requests", async () => {
+    mockFetchAppsPage.mockResolvedValueOnce(page1).mockResolvedValueOnce(page2);
+
+    const { result } = renderHook(() => useInfiniteApps("spotify"));
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(1, undefined, "spotify");
+
+    await act(async () => {
+      result.current.loadMore();
+    });
+
+    await waitFor(() => {
+      expect(result.current.loadingMore).toBe(false);
+    });
+
+    expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, "cursor-2", "spotify");
   });
 
   it("does not loadMore when hasMore is false", async () => {

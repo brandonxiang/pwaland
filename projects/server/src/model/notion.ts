@@ -28,17 +28,18 @@ function getCacheTtlMs(): number {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_NOTION_LIST_CACHE_TTL_MS;
 }
 
-function cacheKey(databaseId: string, startCursor?: string): string {
-  return `${databaseId}:${startCursor ?? "first-page"}`;
+function cacheKey(databaseId: string, startCursor?: string, query?: string): string {
+  return `${databaseId}:${startCursor ?? "first-page"}:${query?.trim() ?? ""}`;
 }
 
 export function clearNotionDataCache(): void {
   notionDataCache.clear();
 }
 
-export async function fetchNotionData(databaseId: string, start_cursor?: string) {
+export async function fetchNotionData(databaseId: string, start_cursor?: string, query?: string) {
   const ttlMs = getCacheTtlMs();
-  const key = cacheKey(databaseId, start_cursor);
+  const normalizedQuery = query?.trim();
+  const key = cacheKey(databaseId, start_cursor, normalizedQuery);
   const cached = notionDataCache.get(key);
 
   if (ttlMs > 0 && cached && cached.expiresAt > Date.now()) {
@@ -47,6 +48,30 @@ export async function fetchNotionData(databaseId: string, start_cursor?: string)
 
   const response = await notion.databases.query({
     database_id: databaseId,
+    filter: normalizedQuery
+      ? {
+          or: [
+            {
+              property: "title",
+              title: {
+                contains: normalizedQuery,
+              },
+            },
+            {
+              property: "description",
+              rich_text: {
+                contains: normalizedQuery,
+              },
+            },
+            {
+              property: "tags",
+              multi_select: {
+                contains: normalizedQuery,
+              },
+            },
+          ],
+        }
+      : undefined,
     sorts: [
       {
         property: "title",

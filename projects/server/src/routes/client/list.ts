@@ -23,6 +23,7 @@ function ClientListRouter(fastify: FastifyInstance, _: any, done: any) {
   fastify.post<{
     Body: {
       start_cursor?: string;
+      query?: string;
     };
   }>(
     "/list",
@@ -32,13 +33,14 @@ function ClientListRouter(fastify: FastifyInstance, _: any, done: any) {
           type: "object",
           properties: {
             start_cursor: { type: "string" },
+            query: { type: "string" },
           },
         },
       },
     },
     async (req, res) => {
-      const { start_cursor } = req.body;
-      const response = await fetchNotionData(PWADatabaseId, start_cursor);
+      const { start_cursor, query } = req.body;
+      const response = await fetchNotionData(PWADatabaseId, start_cursor, query);
       const results = response.results as DatabaseObjectResponse[];
       const { has_more, next_cursor } = response;
 

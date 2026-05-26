@@ -24,44 +24,52 @@ export interface UseInfiniteAppsResult {
   refresh: () => Promise<void>;
 }
 
-function getStaleData(): CachedInfiniteData | null {
-  return getStaleCacheData<CachedInfiniteData>(CACHE_KEY);
-}
+export function useInfiniteApps(query = ""): UseInfiniteAppsResult {
+  const normalizedQuery = query.trim();
+  const cacheKey = normalizedQuery ? `${CACHE_KEY}:${normalizedQuery}` : CACHE_KEY;
 
-export function useInfiniteApps(): UseInfiniteAppsResult {
+  function getScopedStaleData(): CachedInfiniteData | null {
+    return getStaleCacheData<CachedInfiniteData>(cacheKey);
+  }
+
   const [apps, setApps] = useState<PWAApp[]>(() => {
-    return getStaleData()?.apps ?? [];
+    return getScopedStaleData()?.apps ?? [];
   });
   const [categories, setCategories] = useState<Category[]>(() => {
-    return getStaleData()?.categories ?? [];
+    return getScopedStaleData()?.categories ?? [];
   });
   const [loading, setLoading] = useState(() => {
-    return getStaleData() === null;
+    return getScopedStaleData() === null;
   });
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(() => {
-    return getStaleData()?.hasMore ?? true;
+    return getScopedStaleData()?.hasMore ?? true;
   });
   const [error, setError] = useState<string | null>(null);
 
-  const cursorRef = useRef<string | null>(getStaleData()?.nextCursor ?? null);
+  const cursorRef = useRef<string | null>(getScopedStaleData()?.nextCursor ?? null);
   const loadingMoreRef = useRef(false);
 
   const updateCache = useCallback(
     (newApps: PWAApp[], cats: Category[], more: boolean, cursor: string | null) => {
-      setCache<CachedInfiniteData>(CACHE_KEY, {
+      setCache<CachedInfiniteData>(cacheKey, {
         apps: newApps,
         categories: cats,
         hasMore: more,
         nextCursor: cursor,
       });
     },
-    [],
+    [cacheKey],
   );
 
   const loadInitial = useCallback(async () => {
+    const stale = getStaleCacheData<CachedInfiniteData>(cacheKey);
+    setLoading(!stale || stale.apps.length === 0);
+    setLoadingMore(false);
+    loadingMoreRef.current = false;
+
     try {
-      const cached = getCache<CachedInfiniteData>(CACHE_KEY);
+      const cached = getCache<CachedInfiniteData>(cacheKey);
       if (cached) {
         setApps(cached.apps);
         setCategories(cached.categories);
@@ -70,7 +78,7 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
         setLoading(false);
       }
 
-      const result = await fetchAppsPage(undefined);
+      const result = await fetchAppsPage(undefined, normalizedQuery || undefined);
       const cats = buildCategories(result.apps);
       setApps(result.apps);
       setCategories(cats);
@@ -79,14 +87,16 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
       setError(null);
       updateCache(result.apps, cats, result.hasMore, result.nextCursor);
     } catch (err) {
-      const cached = getStaleCacheData<CachedInfiniteData>(CACHE_KEY);
+      const cached = getStaleCacheData<CachedInfiniteData>(cacheKey);
       if (!cached || cached.apps.length === 0) {
+        setApps([]);
+        setCategories([]);
         setError(err instanceof Error ? err.message : "Failed to load apps");
       }
     } finally {
       setLoading(false);
     }
-  }, [updateCache]);
+  }, [cacheKey, normalizedQuery, updateCache]);
 
   const loadMore = useCallback(() => {
     if (!hasMore || loadingMoreRef.current || !cursorRef.current) return;
@@ -94,7 +104,7 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
     loadingMoreRef.current = true;
     setLoadingMore(true);
 
-    fetchAppsPage(cursorRef.current)
+    fetchAppsPage(cursorRef.current, normalizedQuery || undefined)
       .then((result) => {
         setApps((prev) => {
           const merged = [...prev, ...result.apps];
@@ -113,7 +123,7 @@ export function useInfiniteApps(): UseInfiniteAppsResult {
         loadingMoreRef.current = false;
         setLoadingMore(false);
       });
-  }, [hasMore, updateCache]);
+  }, [hasMore, normalizedQuery, updateCache]);
 
   useEffect(() => {
     loadInitial();

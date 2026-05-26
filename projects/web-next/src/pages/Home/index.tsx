@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useDeferredValue, useState, useMemo } from "react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useAppNavigate } from "@/router/navigation";
-import { searchApps, getFeaturedApps } from "@/data/apps";
+import { getFeaturedApps, normalizeCategoryId } from "@/data/apps";
 import type { PWAApp, Category } from "@/data/apps";
 import { useInfiniteApps } from "@/hooks/useInfiniteApps";
 import { useI18n } from "@/providers/I18nProvider";
@@ -35,7 +35,7 @@ const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: str
 
 const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
   const { categoryName } = useI18n();
-  const category = allCategories.find((c) => c.id === app.category);
+  const category = allCategories.find((c) => c.id === normalizeCategoryId(app.category));
 
   return (
     <a href={app.url} target="_blank" rel="noopener noreferrer" className={styles.appCard}>
@@ -59,7 +59,7 @@ const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[
 
 const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
   const { categoryName } = useI18n();
-  const category = allCategories.find((c) => c.id === app.category);
+  const category = allCategories.find((c) => c.id === normalizeCategoryId(app.category));
 
   return (
     <a href={app.url} target="_blank" rel="noopener noreferrer" className={styles.featuredCard}>
@@ -94,17 +94,12 @@ const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Cate
 const Home = () => {
   const navigate = useAppNavigate();
   const { t } = useI18n();
-  const { apps, categories, loading, loadingMore, hasMore, error, loadMore } = useInfiniteApps();
   const [searchQuery, setSearchQuery] = useState("");
+  const deferredSearchQuery = useDeferredValue(searchQuery.trim());
+  const { apps, categories, loading, loadingMore, hasMore, error, loadMore } =
+    useInfiniteApps(deferredSearchQuery);
 
   const featured = useMemo(() => getFeaturedApps(apps), [apps]);
-
-  const filteredApps = useMemo(() => {
-    if (searchQuery.trim()) {
-      return searchApps(apps, searchQuery);
-    }
-    return apps;
-  }, [apps, searchQuery]);
 
   const popularTags = ["Telegram", "Notion", "Spotify", "Wordle", "Duolingo"];
 
@@ -213,7 +208,7 @@ const Home = () => {
         </section>
       )}
 
-      {!searchQuery && featured.length > 0 && (
+      {!deferredSearchQuery && featured.length > 0 && (
         <section id="featured" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -234,22 +229,22 @@ const Home = () => {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>
-                {searchQuery ? t("home.searchResults") : t("home.allApps")}
+                {deferredSearchQuery ? t("home.searchResults") : t("home.allApps")}
               </h2>
               <p className={styles.sectionSub}>
-                {searchQuery
+                {deferredSearchQuery
                   ? t("home.searchCount", {
-                      count: filteredApps.length,
-                      plural: filteredApps.length === 1 ? "" : "s",
-                      query: searchQuery,
+                      count: apps.length,
+                      plural: apps.length === 1 ? "" : "s",
+                      query: deferredSearchQuery,
                     })
                   : t("home.allAppsSubtitle")}
               </p>
             </div>
             <VirtualAppGrid
-              apps={filteredApps}
+              apps={apps}
               categories={categories}
-              hasMore={!searchQuery ? hasMore : false}
+              hasMore={hasMore}
               loadingMore={loadingMore}
               onLoadMore={loadMore}
               renderCard={(app, cats) => <AppCard key={app.id} app={app} allCategories={cats} />}
@@ -258,7 +253,7 @@ const Home = () => {
         </section>
       )}
 
-      {!searchQuery && (
+      {!deferredSearchQuery && (
         <section className={styles.cta}>
           <div className={styles.container}>
             <div className={styles.ctaCard}>
