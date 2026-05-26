@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Category, PWAApp } from "@/data/apps";
-import { getAppsByCategory } from "@/data/apps";
+import { getAppsByCategory, normalizeCategoryId } from "@/data/apps";
 import { useApps } from "@/hooks/useApps";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useI18n } from "@/providers/I18nProvider";
@@ -8,6 +8,7 @@ import { VirtualAppGrid } from "@/components/VirtualAppGrid";
 import styles from "./index.module.scss";
 
 const isUrl = (str: string) => str.startsWith("http://") || str.startsWith("https://");
+const DEFAULT_CATEGORY_ID = "entertainment";
 
 const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: string }) => {
   const glyph = isUrl(icon) ? name.charAt(0).toUpperCase() : icon || name.charAt(0).toUpperCase();
@@ -21,7 +22,7 @@ const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: str
 
 const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
   const { categoryName } = useI18n();
-  const category = allCategories.find((c) => c.id === app.category);
+  const category = allCategories.find((c) => c.id === normalizeCategoryId(app.category));
 
   return (
     <a href={app.url} target="_blank" rel="noopener noreferrer" className={styles.appCard}>
@@ -42,7 +43,7 @@ const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[
 const Categories = () => {
   const { t, categoryName } = useI18n();
   const { apps, categories, loading, error } = useApps();
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(DEFAULT_CATEGORY_ID);
 
   const filteredApps = useMemo(() => {
     if (!activeCategory) return apps;
