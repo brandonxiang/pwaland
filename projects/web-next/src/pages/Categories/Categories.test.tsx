@@ -20,7 +20,7 @@ const mockFetchAllApps = vi.mocked(fetchAllApps);
 const fakeData: AppData = {
   apps: [
     {
-      id: "entertainment-app",
+      id: "shared-slug",
       name: "Movie PWA",
       description: "Watch movies",
       category: "entertainment",
@@ -32,7 +32,7 @@ const fakeData: AppData = {
       tags: ["entertainment"],
     },
     {
-      id: "tools-app",
+      id: "shared-slug",
       name: "Tool PWA",
       description: "Build things",
       category: "tools",

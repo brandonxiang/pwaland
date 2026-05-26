@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { Fragment, useRef, useEffect } from "react";
 import type { PWAApp, Category } from "@/data/apps";
 import { useI18n } from "@/providers/I18nProvider";
 import styles from "./index.module.scss";
@@ -50,7 +50,13 @@ export function VirtualAppGrid({
 
   return (
     <div className={styles.virtualContainer}>
-      <div className={styles.virtualRow}>{apps.map((app) => renderCard(app, categories))}</div>
+      <div className={styles.virtualRow}>
+        {apps.map((app, index) => (
+          <Fragment key={`${app.id}-${app.category}-${app.url}-${index}`}>
+            {renderCard(app, categories)}
+          </Fragment>
+        ))}
+      </div>
 
       {hasMore && (
         <div ref={sentinelRef} data-testid="load-more-sentinel" className={styles.sentinel} />
