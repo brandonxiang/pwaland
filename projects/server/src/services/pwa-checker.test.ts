@@ -1,8 +1,10 @@
-import { describe, it, expect } from "vite-plus/test";
+import { describe, it, expect, vi } from "vite-plus/test";
 import {
   extractManifestLink,
   extractMetaDescription,
+  extractServiceWorkerCandidateUrls,
   detectServiceWorker,
+  checkPwa,
   findBestIcon,
   resolveUrl,
 } from "./pwa-checker";
@@ -63,6 +65,65 @@ describe("detectServiceWorker", () => {
     const html = "<html><body>Hello</body></html>";
     const result = detectServiceWorker(html);
     expect(result.found).toBe(false);
+  });
+});
+
+describe("extractServiceWorkerCandidateUrls", () => {
+  it("extracts same-origin module scripts referenced by the HTML", () => {
+    const html = '<script type="module" crossorigin src="/assets/index-kufvHBAJ.js"></script>';
+
+    expect(extractServiceWorkerCandidateUrls(html, "https://app.slock.ai/")).toEqual([
+      "https://app.slock.ai/assets/index-kufvHBAJ.js",
+    ]);
+  });
+});
+
+describe("checkPwa", () => {
+  it("detects service worker registration in same-origin script assets", async () => {
+    const fetchMock = vi.fn(async (url: string | URL) => {
+      const href = url.toString();
+
+      if (href === "https://app.slock.ai/") {
+        return new Response(
+          `<!DOCTYPE html>
+          <html>
+            <head>
+              <link rel="manifest" href="/site.webmanifest">
+              <script type="module" crossorigin src="/assets/index-kufvHBAJ.js"></script>
+            </head>
+            <body><div id="root"></div></body>
+          </html>`,
+          { status: 200 },
+        );
+      }
+
+      if (href === "https://app.slock.ai/site.webmanifest") {
+        return new Response(
+          JSON.stringify({
+            name: "Slock",
+            display: "standalone",
+            icons: [{ src: "/icon-192.png", sizes: "192x192" }],
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
+
+      if (href === "https://app.slock.ai/assets/index-kufvHBAJ.js") {
+        return new Response("navigator.serviceWorker.register('/sw.js')", { status: 200 });
+      }
+
+      return new Response("not found", { status: 404 });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    try {
+      const result = await checkPwa("https://app.slock.ai/");
+
+      expect(result.checks.serviceWorker.pass).toBe(true);
+      expect(result.isPwa).toBe(true);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
 

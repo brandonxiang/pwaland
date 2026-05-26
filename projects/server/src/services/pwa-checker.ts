@@ -6,6 +6,8 @@ const USER_AGENT =
 
 const FETCH_TIMEOUT = 15_000;
 const MAX_REDIRECTS = 5;
+const MAX_SERVICE_WORKER_ASSET_CHECKS = 8;
+const MAX_SERVICE_WORKER_ASSET_BYTES = 1_500_000;
 
 export interface ManifestIcon {
   src: string;
@@ -164,6 +166,83 @@ export function detectServiceWorker(html: string): { found: boolean; detail: str
 }
 
 /**
+ * Extract same-origin script-like assets that may contain service worker registration code.
+ * Modern bundlers usually keep registration in compiled JS rather than the HTML shell.
+ */
+export function extractServiceWorkerCandidateUrls(html: string, baseUrl: string): string[] {
+  const urls = new Set<string>();
+
+  const addSameOriginUrl = (rawUrl: string) => {
+    try {
+      const base = new URL(baseUrl);
+      const candidate = new URL(rawUrl, base);
+
+      if (candidate.origin !== base.origin) {
+        return;
+      }
+
+      if (!/\.(?:js|mjs)(?:$|\?)/i.test(candidate.pathname + candidate.search)) {
+        return;
+      }
+
+      urls.add(candidate.href);
+    } catch {
+      // Ignore malformed asset URLs.
+    }
+  };
+
+  const scriptPattern = /<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
+  for (const match of html.matchAll(scriptPattern)) {
+    if (match[1]) {
+      addSameOriginUrl(match[1]);
+    }
+  }
+
+  const linkPattern =
+    /<link\b(?=[^>]*\brel\s*=\s*["'][^"']*(?:modulepreload|preload|prefetch)[^"']*["'])(?=[^>]*\bhref\s*=\s*["']([^"']+)["'])[^>]*>/gi;
+  for (const match of html.matchAll(linkPattern)) {
+    if (match[1]) {
+      addSameOriginUrl(match[1]);
+    }
+  }
+
+  return Array.from(urls).slice(0, MAX_SERVICE_WORKER_ASSET_CHECKS);
+}
+
+async function detectServiceWorkerWithAssets(
+  html: string,
+  baseUrl: string,
+): Promise<{ found: boolean; detail: string }> {
+  const htmlCheck = detectServiceWorker(html);
+  if (htmlCheck.found) {
+    return htmlCheck;
+  }
+
+  const candidateUrls = extractServiceWorkerCandidateUrls(html, baseUrl);
+  for (const assetUrl of candidateUrls) {
+    try {
+      const response = await safeFetch(assetUrl);
+      if (!response.ok) {
+        continue;
+      }
+
+      const source = await response.text();
+      const sourceCheck = detectServiceWorker(source.slice(0, MAX_SERVICE_WORKER_ASSET_BYTES));
+      if (sourceCheck.found) {
+        return {
+          found: true,
+          detail: `${sourceCheck.detail} in linked script asset`,
+        };
+      }
+    } catch {
+      // Service worker detection is best-effort; ignore assets that cannot be fetched.
+    }
+  }
+
+  return htmlCheck;
+}
+
+/**
  * Find the best icon from the manifest icons array.
  * Prefer larger icons (192x192, 512x512).
  */
@@ -285,7 +364,7 @@ export async function checkPwa(inputUrl: string): Promise<PwaCheckResponse> {
   }
 
   // Check 3: Service Worker
-  const swCheck = detectServiceWorker(html);
+  const swCheck = await detectServiceWorkerWithAssets(html, url);
   result.checks.serviceWorker = {
     pass: swCheck.found,
     detail: swCheck.detail,
