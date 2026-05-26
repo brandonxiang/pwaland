@@ -5,6 +5,8 @@ import {
   getFeaturedApps,
   searchApps,
   CATEGORY_META,
+  normalizeCategoryId,
+  normalizeTags,
   type PWAApp,
 } from "./apps";
 
@@ -74,12 +76,34 @@ describe("buildCategories", () => {
   it("generates fallback meta for unknown categories", () => {
     const apps: PWAApp[] = [{ ...mockApps[0], category: "unknowncategory123" }];
     const categories = buildCategories(apps);
-    expect(categories[0].name).toBe("Unknowncategory123");
+    expect(categories[0].id).toBe("other");
+    expect(categories[0].name).toBe("Other");
     expect(categories[0].icon).toBe("📂");
   });
 
   it("returns empty array for empty app list", () => {
     expect(buildCategories([])).toEqual([]);
+  });
+});
+
+describe("normalizeCategoryId", () => {
+  it("maps Chinese Notion tags to English category ids", () => {
+    expect(normalizeCategoryId("开发工具")).toBe("tools");
+    expect(normalizeCategoryId("图书阅读")).toBe("reading");
+    expect(normalizeCategoryId("影音图片")).toBe("entertainment");
+    expect(normalizeCategoryId("政府公共")).toBe("government");
+  });
+
+  it("maps display names and unknown values to stable ids", () => {
+    expect(normalizeCategoryId("Developer Tools")).toBe("tools");
+    expect(normalizeCategoryId("Health & Fitness")).toBe("health");
+    expect(normalizeCategoryId("something-new")).toBe("other");
+    expect(normalizeCategoryId("")).toBe("other");
+  });
+
+  it("normalizes and deduplicates tag arrays", () => {
+    expect(normalizeTags(["开发工具", "Developer Tools", "News"])).toEqual(["tools", "news"]);
+    expect(normalizeTags([])).toEqual(["other"]);
   });
 });
 

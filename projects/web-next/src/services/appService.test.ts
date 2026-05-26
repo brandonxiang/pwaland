@@ -79,6 +79,46 @@ describe("fetchAllApps", () => {
     const result = await fetchAllApps();
     expect(result.apps[0].category).toBe("other");
   });
+
+  it("normalizes Chinese tags from Notion to English category ids", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Dev App",
+          description: "",
+          tags: ["开发工具", "学习教育"],
+          link: "https://dev.example",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe("tools");
+    expect(result.apps[0].tags).toEqual(["tools", "education"]);
+  });
+
+  it("falls back unknown Notion tags to 'other'", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Mystery",
+          description: "",
+          tags: ["Mystery Tag"],
+          link: "https://x.com",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe("other");
+    expect(result.apps[0].tags).toEqual(["other"]);
+  });
 });
 
 describe("fetchAppsPage", () => {
