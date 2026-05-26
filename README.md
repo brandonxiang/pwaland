@@ -1,97 +1,124 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# PWALand
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+PWALand is a curated directory for discovering, validating, and submitting Progressive Web Apps. It helps users find installable, offline-capable web apps, and gives maintainers a workflow for checking PWA readiness before adding new entries.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+[Chinese documentation](./README.zh-CN.md)
 
-## 🚀 Quick start
+## Features
 
-1.  **Create a Gatsby site.**
+- Curated Progressive Web App directory with category browsing and keyword search.
+- Featured app recommendations for high-quality PWAs.
+- Submission page that checks whether a website meets core PWA requirements.
+- Server-side PWA validation for HTTPS, web app manifest, service worker, icons, and display mode.
+- Duplicate detection and Notion-backed storage integration for submitted apps.
+- Batch discovery tooling for finding candidate PWAs from public domain sources.
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+## Project Structure
 
-    ```sh
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+```text
+pwaland/
+├── projects/
+│   ├── web-next/      # React Router frontend
+│   └── server/        # Fastify API service
+├── data/              # Curated and generated PWA data
+├── scripts/           # Data and sitemap utility scripts
+├── bruno-api/         # Bruno API collection
+└── docs/              # Planning and optimization notes
+```
 
-1.  **Start developing.**
+## Tech Stack
 
-    Navigate into your new site’s directory and start it up.
+- React 19 and React Router 7 for the web application.
+- Ant Design 6 for interface components.
+- Vite and Vite+ for local development, builds, linting, and tests.
+- Fastify 5 for the API service.
+- Vitest for unit tests.
+- Notion API integration for PWA storage.
 
-    ```sh
-    cd my-default-starter/
-    gatsby develop
-    ```
+## Getting Started
 
-1.  **Open the source code and start editing!**
+### Prerequisites
 
-    Your site is now running at `http://localhost:8000`!
+- Node.js 22 or later is recommended.
+- pnpm 10.33.0, as declared by the project package manager field.
+- Vite+ CLI support through `vp`.
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+### Install Dependencies
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+```bash
+pnpm install
+```
 
-## 🧐 What's inside?
+### Run the Frontend
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+```bash
+cd projects/web-next
+pnpm run dev
+```
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+Use the local API proxy when running the server locally:
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+```bash
+cd projects/web-next
+pnpm run dev:local
+```
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+### Run the API Server
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+```bash
+cd projects/server
+pnpm run dev
+```
 
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+### Build
 
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+```bash
+pnpm run build
+```
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+### Test
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+```bash
+pnpm run test
+```
 
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+## API Collection
 
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+The `bruno-api/` directory contains Bruno requests for common API workflows:
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+- Check whether a URL is a PWA.
+- Add a PWA to the directory.
+- Discover PWA candidates from public sources.
+- List existing clients or apps.
 
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+## Adding a PWA
 
-12. **`README.md`**: A text file containing useful reference information about your project.
+The recommended workflow is:
 
-## 🎓 Learning Gatsby
+1. Open the submit page in the web app.
+2. Enter the website URL.
+3. Review the PWA readiness result.
+4. Complete or adjust the suggested title, icon, description, and tags.
+5. Submit the app for storage.
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+For data-only contributions, update `data/pwa.json` with the required fields:
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+- `title`
+- `icon`
+- `link`
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+Additional metadata such as description, category, tags, developer, and rating may be added when available.
 
-## 💫 Deploy
+## Finding PWAs Manually
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+Chrome can show service-worker-enabled sites that you have visited:
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+```text
+chrome://serviceworker-internals/
+```
+
+Modern Chrome versions may expose similar information through DevTools under Application -> Service Workers.
+
+## License
+
+[MIT](./LICENSE)

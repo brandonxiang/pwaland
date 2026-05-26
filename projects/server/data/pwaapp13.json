@@ -1,0 +1,72 @@
+{
+  "data": [
+    {
+      "id": 363,
+      "url": "https://wikihoops.com",
+      "category": 13,
+      "manifestUrl": "https://wikihoops.com/manifest.json",
+      "name": "wikihoops.com",
+      "iconUrl": "https://wikihoops.com/icon-v2-192x192.png",
+      "description": "Spoiler-Free NBA Scores, Recaps & Schedule",
+      "thirdPartyRating": 5,
+      "createTime": "2019-08-23 09:59:55",
+      "visitCount": 56,
+      "lastVisitTime": "2024-09-12 04:14:57",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://wikihoops.com/icon-v2-192x192.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 365,
+      "url": "https://urslit.net",
+      "category": 13,
+      "manifestUrl": "https://urslit.net/manifest.json",
+      "name": "urslit.net",
+      "iconUrl": "https://urslit.net/Content/images/favicons/android-chrome-192x192.png",
+      "description": "Úrslitaþjónusta fyrir íslenska boltann",
+      "createTime": "2019-08-23 09:59:56",
+      "visitCount": 23,
+      "lastVisitTime": "2024-09-12 04:14:20",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://urslit.net/Content/images/favicons/android-chrome-192x192.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 367,
+      "url": "https://olympic.org",
+      "category": 13,
+      "manifestUrl": "https://olympic.org/manifest.json",
+      "name": "The Olympic Games",
+      "iconUrl": "https://olympic.org/android-chrome-144x144.png",
+      "description": "Official website of the Olympic Games. Find all past and future Olympics, Youth Olympics, sports, athletes, medals, results, IOC news, photos and videos.",
+      "createTime": "2019-08-23 09:59:56",
+      "visitCount": 31,
+      "lastVisitTime": "2024-09-12 04:14:05",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://olympic.org/android-chrome-144x144.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 368,
+      "url": "https://www.ukart.io",
+      "category": 13,
+      "manifestUrl": "https://www.ukart.io/manifest.json",
+      "name": "ukart",
+      "iconUrl": "https://www.ukart.io/launcher/launcher4x.png",
+      "description": "All the data (big data) of Karting, Statistics and results of the drivers karting, meeting, championships, circuits.",
+      "createTime": "2019-08-23 09:59:56",
+      "visitCount": 14,
+      "lastVisitTime": "2024-09-12 04:14:03",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://www.ukart.io/launcher/launcher4x.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 361,
+      "url": "https://www.coachaide.com",
+      "category": 13,
+      "manifestUrl": "https://www.coachaide.com/manifest.json",
+      "name": "Coach Aide",
+      "iconUrl": "https://www.coachaide.com/img/coachaide-logo-144.png",
+      "description": "A simple tactic board for coaching",
+      "createTime": "2019-08-23 09:59:55",
+      "visitCount": 28,
+      "lastVisitTime": "2024-09-12 04:13:57",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://www.coachaide.com/img/coachaide-logo-144.png&h=192&w=192&t=squaredown"
+    }
+  ],
+  "isSuccess": true,
+  "code": 200
+}

@@ -1,0 +1,55 @@
+{
+  "name": "pwaland-web-next",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev",
+    "dev:local": "VITE_API_PROXY_TARGET=http://localhost:3000 react-router dev",
+    "start": "react-router dev",
+    "build": "react-router build",
+    "type-check": "tsc --noEmit",
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "test:coverage": "vp test run --coverage"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.1.0",
+    "@react-router/node": "^7.15.1",
+    "@vercel/analytics": "^2.0.1",
+    "antd": "^6.0.0",
+    "bufferutil": "4.0.9",
+    "fastify": "^5.2.0",
+    "isbot": "^5.1.31",
+    "quicklink": "^3.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.15.1",
+    "supports-color": "5.5.0",
+    "utf-8-validate": "5.0.10",
+    "vite-plugin-pwa": "^1.2.0"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.15.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "globals": "^16.5.0",
+    "happy-dom": "^20.7.0",
+    "rollup-plugin-visualizer": "^6.0.5",
+    "sass": "^1.94.2",
+    "typescript": "^5.9.3",
+    "vercel": "50.19.1",
+    "vite": "catalog:",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
+  "optionalDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "16.1.2"
+  }
+}

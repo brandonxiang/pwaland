@@ -1,0 +1,189 @@
+import { describe, it, expect, vi, beforeEach } from "vite-plus/test";
+
+vi.mock("@/utils/request", () => ({
+  postRaw: vi.fn(),
+}));
+
+import { postRaw } from "@/utils/request";
+import { fetchAllApps, fetchAppsPage } from "./appService";
+
+const mockPostRaw = vi.mocked(postRaw);
+
+describe("fetchAllApps", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("transforms Notion data into PWAApp format", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "My App",
+          description: "A test app",
+          tags: ["Social"],
+          link: "https://myapp.com",
+          icon: "https://myapp.com/icon.png",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps).toHaveLength(1);
+    expect(result.apps[0]).toMatchObject({
+      id: "my-app",
+      name: "My App",
+      description: "A test app",
+      category: "social",
+      url: "https://myapp.com",
+      icon: "https://myapp.com/icon.png",
+    });
+    expect(result.categories.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("handles pagination (multiple pages)", async () => {
+    mockPostRaw
+      .mockResolvedValueOnce({
+        properties: [
+          { title: "App 1", description: "", tags: ["Tools"], link: "https://a.com", icon: "" },
+        ],
+        has_more: true,
+        next_cursor: "cursor-2",
+      })
+      .mockResolvedValueOnce({
+        properties: [
+          { title: "App 2", description: "", tags: ["Tools"], link: "https://b.com", icon: "" },
+        ],
+        has_more: false,
+        next_cursor: null,
+      });
+
+    const result = await fetchAllApps();
+    expect(result.apps).toHaveLength(2);
+    expect(mockPostRaw).toHaveBeenCalledTimes(2);
+    expect(mockPostRaw).toHaveBeenNthCalledWith(2, "/api/client/list", {
+      start_cursor: "cursor-2",
+    });
+  });
+
+  it("defaults category to 'other' when tags are empty", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        { title: "No Tags", description: "", tags: [], link: "https://x.com", icon: "" },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe("other");
+  });
+
+  it("normalizes Chinese tags from Notion to English category ids", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Dev App",
+          description: "",
+          tags: ["开发工具", "学习教育"],
+          link: "https://dev.example",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe("tools");
+    expect(result.apps[0].tags).toEqual(["tools", "education"]);
+  });
+
+  it("falls back unknown Notion tags to 'other'", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Mystery",
+          description: "",
+          tags: ["Mystery Tag"],
+          link: "https://x.com",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAllApps();
+    expect(result.apps[0].category).toBe("other");
+    expect(result.apps[0].tags).toEqual(["other"]);
+  });
+});
+
+describe("fetchAppsPage", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("fetches a single page without cursor", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Page App",
+          description: "A paged app",
+          tags: ["Tools"],
+          link: "https://paged.com",
+          icon: "",
+        },
+      ],
+      has_more: true,
+      next_cursor: "cursor-abc",
+    });
+
+    const result = await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+      start_cursor: undefined,
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.apps[0]).toMatchObject({ id: "page-app", name: "Page App" });
+    expect(result.hasMore).toBe(true);
+    expect(result.nextCursor).toBe("cursor-abc");
+  });
+
+  it("fetches a specific page with cursor", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [
+        {
+          title: "Second Page",
+          description: "",
+          tags: ["Social"],
+          link: "https://second.com",
+          icon: "",
+        },
+      ],
+      has_more: false,
+      next_cursor: null,
+    });
+
+    const result = await fetchAppsPage("cursor-xyz");
+    expect(mockPostRaw).toHaveBeenCalledWith("/api/client/list", {
+      start_cursor: "cursor-xyz",
+    });
+    expect(result.apps).toHaveLength(1);
+    expect(result.hasMore).toBe(false);
+    expect(result.nextCursor).toBeNull();
+  });
+
+  it("makes exactly ONE API call per invocation", async () => {
+    mockPostRaw.mockResolvedValueOnce({
+      properties: [],
+      has_more: true,
+      next_cursor: "more-cursor",
+    });
+
+    await fetchAppsPage();
+    expect(mockPostRaw).toHaveBeenCalledTimes(1);
+  });
+});

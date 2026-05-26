@@ -1,0 +1,20 @@
+//https://pwapp.net/api/Pwa/List
+export const CRAWLER_TAGS: Record<number, string> = {
+  0: "other",
+  1: "games",
+  2: "utilities",
+  3: "entertainment",
+  4: "social",
+  5: "reading",
+  6: "education",
+  7: "productivity",
+  8: "shopping",
+  9: "family",
+  10: "travel",
+  11: "government",
+  12: "health",
+  13: "sports",
+  14: "news",
+  15: "finance",
+  16: "tools",
+};

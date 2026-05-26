@@ -1,0 +1,18 @@
+@use "../../style/variable.scss" as *;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-primary;
+  transition: background-color 0.3s ease;
+
+  :global(:root.dark) & {
+    background-color: #141414;
+  }
+}
+
+.main {
+  flex: 1;
+  padding-top: $header-height;
+}

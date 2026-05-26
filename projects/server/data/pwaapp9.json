@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": 224,
+      "url": "https://xylo.playsprout.industries",
+      "category": 9,
+      "manifestUrl": "https://xylo.playsprout.industries/manifest.json",
+      "name": "Xylo",
+      "iconUrl": "https://xylo.playsprout.industries/images/icon-144.png",
+      "thirdPartyRating": 3.8,
+      "createTime": "2019-08-23 09:59:33",
+      "visitCount": 85,
+      "lastVisitTime": "2024-11-09 14:24:41",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://xylo.playsprout.industries/images/icon-144.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 225,
+      "url": "https://hushlittleba.by",
+      "category": 9,
+      "manifestUrl": "https://hushlittleba.by/manifest.json",
+      "name": "Hush Little Baby",
+      "iconUrl": "https://hushlittleba.by/icons/android-icon-144x144.png",
+      "description": "",
+      "createTime": "2019-08-23 09:59:33",
+      "visitCount": 52,
+      "lastVisitTime": "2024-12-20 16:26:36",
+      "updateTime": "2019-08-29 17:57:32",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://hushlittleba.by/icons/android-icon-144x144.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 226,
+      "url": "https://pwa.netmoms.de",
+      "category": 9,
+      "manifestUrl": "https://pwa.netmoms.de/manifest.json",
+      "name": "NetMoms",
+      "iconUrl": "https://pwa.netmoms.de/images/icons/icon-144x144.png",
+      "description": "NetMoms.de - Das Portal für Mütter",
+      "createTime": "2019-08-23 09:59:33",
+      "visitCount": 35,
+      "lastVisitTime": "2025-01-02 16:55:56",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://pwa.netmoms.de/images/icons/icon-144x144.png&h=192&w=192&t=squaredown"
+    }
+  ],
+  "isSuccess": true,
+  "code": 200
+}

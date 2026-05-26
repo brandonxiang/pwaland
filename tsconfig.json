@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "allowJs": true,
+    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["vite/client", "@notionhq/client/build/src/api-endpoints"],
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["dist", "**/**/dist/"]
+}

@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 213,
+      "url": "https://autoprivacy.eu",
+      "category": 11,
+      "manifestUrl": "https://autoprivacy.eu/manifest.json",
+      "name": "AutoPrivacy",
+      "iconUrl": "https://autoprivacy.eu/assets/icons/windows10/Square71x71Logo.scale-400.png",
+      "description": "Get an automated report on your duties and obligations under EU privacy rules",
+      "thirdPartyRating": 5,
+      "createTime": "2019-08-23 09:59:32",
+      "visitCount": 87,
+      "lastVisitTime": "2025-01-02 16:56:10",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://autoprivacy.eu/assets/icons/windows10/Square71x71Logo.scale-400.png&h=192&w=192&t=squaredown"
+    },
+    {
+      "id": 211,
+      "url": "https://constitutionapp.us",
+      "category": 11,
+      "manifestUrl": "https://constitutionapp.us/manifest.json",
+      "name": "United States Constitution",
+      "iconUrl": "https://constitutionapp.us/images/manifest/icon-192x192.png",
+      "description": "United States Constituion web app that supports offline first.",
+      "thirdPartyRating": 3.5,
+      "createTime": "2019-08-23 09:59:31",
+      "visitCount": 107,
+      "lastVisitTime": "2024-09-12 06:21:30",
+      "iconImageServiceUrl": "https://images.weserv.nl/?url=https://constitutionapp.us/images/manifest/icon-192x192.png&h=192&w=192&t=squaredown"
+    }
+  ],
+  "isSuccess": true,
+  "code": 200
+}

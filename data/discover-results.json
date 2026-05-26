@@ -1,0 +1,2900 @@
+[
+  {
+    "source": "tranco",
+    "totalDomains": 10,
+    "checked": 10,
+    "found": 0,
+    "added": 0,
+    "skipped": 0,
+    "failed": 0,
+    "dryRun": true,
+    "results": []
+  },
+  {
+    "source": "all",
+    "totalDomains": 30,
+    "checked": 30,
+    "found": 0,
+    "added": 0,
+    "skipped": 0,
+    "failed": 0,
+    "dryRun": true,
+    "results": []
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 33,
+    "found": 7,
+    "added": 0,
+    "skipped": 7,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 63,
+    "found": 10,
+    "added": 0,
+    "skipped": 10,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 93,
+    "found": 12,
+    "added": 0,
+    "skipped": 12,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MConverter"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 123,
+    "found": 18,
+    "added": 0,
+    "skipped": 18,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Resume Nation"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 3,
+    "found": 0,
+    "added": 0,
+    "skipped": 0,
+    "failed": 0,
+    "dryRun": true,
+    "results": []
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 153,
+    "found": 24,
+    "added": 0,
+    "skipped": 24,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "videotrim.app"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 183,
+    "found": 28,
+    "added": 0,
+    "skipped": 28,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "試算表"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 200,
+    "found": 31,
+    "added": 0,
+    "skipped": 31,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      },
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "試算表"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Google Developers"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 10,
+    "found": 2,
+    "added": 0,
+    "skipped": 2,
+    "failed": 0,
+    "dryRun": true,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "3D Material Editor"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 10,
+    "found": 2,
+    "added": 2,
+    "skipped": 0,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://2brew.github.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "2Brew"
+      },
+      {
+        "domain": "https://3dhouseplanner.com/app2.php",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "3D Material Editor"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 33,
+    "found": 6,
+    "added": 6,
+    "skipped": 0,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 63,
+    "found": 9,
+    "added": 8,
+    "skipped": 1,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 93,
+    "found": 14,
+    "added": 13,
+    "skipped": 1,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 123,
+    "found": 17,
+    "added": 15,
+    "skipped": 2,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 153,
+    "found": 23,
+    "added": 21,
+    "skipped": 2,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 183,
+    "found": 27,
+    "added": 24,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 213,
+    "found": 29,
+    "added": 26,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Google Developers"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 243,
+    "found": 29,
+    "added": 26,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Google Developers"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 273,
+    "found": 29,
+    "added": 26,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Google Developers"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 303,
+    "found": 29,
+    "added": 26,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Google Developers"
+      }
+    ]
+  },
+  {
+    "source": "github",
+    "totalDomains": 338,
+    "checked": 328,
+    "found": 29,
+    "added": 26,
+    "skipped": 3,
+    "failed": 0,
+    "dryRun": false,
+    "results": [
+      {
+        "domain": "https://alarmdj.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Alarm DJ"
+      },
+      {
+        "domain": "https://anonynote.org",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Anonynote"
+      },
+      {
+        "domain": "https://www.booksie.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Booksie"
+      },
+      {
+        "domain": "https://catsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Cat Safe Foods"
+      },
+      {
+        "domain": "https://collanon.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "collAnon"
+      },
+      {
+        "domain": "https://dogsafefoods.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Dog Safe Foods"
+      },
+      {
+        "domain": "https://etch.co",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Etch Software"
+      },
+      {
+        "domain": "https://gpacalculator.memorymaps.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "GPA Calculator by Memory Maps"
+      },
+      {
+        "domain": "https://justinvoice.netlify.app/app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "justinvoice"
+      },
+      {
+        "domain": "https://mconverter.eu",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MConverter"
+      },
+      {
+        "domain": "https://www.nanocell-csv.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Nanocell-csv"
+      },
+      {
+        "domain": "https://vault.passky.org/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Passky"
+      },
+      {
+        "domain": "https://pixelcraft.web.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "PixelCraft"
+      },
+      {
+        "domain": "https://pocket-devices.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "pocket-devices"
+      },
+      {
+        "domain": "https://deanhume.github.io/beer/",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Progressive Beer"
+      },
+      {
+        "domain": "https://resume-nation.github.io",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Resume Nation"
+      },
+      {
+        "domain": "https://swahili-dictionary.com/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "MobiTUKI English-Swahili Advanced Dictionary"
+      },
+      {
+        "domain": "https://themer.dev",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "themer"
+      },
+      {
+        "domain": "https://t4p4n.github.io/todoly/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Todoly"
+      },
+      {
+        "domain": "https://englishextra.gitlab.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "englishextra"
+      },
+      {
+        "domain": "https://versus.com/en",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Versus, compare anything"
+      },
+      {
+        "domain": "https://videotrim.app",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "videotrim.app"
+      },
+      {
+        "domain": "https://ztable.io/",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "ZTable.io"
+      },
+      {
+        "domain": "https://www.twilio.com/blog/2016/02/web-powered-sms-inbox-with-service-worker-push-notifications.html",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Twilio"
+      },
+      {
+        "domain": "https://deanhume.com/Home/BlogPost/how-i-built-a-progressive-beer-app/10148",
+        "isPwa": true,
+        "added": false,
+        "skipped": true,
+        "title": "Dean Hume's Blog"
+      },
+      {
+        "domain": "https://docs.google.com/spreadsheets/d/1nx5jcHa6reIH20q20uDnZLQNjuK2ohk-HmQ09hy9NCE/edit",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "表格"
+      },
+      {
+        "domain": "https://remysharp.com/2016/04/11/the-webapp-discovery-problem",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "rem's b:log"
+      },
+      {
+        "domain": "https://simplepwa.com",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Simple PWA"
+      },
+      {
+        "domain": "https://codelabs.developers.google.com/dev-pwa-training",
+        "isPwa": true,
+        "added": true,
+        "skipped": false,
+        "title": "Google Developers"
+      }
+    ]
+  }
+]
