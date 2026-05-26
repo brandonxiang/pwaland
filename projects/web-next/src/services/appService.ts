@@ -1,5 +1,5 @@
 import type { PWAApp, Category } from "@/data/apps";
-import { CATEGORY_META, buildCategories } from "@/data/apps";
+import { CATEGORY_META, buildCategories, normalizeTags } from "@/data/apps";
 import { postRaw } from "@/utils/request";
 
 interface NotionAppProperty {
@@ -39,7 +39,8 @@ function hashColor(str: string): string {
 
 function transformNotionApp(item: NotionAppProperty): PWAApp {
   const id = slugify(item.title || "unknown");
-  const category = item.tags?.[0]?.toLowerCase() || "other";
+  const tags = normalizeTags(item.tags);
+  const category = tags[0];
   const meta = CATEGORY_META[category];
   const color = meta?.color ?? hashColor(item.title);
 
@@ -54,7 +55,7 @@ function transformNotionApp(item: NotionAppProperty): PWAApp {
     url: item.link || "",
     featured: false,
     color,
-    tags: item.tags || [],
+    tags,
   };
 }
 

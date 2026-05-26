@@ -40,7 +40,7 @@ async function addPwaToNotion(data) {
   const { title, link, icon, description, tags } = data;
 
   const multiSelect =
-    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: "Imported" }];
+    tags && tags.length > 0 ? tags.map((name) => ({ name })) : [{ name: "other" }];
 
   const response = await notion.pages.create({
     parent: {
@@ -142,7 +142,7 @@ async function main() {
             link,
             icon,
             description,
-            tags: ["Imported"],
+            tags: ["other"],
           });
 
           console.log(`[ADDED] ${title} (${link})`);

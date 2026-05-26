@@ -10,6 +10,7 @@ import {
   CloudServerOutlined,
 } from "@ant-design/icons";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { CATEGORY_META } from "@/data/apps";
 import { useI18n } from "@/providers/I18nProvider";
 import { post } from "@/utils/request";
 import styles from "./index.module.scss";
@@ -40,18 +41,23 @@ interface PwaCheckData {
 }
 
 const TAG_OPTIONS = [
-  "Social",
-  "Productivity",
-  "Entertainment",
-  "Shopping",
-  "Education",
-  "Games",
-  "Health",
-  "News",
-  "Developer Tools",
-  "Finance",
-  "Travel",
-  "Utilities",
+  "reading",
+  "social",
+  "tools",
+  "productivity",
+  "games",
+  "utilities",
+  "entertainment",
+  "shopping",
+  "health",
+  "family",
+  "travel",
+  "news",
+  "education",
+  "finance",
+  "government",
+  "sports",
+  "other",
 ];
 
 const CHECK_ITEMS: { key: keyof PwaCheckData["checks"]; label: string; icon: React.ReactNode }[] = [
@@ -294,7 +300,10 @@ const Submit = () => {
                           value={editTags}
                           onChange={setEditTags}
                           placeholder={t("submit.tagsPlaceholder")}
-                          options={TAG_OPTIONS.map((t) => ({ label: t, value: t }))}
+                          options={TAG_OPTIONS.map((tag) => ({
+                            label: CATEGORY_META[tag].name,
+                            value: tag,
+                          }))}
                         />
                       </div>
 

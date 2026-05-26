@@ -205,6 +205,7 @@ const dictionaries: Record<Language, Dictionary> = {
 const categoryNames: Record<Language, Record<string, string>> = {
   en: {},
   zh: {
+    Reading: "阅读",
     Social: "社交",
     Productivity: "效率",
     Entertainment: "娱乐",
@@ -214,9 +215,15 @@ const categoryNames: Record<Language, Record<string, string>> = {
     "Health & Fitness": "健康健身",
     "News & Weather": "新闻天气",
     Tools: "工具",
+    Utilities: "实用工具",
     Finance: "金融",
     Design: "设计",
     Music: "音乐",
+    Family: "家庭",
+    Travel: "旅行",
+    Government: "政务公共",
+    Sports: "体育",
+    Other: "其他",
   },
 };
 

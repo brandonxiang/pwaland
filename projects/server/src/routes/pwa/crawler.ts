@@ -116,7 +116,7 @@ export default (fastify: FastifyInstance, _: any, done: any) => {
                   type: "multi_select",
                   multi_select: [
                     {
-                      name: CRAWLER_TAGS[item.category] || "未分类",
+                      name: CRAWLER_TAGS[item.category] || "other",
                       color: "default",
                     },
                   ],

@@ -135,7 +135,7 @@ async function processDomain(
       link: check.suggestion.link,
       icon: check.suggestion.icon,
       description: check.suggestion.description,
-      tags: ["Auto-discovered"],
+      tags: ["other"],
     });
 
     result.added = true;
