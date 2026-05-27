@@ -1,4 +1,4 @@
-import { useDeferredValue, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useAppNavigate } from "@/router/navigation";
 import { getFeaturedApps, normalizeCategoryId } from "@/data/apps";
@@ -95,9 +95,25 @@ const Home = () => {
   const navigate = useAppNavigate();
   const { t } = useI18n();
   const [searchQuery, setSearchQuery] = useState("");
-  const deferredSearchQuery = useDeferredValue(searchQuery.trim());
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+
+  useEffect(() => {
+    const normalizedQuery = searchQuery.trim();
+
+    if (!normalizedQuery) {
+      setDebouncedSearchQuery("");
+      return;
+    }
+
+    const debounceTimer = window.setTimeout(() => {
+      setDebouncedSearchQuery(normalizedQuery);
+    }, 300);
+
+    return () => window.clearTimeout(debounceTimer);
+  }, [searchQuery]);
+
   const { apps, categories, loading, loadingMore, hasMore, error, loadMore } =
-    useInfiniteApps(deferredSearchQuery);
+    useInfiniteApps(debouncedSearchQuery);
 
   const featured = useMemo(() => getFeaturedApps(apps), [apps]);
 
@@ -208,7 +224,7 @@ const Home = () => {
         </section>
       )}
 
-      {!deferredSearchQuery && featured.length > 0 && (
+      {!debouncedSearchQuery && featured.length > 0 && (
         <section id="featured" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -229,14 +245,14 @@ const Home = () => {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>
-                {deferredSearchQuery ? t("home.searchResults") : t("home.allApps")}
+                {debouncedSearchQuery ? t("home.searchResults") : t("home.allApps")}
               </h2>
               <p className={styles.sectionSub}>
-                {deferredSearchQuery
+                {debouncedSearchQuery
                   ? t("home.searchCount", {
                       count: apps.length,
                       plural: apps.length === 1 ? "" : "s",
-                      query: deferredSearchQuery,
+                      query: debouncedSearchQuery,
                     })
                   : t("home.allAppsSubtitle")}
               </p>
@@ -253,7 +269,7 @@ const Home = () => {
         </section>
       )}
 
-      {!deferredSearchQuery && (
+      {!debouncedSearchQuery && (
         <section className={styles.cta}>
           <div className={styles.container}>
             <div className={styles.ctaCard}>

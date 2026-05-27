@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from "vite-plus/test";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vite-plus/test";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 
 vi.mock("@/services/appService", () => ({
@@ -19,6 +19,7 @@ const mockFetchAppsPage = vi.mocked(fetchAppsPage);
 
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.useRealTimers();
 
   mockFetchAppsPage.mockResolvedValue({
     apps: [
@@ -38,6 +39,10 @@ beforeEach(() => {
     hasMore: false,
     nextCursor: null,
   });
+});
+
+afterEach(() => {
+  vi.useRealTimers();
 });
 
 describe("Home page", () => {
@@ -122,7 +127,7 @@ describe("Home page", () => {
     expect(mockFetchAppsPage).toHaveBeenNthCalledWith(2, "cursor-2", undefined);
   });
 
-  it("sends search text to the backend page API", async () => {
+  it("debounces search text before sending it to the backend page API", async () => {
     render(
       <MemoryRouter>
         <Home />
@@ -133,9 +138,26 @@ describe("Home page", () => {
       expect(screen.getByText("Test PWA")).toBeInTheDocument();
     });
 
+    vi.useFakeTimers();
+
     fireEvent.change(screen.getByLabelText("Search PWA apps"), {
       target: { value: "spotify" },
     });
+
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1);
+    expect(mockFetchAppsPage).not.toHaveBeenCalledWith(undefined, "spotify");
+
+    act(() => {
+      vi.advanceTimersByTime(299);
+    });
+
+    expect(mockFetchAppsPage).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      vi.advanceTimersByTime(1);
+    });
+
+    vi.useRealTimers();
 
     await waitFor(() => {
       expect(mockFetchAppsPage).toHaveBeenLastCalledWith(undefined, "spotify");
