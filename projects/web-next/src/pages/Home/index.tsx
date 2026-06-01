@@ -6,9 +6,8 @@ import type { PWAApp, Category } from "@/data/apps";
 import { useInfiniteApps } from "@/hooks/useInfiniteApps";
 import { useI18n } from "@/providers/I18nProvider";
 import { VirtualAppGrid } from "@/components/VirtualAppGrid";
+import { AppIcon } from "@/components/AppIcon";
 import styles from "./index.module.scss";
-
-const isUrl = (str: string) => str.startsWith("http://") || str.startsWith("https://");
 
 const StarRating = ({ rating }: { rating: number }) => {
   if (!rating) return null;
@@ -20,16 +19,6 @@ const StarRating = ({ rating }: { rating: number }) => {
       {hasHalf && "½"}
       <span className={styles.ratingNum}>{rating.toFixed(1)}</span>
     </span>
-  );
-};
-
-const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: string }) => {
-  const glyph = isUrl(icon) ? name.charAt(0).toUpperCase() : icon || name.charAt(0).toUpperCase();
-
-  return (
-    <div className={styles.appIcon} style={{ background: color }}>
-      <span>{glyph}</span>
-    </div>
   );
 };
 
@@ -70,9 +59,7 @@ const FeaturedCard = ({ app, allCategories }: { app: PWAApp; allCategories: Cate
         }}
       />
       <div className={styles.featuredIcon} style={{ background: app.color }}>
-        <span>
-          {isUrl(app.icon) ? app.name.charAt(0).toUpperCase() : app.icon || app.name.charAt(0)}
-        </span>
+        <AppIcon icon={app.icon} color={app.color} name={app.name} />
       </div>
       <div className={styles.featuredInfo}>
         <div className={styles.featuredTop}>

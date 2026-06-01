@@ -5,20 +5,10 @@ import { useApps } from "@/hooks/useApps";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useI18n } from "@/providers/I18nProvider";
 import { VirtualAppGrid } from "@/components/VirtualAppGrid";
+import { AppIcon } from "@/components/AppIcon";
 import styles from "./index.module.scss";
 
-const isUrl = (str: string) => str.startsWith("http://") || str.startsWith("https://");
 const DEFAULT_CATEGORY_ID = "entertainment";
-
-const AppIcon = ({ icon, color, name }: { icon: string; color: string; name: string }) => {
-  const glyph = isUrl(icon) ? name.charAt(0).toUpperCase() : icon || name.charAt(0).toUpperCase();
-
-  return (
-    <div className={styles.appIcon} style={{ background: color }}>
-      <span>{glyph}</span>
-    </div>
-  );
-};
 
 const AppCard = ({ app, allCategories }: { app: PWAApp; allCategories: Category[] }) => {
   const { categoryName } = useI18n();
